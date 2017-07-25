@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Foodbook.MobileApp.Pages.Recipe.AddRecipePage"
+             Title="Novi recept">
+    <ContentPage.Content>
+        
+        <StackLayout>
+            <StackLayout>
+            <Grid RowSpacing="0" Padding="30">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="40" />
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="40" />
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="40" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="18" />
+                    <RowDefinition Height="4" />
+                    <RowDefinition Height="18" />
+                </Grid.RowDefinitions>
+
+                <Label x:Name="firstPageIndicator" Text="1" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"  BackgroundColor="#FFD54F" TextColor="White" Grid.Column="0" Grid.Row="0" Grid.RowSpan="3"></Label>
+                    <BoxView x:Name="secondPageLine" BackgroundColor="Gray" Grid.Column="1" Grid.Row="1"></BoxView>
+                    <Label x:Name="secondPageIndicator" Text="2" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"  BackgroundColor="Gray" TextColor="White" Grid.Column="2" Grid.Row="0" Grid.RowSpan="3"></Label>
+                    <BoxView x:Name="thirdPageLine" BackgroundColor="Gray" Grid.Column="3" Grid.Row="1"></BoxView>
+                    <Label x:Name="thirdPageIndicator" Text="3" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"  BackgroundColor="Gray" TextColor="White" Grid.Column="4" Grid.Row="0" Grid.RowSpan="3"></Label>
+                </Grid>
+            </StackLayout>
+            <ScrollView>
+                <StackLayout>
+                    <StackLayout VerticalOptions="FillAndExpand" x:Name="stepOneContainer">
+
+                        <Grid RowSpacing="0" Padding="20, 0, 20, 0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="16" />
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+
+                            <Image Source="name" Grid.Column="0" Grid.Row="0" VerticalOptions="Center" HorizontalOptions="Center"/>
+                            <Label Text="Naziv: *" Grid.Column="1" Grid.Row="0" Style="{StaticResource EntryTitleLblStyle}"/>
+                            <Entry Text="{Binding DataModel.Name}" Placeholder="Naziv" HorizontalTextAlignment="Start" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2"/>
+
+                        </Grid>
+
+                        <Grid RowSpacing="0" Padding="20, 0, 20, 0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="16" />
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+
+                            <Image Source="category1" Grid.Column="0" Grid.Row="0" VerticalOptions="Center" HorizontalOptions="Center"/>
+                            <Label Text="Kategorija: *" Grid.Column="1" Grid.Row="0" Style="{StaticResource EntryTitleLblStyle}"/>
+                            <Picker ItemsSource="{Binding Categories}" ItemDisplayBinding="{Binding CategoryName}" SelectedIndex="{Binding SelectedCategory}" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2"/>
+
+                        </Grid>
+                        <Grid RowSpacing="0" Padding="20, 0, 20, 0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="16" />
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+
+                            <Image Source="earth" Grid.Column="0" Grid.Row="0" VerticalOptions="Center" HorizontalOptions="Center"/>
+                            <Label Text="Kuhinja: *" Grid.Column="1" Grid.Row="0" Style="{StaticResource EntryTitleLblStyle}"/>
+                            <Picker ItemsSource="{Binding Cuisines}" ItemDisplayBinding="{Binding CuisineName}" SelectedIndex="{Binding SelectedCuisine}"  Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2"/>
+
+                        </Grid>
+                        <Grid RowSpacing="0" Padding="20, 0, 20, 0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="16" />
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+
+                            <Image Source="time" Grid.Column="0" Grid.Row="0" VerticalOptions="Center" HorizontalOptions="Center"/>
+                            <Label Text="Vreme pripreme (min): *" Grid.Column="1" Grid.Row="0" Style="{StaticResource EntryTitleLblStyle}"/>
+                            <Entry Text="{Binding DataModel.PreparationTime}" Placeholder="Vreme pripreme" Keyboard="Numeric" HorizontalTextAlignment="Start" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2"/>
+
+                        </Grid>
+
+                        <Grid RowSpacing="0" Padding="20, 0, 20, 0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="16" />
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+
+                            <Image Source="calories" Grid.Column="0" Grid.Row="0" VerticalOptions="Center" HorizontalOptions="Center"/>
+                            <Label Text="Kaloričnost: *" Grid.Column="1" Grid.Row="0" Style="{StaticResource EntryTitleLblStyle}"/>
+                            <Picker ItemsSource="{Binding Caloricities}" ItemDisplayBinding="{Binding Name}" SelectedIndex="{Binding SelectedCaloricity}"  Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2"/>
+
+                        </Grid>
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
+                            <Button Command="{Binding SaveCommand}" Text="Odustani" BackgroundColor="Wheat" WidthRequest="100" TextColor="Gray"/>
+                            <Button Text="Dalje" BackgroundColor="#4BB04F" WidthRequest="100" TextColor="White" Clicked="NextButton_Clicked"/>
+                        </StackLayout>
+                    </StackLayout>
+                    <StackLayout VerticalOptions="FillAndExpand" x:Name="stepTwoContainer" IsVisible="False">
+                        <Grid RowSpacing="0" Padding="30">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="30" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="50" />
+                            </Grid.RowDefinitions>
+                            <Label Text="Priprema recepta: *" Style="{StaticResource EntryTitleLblStyle}" Grid.Row="0"/>
+                            <Editor Text="{Binding DataModel.RecipeText}" VerticalOptions="FillAndExpand" Grid.Row="1" HeightRequest="250" />
+                            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Grid.Row="2">
+                                <Button Text="Nazad" BackgroundColor="Wheat" WidthRequest="100" TextColor="Gray" Clicked="BackButton_Clicked"/>
+                                <Button Text="Dalje" BackgroundColor="#4BB04F" WidthRequest="100" TextColor="White" Clicked="NextButton_Clicked"/>
+                            </StackLayout>
+                        </Grid>
+                    </StackLayout>
+                </StackLayout>
+            </ScrollView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
