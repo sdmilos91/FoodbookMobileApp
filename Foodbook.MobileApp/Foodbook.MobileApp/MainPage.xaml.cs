@@ -7,9 +7,9 @@ using Xamarin.Forms;
 
 namespace Foodbook.MobileApp
 {
-    public partial class MainPage : ContentPage
+    public partial class MessageCenterAlert : ContentPage
     {
-        public MainPage()
+        public MessageCenterAlert()
         {
             InitializeComponent();
         }

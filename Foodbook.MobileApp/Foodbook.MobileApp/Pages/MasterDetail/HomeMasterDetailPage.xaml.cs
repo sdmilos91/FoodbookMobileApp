@@ -34,7 +34,8 @@ namespace Foodbook.MobileApp.Pages
             var page = (Page)Activator.CreateInstance(item.TargetType);
             page.Title = item.Title;
 
-            Detail = new NavigationPage(new Recipe.RecipesPage());
+            Detail = new NavigationPage(new LoginPage());
+
             IsPresented = false;
 
             MasterPage.ListView.SelectedItem = null;

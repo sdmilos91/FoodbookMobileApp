@@ -8,6 +8,7 @@ namespace Foodbook.MobileApp.Tools
 {
     public class ApiUrls
     {
+        //public static string BASE_URL = "http://192.168.0.104:50226";
         public static string BASE_URL = "http://192.168.1.2:50226";
 
         //Recipe
@@ -20,6 +21,8 @@ namespace Foodbook.MobileApp.Tools
 
         public static string RECIPE_COMMON_DATA_RESOURCE = string.Format("{0}/api/RecipeCommonData", BASE_URL);
 
+        public static string RECIPE_COMMENT_RESOURCE = string.Format("{0}/api/RecipeComment", BASE_URL);
+
         //Cook
         public static string COOK_RESOURCE_ID(long id)
         {
@@ -28,7 +31,35 @@ namespace Foodbook.MobileApp.Tools
 
         public static string COOK_RESOURCE = string.Format("{0}/api/Cook", BASE_URL);
 
+        //Account
+        public static string GET_USER_TOKEN = string.Format("{0}/Token", BASE_URL);
 
 
+
+    }
+
+    public class SecureStorageKeys
+    {
+        public static string TOKEN = "TOKEN";
+        public static string EMAIL = "EMAIL";
+    }
+
+    public class MessageCenterKeys
+    {
+        public static string ADDED = "ADDED";
+        public static string LOGGED_IN = "LOGGED_IN";
+    }
+
+    public class MyColors
+    {
+        public static string PINK = "";
+        public static string GREEN = "";
+        public static string YELLOW = "#FFD54F";
+    }
+
+    public class AzureStorageSettings
+    {
+        public static string ACCOUNT_NAME = "storage4milos";
+        public static string KEY_VALUE = "oYK0NFl1hflJjB8obVo61ZYxbaSrHVGa+9M3ar2pWG5CJR5DzNN1YxoJY/O+7ZMZ7J3Uh2xsR5bvuoCuxzuWeQ==";
     }
 }

@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+             xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
+             xmlns:behaviors="clr-namespace:Foodbook.MobileApp.Behaviors;assembly=Foodbook.MobileApp"
+             xmlns:localConverters="clr-namespace:Foodbook.MobileApp.Converters;assembly=Foodbook.MobileApp"
+             x:Class="Foodbook.MobileApp.Pages.AddCommentPopupPage">
+
+
+    <!--Animations use example-->
+    <pages:PopupPage.Animation>
+        <animations:ScaleAnimation 
+      PositionIn="Center"
+      PositionOut="Center"
+      ScaleIn="1.2"
+      ScaleOut="0.8"
+      DurationIn="400"
+      DurationOut="300"
+      EasingIn="SinOut"
+      EasingOut="SinIn"
+      HasBackgroundAnimation="True"/>
+    </pages:PopupPage.Animation>
+
+    <pages:PopupPage.Resources>
+        <ResourceDictionary>
+            <localConverters:RatingStarIcon x:Key="rtngStarIcon"></localConverters:RatingStarIcon>
+        </ResourceDictionary>
+    </pages:PopupPage.Resources>
+
+    <StackLayout>
+        <StackLayout HorizontalOptions="FillAndExpand" Margin="10" Padding="10" VerticalOptions="CenterAndExpand" BackgroundColor="White">
+
+            <Grid RowSpacing="0" Padding="20, 0, 20, 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="16" />
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="20" />
+                </Grid.RowDefinitions>
+
+                <Label Text="Ocena: *" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Style="{StaticResource EntryTitleLblStyle}"/>
+
+                <StackLayout Orientation="Horizontal"  Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2">
+
+                    <Image Source="{Binding Rating, Converter={StaticResource rtngStarIcon}, ConverterParameter=1}" HeightRequest="24" WidthRequest="24">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer
+                                                    Command="{Binding SetRatingCommand}" CommandParameter="1"
+                                                    NumberOfTapsRequired="1" />
+                        </Image.GestureRecognizers>
+                    </Image>
+
+                    <Image Source="{Binding Rating, Converter={StaticResource rtngStarIcon}, ConverterParameter=2}" HeightRequest="24" WidthRequest="24">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer
+                                                    Command="{Binding SetRatingCommand}" CommandParameter="2"
+                                                    NumberOfTapsRequired="1" />
+                        </Image.GestureRecognizers>
+                    </Image>
+
+                    <Image Source="{Binding Rating, Converter={StaticResource rtngStarIcon}, ConverterParameter=3}" HeightRequest="24" WidthRequest="24">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer
+                                                    Command="{Binding SetRatingCommand}" CommandParameter="3"
+                                                    NumberOfTapsRequired="1" />
+                        </Image.GestureRecognizers>
+                    </Image>
+
+                    <Image Source="{Binding Rating, Converter={StaticResource rtngStarIcon}, ConverterParameter=4}" HeightRequest="24" WidthRequest="24">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer
+                                                    Command="{Binding SetRatingCommand}" CommandParameter="4"
+                                                    NumberOfTapsRequired="1" />
+                        </Image.GestureRecognizers>
+                    </Image>
+
+                    <Image Source="{Binding Rating, Converter={StaticResource rtngStarIcon}, ConverterParameter=5}" HeightRequest="24" WidthRequest="24">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer
+                                                    Command="{Binding SetRatingCommand}" CommandParameter="5"
+                                                    NumberOfTapsRequired="1" />
+                        </Image.GestureRecognizers>
+                    </Image>
+
+                    <Image Source="{Binding Rating, Converter={StaticResource rtngStarIcon}, ConverterParameter=6}" HeightRequest="24" WidthRequest="24">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer
+                                                    Command="{Binding SetRatingCommand}" CommandParameter="6"
+                                                    NumberOfTapsRequired="1" />
+                        </Image.GestureRecognizers>
+                    </Image>
+
+                    <Image Source="{Binding Rating, Converter={StaticResource rtngStarIcon}, ConverterParameter=7}" HeightRequest="24" WidthRequest="24">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer
+                                                    Command="{Binding SetRatingCommand}" CommandParameter="7"
+                                                    NumberOfTapsRequired="1" />
+                        </Image.GestureRecognizers>
+                    </Image>
+
+                    <Image Source="{Binding Rating, Converter={StaticResource rtngStarIcon}, ConverterParameter=8}" HeightRequest="24" WidthRequest="24">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer
+                                                    Command="{Binding SetRatingCommand}" CommandParameter="8"
+                                                    NumberOfTapsRequired="1" />
+                        </Image.GestureRecognizers>
+                    </Image>
+
+                    <Image Source="{Binding Rating, Converter={StaticResource rtngStarIcon}, ConverterParameter=9}" HeightRequest="24" WidthRequest="24">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer
+                                                    Command="{Binding SetRatingCommand}" CommandParameter="9"
+                                                    NumberOfTapsRequired="1" />
+                        </Image.GestureRecognizers>
+                    </Image>
+
+                    <Image Source="{Binding Rating, Converter={StaticResource rtngStarIcon}, ConverterParameter=10}" HeightRequest="24" WidthRequest="24">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer
+                                                    Command="{Binding SetRatingCommand}" CommandParameter="10"
+                                                    NumberOfTapsRequired="1" />
+                        </Image.GestureRecognizers>
+                    </Image>
+                </StackLayout>
+                <Label IsVisible="{Binding IsRatingInvalid}" Text="Morate dati ocenu receptu." Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" FontSize="Micro" TextColor="Red"/>
+
+            </Grid>
+
+            <Grid RowSpacing="0" Padding="20, 0, 20, 0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="40" />
+                </Grid.RowDefinitions>
+                <Label Text="Komentar: *" Style="{StaticResource EntryTitleLblStyle}" Grid.Row="0"/>
+                <Entry Text="{Binding CommentText}" VerticalOptions="FillAndExpand" Grid.Row="1" HeightRequest="250">
+                    <Entry.Behaviors>
+                        <behaviors:RequiredValidatorBehavior x:Name="recipeTextValidator"   mLbl="{x:Reference recipeTextValidationLbl}" />
+                    </Entry.Behaviors>
+                </Entry>
+                <Label x:Name="recipeTextValidationLbl" IsVisible="False" Grid.Row="2" FontSize="Micro" TextColor="Red"/>
+            </Grid>
+            <Button BackgroundColor="{StaticResource HeadingColor}" TextColor="White" Text="Dodaj komentar" HorizontalOptions="FillAndExpand" Command="{Binding AddCommentCommand}"/>
+        </StackLayout>
+
+    </StackLayout>
+
+</pages:PopupPage>

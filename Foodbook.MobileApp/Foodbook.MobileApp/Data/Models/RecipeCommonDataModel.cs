@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Realms;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,7 +15,7 @@ namespace Foodbook.MobileApp.Data.Models
 
     }
 
-    public class FoodCategoryModel
+    public class FoodCategoryModel : RealmObject
     {
 
         public long CategoryId { get; set; }
@@ -22,7 +23,7 @@ namespace Foodbook.MobileApp.Data.Models
 
     }
 
-    public class CuisineModel
+    public class CuisineModel : RealmObject
     {
 
         public long CuisineId { get; set; }
@@ -30,7 +31,7 @@ namespace Foodbook.MobileApp.Data.Models
 
     }
 
-    public class CaloricityModel
+    public class CaloricityModel : RealmObject
     {
 
         public long CaloricityId { get; set; }

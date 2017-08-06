@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Foodbook.MobileApp.Pages.LoginPage">
+    <ContentPage.Content>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Image Aspect="AspectFill" Grid.Row="0" Source="loginCover"/>
+            <StackLayout Grid.Row="1" Grid.RowSpan="2" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Padding="30">
+
+                <Entry Placeholder="Email" Keyboard="Email" Text="{Binding Username}" HorizontalOptions="FillAndExpand" VerticalOptions="Center"/>
+                <Entry Placeholder="Password" IsPassword="True" Text="{Binding Password}" HorizontalOptions="FillAndExpand" VerticalOptions="Center"/>
+                <Button Command="{Binding LoginCommand}" Margin="0,30,0,0" Text="Prijavite se" HorizontalOptions="CenterAndExpand" BackgroundColor="{StaticResource HeadingColor}" TextColor="White" WidthRequest="200"/>
+                <Button Text="Registrujte se" HorizontalOptions="CenterAndExpand" BackgroundColor="{StaticResource PinkColor}" TextColor="White" WidthRequest="200"/>
+                <Button Text="Nastavite kao gost" HorizontalOptions="CenterAndExpand" BackgroundColor="{StaticResource PinkColor}" TextColor="White" WidthRequest="200"/>
+
+
+
+            </StackLayout>
+        </Grid>
+        
+        
+    </ContentPage.Content>
+</ContentPage>

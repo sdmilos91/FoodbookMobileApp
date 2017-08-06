@@ -6,7 +6,9 @@
 
         <ResourceDictionary>
             <Color x:Key="PageBackgroundColor">Yellow</Color>
-            <Color x:Key="HeadingTextColor">Black</Color>
+            <Color x:Key="HeadingColor">#4BB04F</Color>
+            <Color x:Key="PinkColor">#EF5350</Color>
+            <Color x:Key="YellowColor">#FFD54F</Color>
             <Color x:Key="NormalTextColor">Blue</Color>
             <Style x:Key="EntryTitleLblStyle" TargetType="Label">
                 <Setter Property="FontAttributes" Value="Bold" />

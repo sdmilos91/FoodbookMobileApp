@@ -51,7 +51,8 @@ namespace Foodbook.MobileApp.Data.Services
         public static async Task<RecipeCommonDataModel> GetRecipeCommonDate()
         {
             try
-            {
+            {                              
+
                 string url = ApiUrls.RECIPE_COMMON_DATA_RESOURCE;
 
                 RecipeCommonDataModel model = new RecipeCommonDataModel();
@@ -86,6 +87,11 @@ namespace Foodbook.MobileApp.Data.Services
 
         public static async Task<bool> AddRecipe(PostRecipeModel model, string token)
         {
+            foreach (var item in model.Photos.Where(x => x.IsAdded))
+            {
+                item.Url = await UploadFileToAzureBlob.BasicStorageBlockBlobOperationsAsync(item.PhotoStream, item.Name);
+            }
+
             string url = ApiUrls.RECIPE_RESOURCE;
 
             using (var client = new HttpClient())
@@ -100,6 +106,27 @@ namespace Foodbook.MobileApp.Data.Services
                 {
                     return true;
                 }                
+            }
+            return false;
+        }
+
+        public static async Task<bool> AddComment(PostRecipeCommentModel model, string token)
+        {
+
+            string url = ApiUrls.RECIPE_COMMENT_RESOURCE;
+
+            using (var client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.TryAddWithoutValidation("Content-Type", "application/json");
+                client.DefaultRequestHeaders.TryAddWithoutValidation("Authorization", "Bearer " + token);
+
+                string content = Newtonsoft.Json.JsonConvert.SerializeObject(model);
+
+                HttpResponseMessage result = await client.PostAsync(url, new StringContent(content, Encoding.UTF8, "application/json"));
+                if (result.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    return true;
+                }
             }
             return false;
         }

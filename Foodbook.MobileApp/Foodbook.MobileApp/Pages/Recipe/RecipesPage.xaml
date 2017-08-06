@@ -2,68 +2,164 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Foodbook.MobileApp.Pages.Recipe.RecipesPage"
+              xmlns:fab="clr-namespace:FAB.Forms;assembly=FAB.Forms"
              xmlns:localConverters="clr-namespace:Foodbook.MobileApp.Converters;assembly=Foodbook.MobileApp"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              Title="Foodbook">
     <ContentPage.Resources>
         <ResourceDictionary>
             <localConverters:RatingBooleanConverter x:Key="rtngBoolean"></localConverters:RatingBooleanConverter>
         </ResourceDictionary>
     </ContentPage.Resources>
-    <StackLayout>
 
-        <ListView ItemsSource="{Binding Items}"
-            CachingStrategy="RecycleElement" 
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+
+
+
+        <Grid Grid.Row="0" ColumnSpacing="1" RowSpacing="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="4" />
+            </Grid.RowDefinitions>
+            <Label x:Name="lblTab1" BackgroundColor="{Binding FirstTabColor}" Text="Moji recepti" TextColor="{Binding FirstTabTextColor}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Grid.Column="0" Grid.Row="0" HorizontalOptions="FillAndExpand">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer
+                            Command="{Binding ChangeTabCommand}" CommandParameter="1"
+                            NumberOfTapsRequired="1" />
+                </Label.GestureRecognizers>
+            </Label>
+            <BoxView x:Name="indicatorTab1" BackgroundColor="{Binding FirstTabIndicatorColor}" Grid.Column="0" Grid.Row="1" />
+
+            <Label x:Name="lblTab2" BackgroundColor="{Binding SecondTabColor}" Text="Omiljeni recepti" TextColor="{Binding SecondTabTextColor}"  HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Grid.Column="1" Grid.Row="0" HorizontalOptions="FillAndExpand">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer
+                            Command="{Binding ChangeTabCommand}" CommandParameter="2"
+                            NumberOfTapsRequired="1" />
+                </Label.GestureRecognizers>
+            </Label>
+            <BoxView x:Name="indicatorTab2" BackgroundColor="{Binding SecondTabIndicatorColor}" Grid.Column="1" Grid.Row="1" />
+
+            <Label x:Name="lblTab3" BackgroundColor="{Binding ThirdTabColor}" Text="Svi recepti" TextColor="{Binding ThirdTabTextColor}"  HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Grid.Column="2" Grid.Row="0" HorizontalOptions="FillAndExpand">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer
+                            Command="{Binding ChangeTabCommand}" CommandParameter="3"
+                            NumberOfTapsRequired="1" />
+                </Label.GestureRecognizers>
+            </Label>
+            <BoxView x:Name="indicatorTab3" BackgroundColor="{Binding ThirdTabIndicatorColor}" Grid.Column="2" Grid.Row="1" />
+        </Grid>
+
+        <RelativeLayout Grid.Row="1">
+
+            <StackLayout
+            RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
+			RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}"
+            >
+
+                <ListView 
+            ItemsSource="{Binding Items}"
             ItemSelected="Handle_ItemTapped"
             RowHeight="80">
 
-            <!--Custom View Cells-->
+                    <!--Custom View Cells-->
 
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
 
-                        <Grid  ColumnSpacing="5" VerticalOptions="FillAndExpand" RowSpacing="5" Padding="5">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="80" />
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="40" />
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*" />
-                                <RowDefinition Height="*" />
-                                <RowDefinition Height="*" />
-                            </Grid.RowDefinitions>
-                            <RelativeLayout  Grid.Column="0" Grid.Row="0" Grid.RowSpan="3">
-                                <Image Source="http://kuhinjarecepti.com/wp-content/uploads/2012/01/%C5%A0opska-salata.jpeg"
-                                       RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent,Property=X, Factor=0, Constant = 0}" 
+                                <Grid  ColumnSpacing="5" VerticalOptions="FillAndExpand" RowSpacing="5" Padding="5">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="80" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="40" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+                                    <RelativeLayout  Grid.Column="0" Grid.Row="0" Grid.RowSpan="3">
+                                        <ffimageloading:CachedImage Source="{Binding PhotoUrl}"
+                                        DownsampleToViewSize="True"
+                                        Aspect="AspectFill"
+                                        LoadingPlaceholder="addphoto" 
+                                        HeightRequest="80"
+                                        WidthRequest="80"
+                                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent,Property=X, Factor=0, Constant = 0}" 
                                         RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0, Property=Y, Constant=0}"
-                                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
-                                        RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}"
-                                       />
-                                <Label Text="{Binding Rating}" TextColor="White" BackgroundColor="#EF5350" FontSize="Small" HorizontalTextAlignment="Center" 
+                                       >
+                                        </ffimageloading:CachedImage>
+                                        <Label Text="{Binding Rating}" TextColor="White" BackgroundColor="#EF5350" FontSize="Small" HorizontalTextAlignment="Center" 
                                        IsVisible="{Binding Rating, Converter={StaticResource rtngBoolean}}"
                                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent,Property=Width, Factor=1, Constant =-30}" 
                                         RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Factor=1, Property=Height, Constant=-20}"
                                         RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0, Constant=30}"
                                         RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0, Constant=20}"
                                        />
-                            </RelativeLayout>
+                                    </RelativeLayout>
 
-                            <Label Text="{Binding Name}" FontSize="Small" Grid.Column="1" Grid.Row="0" TextColor="Black"/>
-                            <StackLayout HorizontalOptions="StartAndExpand" Grid.Column="1" Grid.Row="1" Orientation="Horizontal">
-                                <Image Source="category1" WidthRequest="16" HeightRequest="16" />
-                                <Label Text="{Binding CategoryName}"  TextColor="Gray" />
-                            </StackLayout>
+                                    <Label Text="{Binding Name}" FontSize="Small" Grid.Column="1" Grid.Row="0" TextColor="Black"/>
+                                    <StackLayout HorizontalOptions="StartAndExpand" Grid.Column="1" Grid.Row="1" Orientation="Horizontal">
+                                        <Image Source="category1" WidthRequest="16" HeightRequest="16" />
+                                        <Label Text="{Binding CategoryName}"  TextColor="Gray" />
+                                    </StackLayout>
 
-                            <StackLayout HorizontalOptions="StartAndExpand" Grid.Column="1" Grid.Row="2" Orientation="Horizontal">
-                                <Image Source="earth" WidthRequest="16" HeightRequest="16" />
-                                <Label Text="{Binding CuisineName}"  TextColor="Gray" />
-                            </StackLayout>
-                        </Grid>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
+                                    <StackLayout HorizontalOptions="StartAndExpand" Grid.Column="1" Grid.Row="2" Orientation="Horizontal">
+                                        <Image Source="earth" WidthRequest="16" HeightRequest="16" />
+                                        <Label Text="{Binding CuisineName}"  TextColor="Gray" />
+                                    </StackLayout>
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
 
-        </ListView>
-    </StackLayout>
+                </ListView>
+            </StackLayout>
+            <fab:FloatingActionButton
+				    Source="plus.png"
+				    Size="Normal"				     
+				    RippleColor="Gray"
+                    NormalColor="{StaticResource PinkColor}"                   
+				    RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-80}"
+				    RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-100}" />
+        </RelativeLayout>
+
+
+        <Grid Grid.Row="2" BackgroundColor="{StaticResource HeadingColor}" Padding="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Image Source="filter" Grid.Column="0" Aspect="AspectFit" x:Name="cancelBtn">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer
+                            Command="{Binding AddImageCommand}" CommandParameter="{x:Reference cancelBtn}"
+                            NumberOfTapsRequired="1" />
+                </Image.GestureRecognizers>
+
+            </Image>
+            <Image Source="sort" Grid.Column="1" Aspect="AspectFit" x:Name="backBtn">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer
+                            Command="{Binding ButtonPressCommand}" CommandParameter="{x:Reference backBtn}"
+                            NumberOfTapsRequired="1" />
+                </Image.GestureRecognizers>
+
+            </Image>
+
+        </Grid>
+
+    </Grid>
+
 </ContentPage>

@@ -5,16 +5,21 @@
              x:Class="Foodbook.MobileApp.Pages.Recipe.RecipeDetailsPage"
              xmlns:controls="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions"
              xmlns:localConverters="clr-namespace:Foodbook.MobileApp.Converters;assembly=Foodbook.MobileApp"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              Title="{Binding Name}"
              >
 
     <ContentPage.Resources>
         <ResourceDictionary>
             <localConverters:RatingStarVisibility x:Key="rtngStarVisibility"></localConverters:RatingStarVisibility>
+            <localConverters:PreparationTimeConverter x:Key="preparationTimeCnvt"></localConverters:PreparationTimeConverter>
         </ResourceDictionary>
     </ContentPage.Resources>
 
     <ContentPage.Content>
+
+
+
         <Grid RowSpacing="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
@@ -23,9 +28,16 @@
                 <RowDefinition Height="40"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
+            
+            <ffimageloading:CachedImage x:Name="coverImg" Source="{Binding PhotoUrl}" Grid.Row="0" Grid.RowSpan="2" Grid.Column="0"                                        
+                                        DownsampleToViewSize="True"
+                                        DownsampleWidth ="400"
+                                        Aspect="AspectFill"                                     
+                                       >
+            </ffimageloading:CachedImage>          
 
-            <Image Source="http://kuhinjarecepti.com/wp-content/uploads/2012/01/%C5%A0opska-salata.jpeg" Aspect="AspectFill" Grid.Row="0" Grid.RowSpan="2"/>
             <RelativeLayout  BackgroundColor="#EF5350"  Grid.Row="2" >
                 <StackLayout
 				RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
@@ -70,12 +82,12 @@
             </Grid>
 
             <!--DETALJI-->
-            <ScrollView x:Name="detailTab" Grid.Row="4" Grid.RowSpan="2" >
+            <ScrollView x:Name="detailTab" Grid.Row="4" Grid.RowSpan="3">
                 <StackLayout Padding="10" Spacing="5">
 
                     <StackLayout Spacing="0">
                         <StackLayout HorizontalOptions="StartAndExpand" Orientation="Horizontal">
-                            <Image Source="category1" WidthRequest="24" HeightRequest="24" />
+                            <Image Source="category1" WidthRequest="16" HeightRequest="16" />
                             <Label Text="Kategorija: "  TextColor="Gray" FontSize="Small" FontAttributes="Bold"/>
                         </StackLayout>
                         <Label Text="{Binding CategoryName}"  TextColor="Gray" FontSize="Small" Margin="29,0,0,0"/>
@@ -83,7 +95,7 @@
 
                     <StackLayout Spacing="0">
                         <StackLayout HorizontalOptions="StartAndExpand" Orientation="Horizontal">
-                            <Image Source="earth" WidthRequest="24" HeightRequest="24" />
+                            <Image Source="earth" WidthRequest="16" HeightRequest="16" />
                             <Label Text="Kuhinja: "  TextColor="Gray" FontSize="Small" FontAttributes="Bold"/>
                         </StackLayout>
                         <Label Text="{Binding CuisineName}"  TextColor="Gray" FontSize="Small" Margin="29,0,0,0"/>
@@ -91,15 +103,15 @@
 
                     <StackLayout Spacing="0">
                         <StackLayout HorizontalOptions="StartAndExpand" Orientation="Horizontal">
-                            <Image Source="time" WidthRequest="24" HeightRequest="24" />
-                            <Label Text="Vreme pripreme: "  TextColor="Gray" FontSize="Small" FontAttributes="Bold"/>
+                            <Image Source="time" WidthRequest="16" HeightRequest="16" />
+                            <Label Text="Vreme pripreme (min): "  TextColor="Gray" FontSize="Small" FontAttributes="Bold"/>
                         </StackLayout>
-                        <Label Text="~ 10 min"  TextColor="Gray" FontSize="Small" Margin="29,0,0,0"/>
+                        <Label Text="{Binding PreparationTime, Converter={StaticResource preparationTimeCnvt} }"  TextColor="Gray" FontSize="Small" Margin="29,0,0,0"/>
                     </StackLayout>
 
                     <StackLayout Spacing="0">
                         <StackLayout HorizontalOptions="StartAndExpand" Orientation="Horizontal">
-                            <Image Source="calories" WidthRequest="24" HeightRequest="24" />
+                            <Image Source="calories" WidthRequest="16" HeightRequest="16" />
                             <Label Text="Kaloricnost: "  TextColor="Gray" FontSize="Small" FontAttributes="Bold"/>
                         </StackLayout>
                         <Label Text="{Binding CaloricityName}"  TextColor="Gray" FontSize="Small" Margin="29,0,0,0"/>
@@ -107,7 +119,7 @@
                 </StackLayout>
             </ScrollView>
             <!--PRIPREMA-->
-            <StackLayout x:Name="preparationTab" Grid.Row="4" Grid.RowSpan="2" Padding="10" Spacing="5" IsVisible="False">
+            <StackLayout x:Name="preparationTab" Grid.Row="4" Grid.RowSpan="3" Padding="10" Spacing="5" IsVisible="False" >
                 <Label 
                     Text="{Binding RecipeText}"
                     VerticalOptions="FillAndExpand"
@@ -118,7 +130,7 @@
             </StackLayout>
 
             <!--KOMENTARI-->
-            <RelativeLayout  Grid.Row="4" Grid.RowSpan="2" x:Name="commentTab" IsVisible="False">
+            <RelativeLayout  Grid.Row="4" Grid.RowSpan="3" x:Name="commentTab" IsVisible="False" >
                 <ListView ItemsSource="{Binding Comments}"
                     IsEnabled="False"
                     RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
@@ -178,7 +190,7 @@
                                                IsVisible="{Binding Rating, Converter={StaticResource rtngStarVisibility}, ConverterParameter=9}"/>
                                         <Image Source="star" WidthRequest="10" HeightRequest="10" 
                                                IsVisible="{Binding Rating, Converter={StaticResource rtngStarVisibility}, ConverterParameter=10}"/>
-                                        </StackLayout>
+                                    </StackLayout>
                                     <StackLayout Orientation="Horizontal" VerticalOptions="FillAndExpand" Grid.Column="1" Grid.Row="1"></StackLayout>
                                     <Label Text="{Binding CommentText}"  TextColor="Gray" FontSize="Micro"  Grid.Column="1" Grid.Row="2"/>
                                     <Label Text="{Binding InsertDate}"  TextColor="Gray" FontSize="Micro"  Grid.Column="1" Grid.Row="3" HorizontalOptions="End"/>
@@ -189,6 +201,15 @@
                     </ListView.ItemTemplate>
                 </ListView>
 
+
+                <fab:FloatingActionButton
+				    Source="comment.png"
+				    Size="Mini"				     
+				    RippleColor="Gray"
+                    NormalColor="{StaticResource PinkColor}"
+                    Command="{Binding AddCommentCommand}"
+				    RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-75}"
+				    RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-75}" />
             </RelativeLayout>
 
 

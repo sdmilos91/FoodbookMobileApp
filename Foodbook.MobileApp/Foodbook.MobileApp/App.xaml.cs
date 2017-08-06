@@ -14,8 +14,7 @@ namespace Foodbook.MobileApp
         {
             InitializeComponent();
 
-            MainPage = new HomeMasterDetailPage();
-
+            MainPage = new HomeMasterDetailPage();            
         }
 
         protected override void OnStart()

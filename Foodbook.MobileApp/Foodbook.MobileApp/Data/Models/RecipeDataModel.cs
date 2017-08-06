@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,8 +24,11 @@ namespace Foodbook.MobileApp.Data.Models
         public long CaloricityId { get; set; }
         public string CaloricityName { get; set; }
         public DateTime InsertDate { get; set; }
-        public Comment[] Comments { get; set; }
+        public List<Comment> Comments { get; set; }
         public double? Rating { get; set; }
+        public int PreparationTime { get; set; }
+        public List<PhotoModel> Photos { get; set; }
+        public string PhotoUrl { get; set; }
     }
 
     public class Comment
@@ -38,13 +43,50 @@ namespace Foodbook.MobileApp.Data.Models
 
     public class PostRecipeModel
     {
+        public PostRecipeModel()
+        {
+            Photos = new List<PhotoModel>();
+        }
         public string Name { get; set; }
+
         public long CuisineId { get; set; }
         public long CategoryId { get; set; }
         public string RecipeText { get; set; }
         public string VideoUrl { get; set; }
         public long? CaloricityId { get; set; }
         public int PreparationTime { get; set; }
+
+
+        public List<PhotoModel> Photos { get; set; }
+    }
+
+    public class PhotoModel
+    {
+        public string Url { get; set; }
+
+        public string Name { get; set; }
+
+        [JsonIgnore]
+        public bool IsAdded { get; set; }
+
+        [JsonIgnore]
+        public Stream PhotoStream { get; set; }
+    }
+
+    public class PostRecipeCommentModel
+    {
+
+        public int Rating { get; set; }
+
+        public string CommentText { get; set; }
+
+        public long RecipeId { get; set; }
+
+        [JsonIgnore]
+        public string CookName { get; set; }
+
+        public DateTime InsertDate { get; set; }
+
     }
 
 
