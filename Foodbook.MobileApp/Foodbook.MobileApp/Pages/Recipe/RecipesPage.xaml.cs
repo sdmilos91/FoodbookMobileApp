@@ -34,27 +34,6 @@ namespace Foodbook.MobileApp.Pages.Recipe
             BindingContext = new RecipesPageViewModel();
         }
 
-        protected async override void OnAppearing()
-        {
-            base.OnAppearing();
-            //if (Items == null)
-            //{
-            //    var dialogs = UserDialogs.Instance.Loading("Loading");
-
-            //    Device.BeginInvokeOnMainThread(() => dialogs.Show());
-            //    var recipes = await RecipeDataService.GetRecipes();
-            //    Device.BeginInvokeOnMainThread(() => dialogs.Hide());
-
-            //    if (recipes != null)
-            //        Items = new ObservableCollection<RecipeDataModel>(recipes);
-            //    foreach (var item in Items)
-            //    {
-            //        item.PhotoUrl = item.Photos != null && item.Photos.Any() ? item.Photos.FirstOrDefault().Url : "http://kuhinjarecepti.com/wp-content/uploads/2012/01/%C5%A0opska-salata.jpeg";
-            //    }
-
-            //    BindingContext = this;
-            //}
-        }
 
         async void Handle_ItemTapped(object sender, SelectedItemChangedEventArgs e)
         {

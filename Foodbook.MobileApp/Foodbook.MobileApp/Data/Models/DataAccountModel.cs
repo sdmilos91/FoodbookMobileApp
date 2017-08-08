@@ -17,4 +17,17 @@ namespace Foodbook.MobileApp.Data.Models
         public string expires { get; set; }
     }
 
+
+    public class PostRegisterModel
+    {
+        public string Email { get; set; }
+        public string Password { get; set; }
+        public string ConfirmPassword { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Biography { get; set; }
+        public string PhotoUrl { get; set; }
+    }
+
+
 }

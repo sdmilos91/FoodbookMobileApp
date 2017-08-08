@@ -44,6 +44,10 @@
       <DependentUpon>LocalizationResource.resx</DependentUpon>
     </Compile>
     <Compile Include="Behaviors\BaseEntryBehavior.cs" />
+    <Compile Include="Behaviors\BasePasswordBehavior.cs" />
+    <Compile Include="Behaviors\ConfirmPasswordValidatorBehavior.cs" />
+    <Compile Include="Behaviors\EmailValidatorBehavior.cs" />
+    <Compile Include="Behaviors\PasswordValidatorBehavior.cs" />
     <Compile Include="Behaviors\RequiredValidatorBehavior.cs" />
     <Compile Include="Converters\PreparationTimeConverter.cs" />
     <Compile Include="Converters\RatingBooleanConverter.cs" />
@@ -57,11 +61,15 @@
     <Compile Include="Data\Services\RecipeDataService.cs" />
     <Compile Include="Helpers\MessengingCenterAlert.cs" />
     <Compile Include="Helpers\ObservableObject.cs" />
+    <Compile Include="Helpers\Utils.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Authentication\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Authentication\RegisterPage.xaml.cs">
+      <DependentUpon>RegisterPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\MasterDetail\HomeMasterDetailPage.xaml.cs">
       <DependentUpon>HomeMasterDetailPage.xaml</DependentUpon>
@@ -96,6 +104,7 @@
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\RecipeDetailViewModel.cs" />
     <Compile Include="ViewModels\RecipesPageViewModel.cs" />
+    <Compile Include="ViewModels\RegisterPageViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="AppResources\LocalizationResource.resx">
@@ -255,7 +264,12 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\Authentication\RegisterPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\..\packages\Xamarin.Forms.2.3.4.247\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets" Condition="Exists('..\..\packages\Xamarin.Forms.2.3.4.247\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

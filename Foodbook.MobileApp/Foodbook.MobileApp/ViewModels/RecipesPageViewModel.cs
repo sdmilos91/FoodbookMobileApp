@@ -1,5 +1,6 @@
 ﻿using Foodbook.MobileApp.Data.Models;
 using Foodbook.MobileApp.Data.Services;
+using Foodbook.MobileApp.Pages.Recipe;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -123,11 +124,14 @@ namespace Foodbook.MobileApp.ViewModels
 
         public Command ChangeTabCommand { get; }
 
+        public Command AddRecipeCommand { get;}
+
         public RecipesPageViewModel()
         {
             InitData();
             ChangeTab("1");
             ChangeTabCommand = new Command((x) => ChangeTab(x.ToString()));
+            AddRecipeCommand = new Command(() => Addrecipe());
 
             MessagingCenter.Subscribe<RecipeDetailViewModel, PostRecipeCommentModel>(this, "RATING_UPDATED", (sender, addedComment) =>
             {
@@ -211,6 +215,12 @@ namespace Foodbook.MobileApp.ViewModels
 
             Device.BeginInvokeOnMainThread(() => Dialogs.Hide());
 
+        }
+
+        private async void Addrecipe()
+        {
+            MasterDetailPage masterPage = App.Current.MainPage as MasterDetailPage;
+            masterPage.Detail.Navigation.PushAsync(new AddRecipePage());
         }
     }
 }

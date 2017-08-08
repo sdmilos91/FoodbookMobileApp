@@ -129,6 +129,7 @@
 				    Source="plus.png"
 				    Size="Normal"				     
 				    RippleColor="Gray"
+                    Command="{Binding AddRecipeCommand}"
                     NormalColor="{StaticResource PinkColor}"                   
 				    RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-80}"
 				    RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-100}" />

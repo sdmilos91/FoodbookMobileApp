@@ -17,8 +17,8 @@
                 <Entry Placeholder="Email" Keyboard="Email" Text="{Binding Username}" HorizontalOptions="FillAndExpand" VerticalOptions="Center"/>
                 <Entry Placeholder="Password" IsPassword="True" Text="{Binding Password}" HorizontalOptions="FillAndExpand" VerticalOptions="Center"/>
                 <Button Command="{Binding LoginCommand}" Margin="0,30,0,0" Text="Prijavite se" HorizontalOptions="CenterAndExpand" BackgroundColor="{StaticResource HeadingColor}" TextColor="White" WidthRequest="200"/>
-                <Button Text="Registrujte se" HorizontalOptions="CenterAndExpand" BackgroundColor="{StaticResource PinkColor}" TextColor="White" WidthRequest="200"/>
-                <Button Text="Nastavite kao gost" HorizontalOptions="CenterAndExpand" BackgroundColor="{StaticResource PinkColor}" TextColor="White" WidthRequest="200"/>
+                <Button Command="{Binding RegisterCommand}"  Text="Registrujte se" HorizontalOptions="CenterAndExpand" BackgroundColor="{StaticResource PinkColor}" TextColor="White" WidthRequest="200"/>
+                <Button Command="{Binding SkipCommand}" Text="Nastavite kao gost" HorizontalOptions="CenterAndExpand" BackgroundColor="{StaticResource PinkColor}" TextColor="White" WidthRequest="200"/>
 
 
 

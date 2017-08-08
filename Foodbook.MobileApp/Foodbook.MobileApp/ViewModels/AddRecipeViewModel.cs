@@ -217,14 +217,11 @@ namespace Foodbook.MobileApp.ViewModels
 
         public Command DeleteImageCommand { get; }
 
-        public Command InitDataCommand { get; }
-
 
 
         public AddRecipeViewModel()
         {
-            InitDataCommand = new Command(() => InitData());
-            InitDataCommand.Execute(null);
+            InitData();
 
             mDeletedPhotos = new List<PhotoModel>();            
             DataModel = new PostRecipeModel();

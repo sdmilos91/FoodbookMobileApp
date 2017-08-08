@@ -1,4 +1,6 @@
 ﻿using Foodbook.MobileApp.Data.Services;
+using Foodbook.MobileApp.Pages;
+using Foodbook.MobileApp.Pages.Authentication;
 using Foodbook.MobileApp.Tools;
 using System;
 using System.Collections.Generic;
@@ -15,10 +17,14 @@ namespace Foodbook.MobileApp.ViewModels
         public string Password { get; set; }
 
         public Command LoginCommand { get; }
+        public Command RegisterCommand { get; }
+        public Command SkipCommand { get; }
 
         public LoginViewModel()
         {
             LoginCommand = new Command(() => LoginUser());
+            RegisterCommand = new Command(() => Register());
+            SkipCommand = new Command(() => Skip());
         }
 
         private async void LoginUser()
@@ -35,6 +41,17 @@ namespace Foodbook.MobileApp.ViewModels
             }
 
             MessagingCenter.Send(this, MessageCenterKeys.LOGGED_IN, result.IsSuccess);
+        }
+
+        private async void Register()
+        {
+            MasterDetailPage masterPage = App.Current.MainPage as MasterDetailPage;
+            await masterPage.Detail.Navigation.PushAsync(new RegisterPage());
+        }
+
+        private void Skip()
+        {
+            App.Current.MainPage = new HomeMasterDetailPage();
         }
     }
 }
