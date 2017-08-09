@@ -1,5 +1,6 @@
 ﻿using Foodbook.MobileApp.Data.Models;
 using Foodbook.MobileApp.ViewModels;
+using Foodbook.Pages;
 using Rg.Plugins.Popup.Extensions;
 using Rg.Plugins.Popup.Services;
 using System;
@@ -21,9 +22,28 @@ namespace Foodbook.MobileApp.Pages.Recipe
             InitializeComponent();
             //NavigationPage.SetHasNavigationBar(this, false);
 
-            lblTab1.GestureRecognizers.Add(new TapGestureRecognizer((view) => SwitchTabs(1)));
-            lblTab2.GestureRecognizers.Add(new TapGestureRecognizer((view) => SwitchTabs(2)));
-            lblTab3.GestureRecognizers.Add(new TapGestureRecognizer((view) => SwitchTabs(3)));
+
+            ToolbarItem favourite = new ToolbarItem
+            {
+                Icon = "favorite",
+                Order = ToolbarItemOrder.Primary
+            };
+
+            ToolbarItem edit = new ToolbarItem
+            {
+                Icon = "edit",
+                Order = ToolbarItemOrder.Primary
+            };
+
+            ToolbarItem delete = new ToolbarItem
+            {
+                Icon = "delete",
+                Order = ToolbarItemOrder.Primary
+            };
+
+            ToolbarItems.Add(favourite);
+            ToolbarItems.Add(edit);
+            ToolbarItems.Add(delete);
 
             RecipeDetailViewModel viewModel = new RecipeDetailViewModel(recipe);
             BindingContext = viewModel;
@@ -39,28 +59,10 @@ namespace Foodbook.MobileApp.Pages.Recipe
             
 
         }
-
-        private void SwitchTabs(int selectedTab)
+        private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
         {
-            string tabColor = "#EF5350";
-            string indicatorColor = "#FFD54F";
-
-            indicatorTab1.BackgroundColor = Color.FromHex(tabColor);
-            indicatorTab2.BackgroundColor = Color.FromHex(tabColor);
-            indicatorTab3.BackgroundColor = Color.FromHex(tabColor);
-            detailTab.IsVisible = false;
-            preparationTab.IsVisible = false;
-            commentTab.IsVisible = false;
-
-            switch (selectedTab)
-            {
-                case 1: indicatorTab1.BackgroundColor = Color.FromHex(indicatorColor); detailTab.IsVisible = true; break;
-                case 2: indicatorTab2.BackgroundColor = Color.FromHex(indicatorColor); preparationTab.IsVisible = true; break;
-                case 3: indicatorTab3.BackgroundColor = Color.FromHex(indicatorColor); commentTab.IsVisible = true; break;
-            }
-
+            Navigation.PushModalAsync(new ImageViewPage("http://kuhinjarecepti.com/wp-content/uploads/2012/01/%C5%A0opska-salata.jpeg"));
         }
-
 
         private void favBtn_Clicked(object sender, EventArgs e)
         {

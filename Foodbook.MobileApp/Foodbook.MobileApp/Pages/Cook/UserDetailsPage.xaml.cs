@@ -1,58 +1,74 @@
-﻿using Foodbook.MobileApp.Data.Models;
-using Foodbook.MobileApp.Pages;
-using Foodbook.Pages;
-using Rg.Plugins.Popup.Extensions;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+
 using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
 
-namespace Foodbook.MobileApp.ViewModels
+namespace Foodbook.Pages
 {
-    class RecipeDetailViewModel : BaseViewModel
+	[XamlCompilation(XamlCompilationOptions.Compile)]
+	public partial class UserDetailsPage : ContentPage
+	{
+        
+
+
+       
+        public UserDetailsPage()
+		{
+			InitializeComponent ();
+
+            ToolbarItem favourite = new ToolbarItem
+            {
+                Icon = "favorite",  
+                Order = ToolbarItemOrder.Primary
+            };
+
+            ToolbarItem edit = new ToolbarItem
+            {
+                Icon = "edit",
+                Order = ToolbarItemOrder.Primary
+            };
+
+            ToolbarItem delete = new ToolbarItem
+            {
+                Icon = "delete",
+                Order = ToolbarItemOrder.Primary
+            };
+
+            ToolbarItems.Add(favourite);
+            ToolbarItems.Add(edit);
+            ToolbarItems.Add(delete);
+
+            BindingContext = new UserDetailsViewModel();
+
+        }
+
+        private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
+        {
+            Navigation.PushModalAsync(new ImageViewPage("http://kuhinjarecepti.com/wp-content/uploads/2012/01/%C5%A0opska-salata.jpeg"));
+        }
+    }
+
+    class UserDetailsViewModel : INotifyPropertyChanged
     {
-        private long mRecipeId;
-        public string CookName { get; set; }
-        public string Name { get; set; }
-        public string CuisineName { get; set; }
-        public string CategoryName { get; set; }
-        public string RecipeText { get; set; }
-        public string VideoUrl { get; set; }
-        public string CaloricityName { get; set; }
-        public DateTime InsertDate { get; set; }
-        public int PreparationTime { get; set; }
-        public string PhotoUrl { get; set; }
+        public event PropertyChangedEventHandler PropertyChanged;
 
-        private double? rating;
-
-        public double? Rating
-        {
-            get { return rating; }
-            set { SetProperty(ref rating, value); }
-        }
-
-        private ObservableCollection<Comment> comments;
-
-        public ObservableCollection<Comment> Comments
-        {
-            get { return comments; }
-            set { SetProperty(ref comments, value); }
-        }
+        public string[] Items { get; set; }
 
         private GridLength imageContainerHeight;
+
+        public Command SwitchTabCommand { get;  }
 
         public GridLength ImageContainerHeight
         {
             get { return imageContainerHeight; }
             set { imageContainerHeight = value; OnPropertyChanged(); }
         }
-
-
-
 
         #region TAB
 
@@ -159,69 +175,15 @@ namespace Foodbook.MobileApp.ViewModels
 
         #endregion
 
-        public Command AddCommentCommand { get; }
-        public Command CommentAddedCommant { get; }
-        public Command SwitchTabCommand { get; }
-        public Command ViewImageCommand { get; }
-
-        public RecipeDetailViewModel(RecipeDataModel recipe)
+        public UserDetailsViewModel()
         {
-            mRecipeId = recipe.RecipeId;
-            CookName = recipe.CookName;
-            Name = recipe.Name;
-            CuisineName = recipe.CuisineName;
-            CategoryName = recipe.CategoryName;
-            RecipeText = recipe.RecipeText;
-            VideoUrl = recipe.VideoUrl;
-            CaloricityName = recipe.CaloricityName;
-            InsertDate = recipe.InsertDate;
-            Comments = new ObservableCollection<Comment>(recipe.Comments);
-            Rating = recipe.Rating;
-            PreparationTime = recipe.PreparationTime;
-            PhotoUrl = recipe.PhotoUrl;
-
-            AddCommentCommand = new Command(() => AddComment());
-            CommentAddedCommant = new Command((x) => CommentAdded(x));
-            ViewImageCommand = new Command(() => ViewImage());
             ImageContainerHeight = new GridLength(1, GridUnitType.Star);
             SwitchTabCommand = new Command((x) => SwitchTab(x.ToString()));
+            Items = new string[] { "dsa", "dsadsa", "dsad" };
             SwitchTab("1");
-
         }
 
-        private void AddComment()
-        {
-            MasterDetailPage master = App.Current.MainPage as MasterDetailPage;
-
-            master.Detail.Navigation.PushPopupAsync(new AddCommentPopupPage(mRecipeId));
-
-        }
-
-        private void CommentAdded(object model)
-        {
-            PostRecipeCommentModel commentModel = model as PostRecipeCommentModel;
-
-            commentModel.CookName = CookName;
-
-            Comment comment = new Comment
-            {
-                CommentText = commentModel.CommentText,
-                InsertDate = commentModel.InsertDate,
-                Rating = commentModel.Rating,
-                CookName = CookName,
-            };
-
-            var temp = Comments;
-
-            temp.Add(comment);
-            Comments = temp;
-
-            rating = Comments.Average(x => x.Rating);
-            
-
-            MessagingCenter.Send(this, "RATING_UPDATED", commentModel);
-
-        }
+      
 
         private void SwitchTab(string tab)
         {
@@ -269,10 +231,7 @@ namespace Foodbook.MobileApp.ViewModels
             }
         }
 
-        private void ViewImage()
-        {
-            MasterDetailPage masterPage = App.Current.MainPage as MasterDetailPage;
-            masterPage.Detail.Navigation.PushModalAsync(new ImageViewPage(PhotoUrl));
-        }
+        void OnPropertyChanged([CallerMemberName]string propertyName = "") =>
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 }

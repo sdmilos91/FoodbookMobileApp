@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Foodbook.Pages.ImageViewPage"
+             >
+    <ContentPage.Content>
+        <RelativeLayout>
+            <Image Source="{Binding PhotoUrl}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
+                   RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
+				   RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}"
+                   />
+            <Image Source="close" WidthRequest="48" HeightRequest="48" Opacity="0.6"
+                       RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-65}"
+				        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0, Constant=20}"
+                        BackgroundColor="White"
+                       >
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer  Tapped="TapGestureRecognizer_Tapped"/>
+                </Image.GestureRecognizers>
+            </Image>
+
+
+        </RelativeLayout>
+    </ContentPage.Content>
+</ContentPage>
