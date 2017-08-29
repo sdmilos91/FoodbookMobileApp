@@ -1,4 +1,5 @@
 ﻿using Foodbook.MobileApp.Data.Models;
+using Foodbook.MobileApp.Tools;
 using Foodbook.MobileApp.ViewModels;
 using Foodbook.Pages;
 using Rg.Plugins.Popup.Extensions;
@@ -22,41 +23,58 @@ namespace Foodbook.MobileApp.Pages.Recipe
             InitializeComponent();
             //NavigationPage.SetHasNavigationBar(this, false);
 
+            RecipeDetailViewModel viewModel = new RecipeDetailViewModel(recipe);
+           
 
             ToolbarItem favourite = new ToolbarItem
             {
-                Icon = "favorite",
-                Order = ToolbarItemOrder.Primary
+                Icon = recipe.IsFavourite ? "favorited" : "favorite",
+                Order = ToolbarItemOrder.Primary,
+                Command = viewModel.FavouriteRecipeCommand,               
             };
+
+            favourite.CommandParameter = favourite;
+
+
 
             ToolbarItem edit = new ToolbarItem
             {
                 Icon = "edit",
-                Order = ToolbarItemOrder.Primary
+                Order = ToolbarItemOrder.Primary,
+                Command = viewModel.EditRecipeCommand
             };
+
+            
 
             ToolbarItem delete = new ToolbarItem
             {
                 Icon = "delete",
-                Order = ToolbarItemOrder.Primary
+                Order = ToolbarItemOrder.Primary,
+                Command = viewModel.DeleteRecipeCommand
             };
-
-            ToolbarItems.Add(favourite);
-            ToolbarItems.Add(edit);
-            ToolbarItems.Add(delete);
-
-            RecipeDetailViewModel viewModel = new RecipeDetailViewModel(recipe);
-            BindingContext = viewModel;
+            if (!string.IsNullOrEmpty(LocalDataSecureStorage.GetToken()))
+            {
+                if (!recipe.IsMine)
+                {
+                    ToolbarItems.Add(favourite);
+                }
+                else
+                {
+                    ToolbarItems.Add(edit);
+                    ToolbarItems.Add(delete);
+                }
+            }
+          
 
             MessagingCenter.Subscribe<AddCommentViewModel, PostRecipeCommentModel>(this, "COMMENT_ADDED", async (sender, model) => 
             {
                 viewModel.CommentAddedCommant.Execute(model);
                 await PopupNavigation.PopAsync();
 
-
             });
 
-            
+
+            BindingContext = viewModel;
 
         }
         private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
@@ -72,6 +90,12 @@ namespace Foodbook.MobileApp.Pages.Recipe
         private void BackButton_Clicked(object sender, EventArgs e)
         {
             Navigation.PopAsync();
+        }
+
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+            MessagingCenter.Unsubscribe<AddCommentViewModel, PostRecipeCommentModel>(this, "COMMENT_ADDED");
         }
     }
 

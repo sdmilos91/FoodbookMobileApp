@@ -6,7 +6,6 @@ using Android.OS;
 using CarouselView.FormsPlugin.Android;
 using FFImageLoading;
 using FFImageLoading.Forms.Droid;
-using Foodbook.MobileApp.Data.Services;
 using Plugin.Permissions;
 using Plugin.SecureStorage;
 using System;

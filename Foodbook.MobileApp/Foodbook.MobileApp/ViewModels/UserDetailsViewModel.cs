@@ -8,7 +8,6 @@ using Rg.Plugins.Popup.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,22 +15,17 @@ using Xamarin.Forms;
 
 namespace Foodbook.MobileApp.ViewModels
 {
-    class RecipeDetailViewModel : BaseViewModel
+    public class UserDetailsViewModel : BaseViewModel
     {
-        private long mRecipeId;
-        public string CookName { get; set; }
-        public string Name { get; set; }
-        public string CuisineName { get; set; }
-        public string CategoryName { get; set; }
-        public string RecipeText { get; set; }
-        public string VideoUrl { get; set; }
-        public string CaloricityName { get; set; }
-        public DateTime InsertDate { get; set; }
-        public int PreparationTime { get; set; }
-        public string PhotoUrl { get; set; }
-        public bool IsMine { get; set; }
-        public bool IsFavourite { get; set; }
-        public bool AddCommentEnabled { get; set; }
+
+        public ResponseCookModel Cook { get; set; }
+
+        public ObservableCollection<RecipeDataModel> Recipes { get; set; }
+        public ObservableCollection<CookCommentModel> Comments { get; set; }
+
+        public string[] Items { get; set; }
+
+        private GridLength imageContainerHeight;
 
         private double? rating;
 
@@ -41,15 +35,12 @@ namespace Foodbook.MobileApp.ViewModels
             set { SetProperty(ref rating, value); }
         }
 
-        private ObservableCollection<Comment> comments;
-
-        public ObservableCollection<Comment> Comments
-        {
-            get { return comments; }
-            set { SetProperty(ref comments, value); }
-        }
-
-        private GridLength imageContainerHeight;
+        public Command SwitchTabCommand { get; }
+        public Command ViewImageCommand { get; }
+        public Command EditCookCommand { get; }
+        public Command FavouriteCookCommand { get; }
+        public Command AddCommentCommand { get; }
+        public Command CommentAddedCommand { get; }
 
         public GridLength ImageContainerHeight
         {
@@ -157,81 +148,26 @@ namespace Foodbook.MobileApp.ViewModels
             set { thirdContainer = value; OnPropertyChanged(); }
         }
 
+
+
+
         #endregion
 
-        public Command AddCommentCommand { get; }
-        public Command CommentAddedCommant { get; }
-        public Command SwitchTabCommand { get; }
-        public Command ViewImageCommand { get; }
-        public Command DeleteRecipeCommand { get;}
-        public Command EditRecipeCommand { get; }
-        public Command FavouriteRecipeCommand { get; }
-
-        public RecipeDetailViewModel(RecipeDataModel recipe)
+        public UserDetailsViewModel(ResponseCookModel cook)
         {
-            mRecipeId = recipe.RecipeId;
-            CookName = recipe.CookName;
-            Name = recipe.Name;
-            CuisineName = recipe.CuisineName;
-            CategoryName = recipe.CategoryName;
-            RecipeText = recipe.RecipeText;
-            VideoUrl = recipe.VideoUrl;
-            CaloricityName = recipe.CaloricityName;
-            InsertDate = recipe.InsertDate;
-            Comments = new ObservableCollection<Comment>(recipe.Comments);
-            Rating = recipe.Rating;
-            PreparationTime = recipe.PreparationTime;
-            PhotoUrl = recipe.ProfilePhotoUrl;
-            IsMine = recipe.IsMine;
-            IsFavourite = recipe.IsFavourite;
-            AddCommentEnabled = !recipe.IsMine && !string.IsNullOrEmpty(LocalDataSecureStorage.GetToken());
-
-            AddCommentCommand = new Command(() => AddComment());
-            CommentAddedCommant = new Command((x) => CommentAdded(x));
-            ViewImageCommand = new Command(() => ViewImage());
+            Cook = cook;
+            Recipes = new ObservableCollection<RecipeDataModel>(cook.Recipes);
+            Comments = new ObservableCollection<CookCommentModel>(cook.Comments);
             ImageContainerHeight = new GridLength(1, GridUnitType.Star);
             SwitchTabCommand = new Command((x) => SwitchTab(x.ToString()));
-            DeleteRecipeCommand = new Command(() => DeleteRecipe());
-            EditRecipeCommand = new Command(() => EditRecipe(recipe));
-            FavouriteRecipeCommand = new Command((x) => FavouriteRecipe(x, recipe));
+            ViewImageCommand = new Command(() => ViewImage(cook.PhotoUrl));
+            FavouriteCookCommand = new Command((x) => FavouriteCook(x, cook));
+            AddCommentCommand = new Command(() => AddComment(cook.CookId));
+            CommentAddedCommand = new Command((x) => CommentAdded(x));
             SwitchTab("1");
-
         }
 
-        private void AddComment()
-        {
-            MasterDetailPage master = App.Current.MainPage as MasterDetailPage;
 
-            master.Detail.Navigation.PushPopupAsync(new AddCommentPopupPage(mRecipeId));
-
-        }
-
-        private void CommentAdded(object model)
-        {
-            PostRecipeCommentModel commentModel = model as PostRecipeCommentModel;
-
-            commentModel.CookName = LocalDataSecureStorage.GetEmail();
-
-            Comment comment = new Comment
-            {
-                CommentText = commentModel.CommentText,
-                InsertDate = commentModel.InsertDate,
-                Rating = commentModel.Rating,
-                CookName = LocalDataSecureStorage.GetEmail(),
-            };
-
-            var temp = Comments;
-
-            temp.Add(comment);
-            Comments = temp;
-
-            Rating = Comments.Average(x => x.Rating);
-            OnPropertyChanged("Rating");
-            
-
-            MessagingCenter.Send(this, "RATING_UPDATED", commentModel);
-
-        }
 
         private void SwitchTab(string tab)
         {
@@ -279,32 +215,10 @@ namespace Foodbook.MobileApp.ViewModels
             }
         }
 
-        private void ViewImage()
+        private void ViewImage(string imageUrl)
         {
             MasterDetailPage masterPage = App.Current.MainPage as MasterDetailPage;
-            masterPage.Detail.Navigation.PushModalAsync(new ImageViewPage(PhotoUrl));
-        }
-
-        private async void DeleteRecipe()
-        {
-            bool response = await App.Current.MainPage.DisplayAlert("Obaveštenje", "Da li želite da uklonite recept?", "Da", "Ne");
-            if (response)
-            {
-                Device.BeginInvokeOnMainThread(() => Dialogs.Show());
-                bool result = await RecipeDataService.DeleteRecipe(mRecipeId, LocalDataSecureStorage.GetToken());
-                Device.BeginInvokeOnMainThread(() => Dialogs.Hide());
-                string message = result ? "Recept je uspešno uklonjen." : "Greška prilikom uklanjanja recept.";
-                await App.Current.MainPage.DisplayAlert("Obaveštenje", message, "U redu");
-
-                if (result)
-                {
-                    MasterDetailPage masterPage = App.Current.MainPage as MasterDetailPage;
-                    MessagingCenter.Send(this, "RECIPE_DELETED", mRecipeId);
-                    await masterPage.Detail.Navigation.PopAsync();
-                }
-
-
-            }
+            masterPage.Detail.Navigation.PushModalAsync(new ImageViewPage(imageUrl));
         }
 
         private async void EditRecipe(RecipeDataModel recipe)
@@ -313,18 +227,48 @@ namespace Foodbook.MobileApp.ViewModels
             await masterPage.Detail.Navigation.PushAsync(new EditRecipePage(recipe));
         }
 
-        private async void FavouriteRecipe(object sender, RecipeDataModel recipe)
+        private async void FavouriteCook(object sender, ResponseCookModel cook)
         {
             var favouriteItem = sender as ToolbarItem;
             Device.BeginInvokeOnMainThread(() => Dialogs.Show());
-            bool result = await RecipeDataService.FavouriteRecept(recipe.RecipeId, LocalDataSecureStorage.GetToken());
+            bool result = await CookDataService.FavouriteCook(cook.CookId, LocalDataSecureStorage.GetToken());
             Device.BeginInvokeOnMainThread(() => Dialogs.Hide());
             if (result)
             {
-                recipe.IsFavourite = !recipe.IsFavourite;
-                favouriteItem.Icon = recipe.IsFavourite ? "favorited" : "favorite";
-                MessagingCenter.Send(this, "FAVOURITE", recipe);               
+                cook.IsFollowed = !cook.IsFollowed;
+                favouriteItem.Icon = cook.IsFollowed ? "favorited" : "favorite";
+                MessagingCenter.Send(this, "FAVOURITE", cook);
             }
+        }
+
+        private void AddComment(long cookId)
+        {
+            MasterDetailPage master = App.Current.MainPage as MasterDetailPage;
+
+            master.Detail.Navigation.PushPopupAsync(new AddCommentPopupPage(cookId, true));
+
+        }
+
+        private void CommentAdded(object model)
+        {
+            PostCookCommentModel commentModel = model as PostCookCommentModel;
+
+            commentModel.CookName = LocalDataSecureStorage.GetEmail();
+
+            CookCommentModel comment = new CookCommentModel
+            {
+                CommentText = commentModel.CommentText,
+                InsertDate = commentModel.InsertDate,
+                Rating = commentModel.Rating,
+                CookName = LocalDataSecureStorage.GetEmail(),
+            };
+
+            Comments.Add(comment);
+            OnPropertyChanged("Comments");
+
+            Rating = Comments.Average(x => x.Rating);
+            OnPropertyChanged("Rating");            
+
         }
     }
 }

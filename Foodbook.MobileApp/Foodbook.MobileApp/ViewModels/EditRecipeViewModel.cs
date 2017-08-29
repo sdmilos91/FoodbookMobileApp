@@ -18,10 +18,11 @@ using Xamarin.Forms;
 
 namespace Foodbook.MobileApp.ViewModels
 {
-    public class AddRecipeViewModel : BaseViewModel
+    public class EditRecipeViewModel : BaseViewModel
     {
         public PostRecipeModel DataModel { get; set; }
         private List<PhotoModel> mDeletedPhotos;
+        private RecipeDataModel mRecipe;
 
         private string recipeName;
 
@@ -219,13 +220,18 @@ namespace Foodbook.MobileApp.ViewModels
 
 
 
-        public AddRecipeViewModel()
+        public EditRecipeViewModel(RecipeDataModel recipe)
         {
+            mRecipe = recipe;
+            RecipeName = recipe.Name;
+            PreparationTime = recipe.PreparationTime.ToString();
+            RecipeText = recipe.RecipeText;            
+
             InitData();
 
             mDeletedPhotos = new List<PhotoModel>();            
             DataModel = new PostRecipeModel();
-            Photos = new ObservableCollection<PhotoModel>(DataModel.Photos);
+            Photos = new ObservableCollection<PhotoModel>(recipe.Photos);
 
             BackBtnIcon = "cancel";
             NextBtnIcon = "next";
@@ -249,19 +255,16 @@ namespace Foodbook.MobileApp.ViewModels
             NextStepCommand = new Command((x) => NextStep(x));
             PreviousStepCommand = new Command((x) => PreviousStep(x));
 
-            SaveCommand = new Command(() => SaveRecipe());
+            SaveCommand = new Command(() => EditRecipe());
             CancelCommand = new Command(() => Cancel());
             AddImageCommand = new Command((x) => AddImage(x));
             DeleteImageCommand = new Command((x) => DeleteImage(x));
-
-            SelectedCategory = 1;
-            SelectedCuisine = 1;
-            SelectedCaloricity = 1;
+            
             PhotoStreams = new List<Stream>();
             mPageNumber = 0;
         }
 
-        private async void SaveRecipe()
+        private async void EditRecipe()
         {            
             DataModel.CategoryId = mCommonData.Categories.ElementAt(SelectedCategory).CategoryId;
             DataModel.CuisineId = mCommonData.Cuisines.ElementAt(SelectedCuisine).CuisineId;
@@ -270,17 +273,22 @@ namespace Foodbook.MobileApp.ViewModels
             DataModel.PreparationTime = int.Parse(PreparationTime);
             DataModel.RecipeText = RecipeText;
             DataModel.Photos = Photos.ToList();
-
+            foreach (var photo in mDeletedPhotos)
+            {
+                photo.IsDeleted = true;
+                DataModel.Photos.Add(photo);
+            }
             Device.BeginInvokeOnMainThread(() => Dialogs.Show());
 
-            bool result = await RecipeDataService.AddRecipe(DataModel, LocalDataSecureStorage.GetToken());
+            bool result = await RecipeDataService.EditRecipe(DataModel, mRecipe.RecipeId, LocalDataSecureStorage.GetToken());
 
             Device.BeginInvokeOnMainThread(() => Dialogs.Hide());
 
             if (result)
-                MessagingCenter.Send(this, MessageCenterKeys.ADDED);
+                MessagingCenter.Send(this, MessageCenterKeys.EDITED);
             else
-                await App.Current.MainPage.DisplayAlert("Obveštenje", "Greška prilikom dodavanja novog recepta.", "U redu");
+                await App.Current.MainPage.DisplayAlert("Obveštenje", "Greška prilikom ažuriranja recepta.", "U redu");
+
         }
 
 
@@ -333,12 +341,20 @@ namespace Foodbook.MobileApp.ViewModels
                 Cuisines = new ObservableCollection<CuisineModel>(commonData.Cuisines);
                 Caloricities = new ObservableCollection<CaloricityModel>(commonData.Caloricities);
 
-                SelectedCategory = 0;
-                SelectedCuisine = 0;
-                SelectedCaloricity = 0;
-
                 mCommonData = commonData;
+
             }
+
+           
+
+            SelectedCategory = Categories.IndexOf(Categories.FirstOrDefault(x => x.CategoryId == mRecipe.CategoryId));
+            OnPropertyChanged("SelectedCategory");
+
+            SelectedCuisine = Cuisines.IndexOf(Cuisines.FirstOrDefault(x => x.CuisineId == mRecipe.CuisineId)); ;
+            OnPropertyChanged("SelectedCuisine");
+
+            SelectedCaloricity = Caloricities.IndexOf(Caloricities.FirstOrDefault(x => x.CaloricityId == mRecipe.CaloricityId));
+            OnPropertyChanged("SelectedCaloricity");
 
             Device.BeginInvokeOnMainThread(() => Dialogs.Hide());
 
@@ -357,7 +373,7 @@ namespace Foodbook.MobileApp.ViewModels
 
             try
             {
-                //Device.BeginInvokeOnMainThread(() => Dialogs.Show());
+                Device.BeginInvokeOnMainThread(() => Dialogs.Show());
                 await CrossMedia.Current.Initialize();
 
                 if (!CrossMedia.Current.IsCameraAvailable || !CrossMedia.Current.IsTakePhotoSupported)
@@ -470,7 +486,7 @@ namespace Foodbook.MobileApp.ViewModels
                 case 2:
                     bool result = await App.Current.MainPage.DisplayAlert("Obvestenje", "Da li ste sigurni da zelite da sacuvate recept?", "Da", "Ne");
                     if (result)
-                        SaveRecipe();
+                        EditRecipe();
                     break;
             }
             SetPage();            

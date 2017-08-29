@@ -2,6 +2,7 @@
 using Foodbook.MobileApp.Data.Services;
 using Foodbook.MobileApp.Pages.Recipe;
 using Foodbook.MobileApp.Tools;
+using Foodbook.Pages;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -14,14 +15,14 @@ using Xamarin.Forms;
 
 namespace Foodbook.MobileApp.ViewModels
 {
-    class RecipesPageViewModel : BaseViewModel
+    class CooksPageViewModel : BaseViewModel
     {
 
-        private ResponseRecipeModel mResponseModel;
+        private List<ResponseCookModel> mResponseModel;
 
-        private ObservableCollection<RecipeDataModel> items;
+        private ObservableCollection<ResponseCookModel> items;
 
-        public ObservableCollection<RecipeDataModel> Items
+        public ObservableCollection<ResponseCookModel> Items
         {
             get { return items; }
             set { SetProperty(ref items, value); }
@@ -78,32 +79,7 @@ namespace Foodbook.MobileApp.ViewModels
         {
             get { return secondTabIndicatorColor; }
             set { SetProperty(ref secondTabIndicatorColor, value); }
-        }
-
-
-        private Color thirdTabColor;
-
-        public Color ThirdTabColor
-        {
-            get { return thirdTabColor; }
-            set { SetProperty(ref thirdTabColor, value); }
-        }
-
-        private Color thirdTabTextColor;
-
-        public Color ThirdTabTextColor
-        {
-            get { return thirdTabTextColor; }
-            set { SetProperty(ref thirdTabTextColor, value); }
-        }
-
-        private Color thirdTabIndicatorColor;
-
-        public Color ThirdTabIndicatorColor
-        {
-            get { return thirdTabIndicatorColor; }
-            set { SetProperty(ref thirdTabIndicatorColor, value); }
-        }
+        }        
 
         private bool firstContainer;
 
@@ -120,8 +96,6 @@ namespace Foodbook.MobileApp.ViewModels
             get { return secondContainer; }
             set { SetProperty(ref secondContainer, value); }
         }
-
-
 
 
 
@@ -149,19 +123,19 @@ namespace Foodbook.MobileApp.ViewModels
 
         public Command AddRecipeCommand { get;}
 
-        public RecipesPageViewModel()
+        public CooksPageViewModel()
         {
-            mResponseModel = new ResponseRecipeModel();
+            Items = new ObservableCollection<ResponseCookModel>();
             InitData();
             
             ChangeTabCommand = new Command((x) => ChangeTab(x.ToString()));
             AddRecipeCommand = new Command(() => Addrecipe());
 
-            MessagingCenter.Subscribe<RecipeDetailViewModel, PostRecipeCommentModel>(this, "RATING_UPDATED", (sender, addedComment) =>
+            MessagingCenter.Subscribe<UserDetailsPage, PostCookCommentModel>(this, "COOK_RATING_UPDATED", (sender, addedComment) =>
             {
                 var temp = Items;
-                var recipe = temp.Where(x => x.RecipeId == addedComment.RecipeId).FirstOrDefault();
-                recipe.Comments.Add(new Comment
+                var cook = temp.Where(x => x.CookId == addedComment.CookId).FirstOrDefault();
+                cook.Comments.Add(new CookCommentModel
                 {
                     CommentText = addedComment.CommentText,
                     InsertDate = addedComment.InsertDate,
@@ -169,34 +143,18 @@ namespace Foodbook.MobileApp.ViewModels
                     CookName = addedComment.CookName,
                 });
 
-                recipe.Rating = recipe.Comments.Average(x => x.Rating);
-                Items = new ObservableCollection<RecipeDataModel>(temp);
+                cook.Rating = cook.Comments.Average(x => x.Rating);
+                Items = new ObservableCollection<ResponseCookModel>(temp);
                 OnPropertyChanged("Items");
-                
-            });
-
-            MessagingCenter.Subscribe<RecipeDetailViewModel, long>(this, "RECIPE_DELETED", (sender, recipeId) => {
-
-                RecipeDataModel recipe = Items.FirstOrDefault(x => x.RecipeId == recipeId);
-                Items.Remove(recipe);
 
             });
 
-            MessagingCenter.Subscribe<RecipeDetailViewModel, RecipeDataModel>(this, "FAVOURITE", (sender, recipe) =>
-            {
-                if (mResponseModel.FavouriteRecipes.Any(x => x.RecipeId == recipe.RecipeId))
-                {
-                    mResponseModel.FavouriteRecipes.Remove(recipe);
-                }
-                else
-                {
-                    mResponseModel.FavouriteRecipes.Add(recipe);
-                }
-
+            MessagingCenter.Subscribe<UserDetailsViewModel, ResponseCookModel>(this, "FAVOURITE", (sender, cook) =>
+            {                
                 //Refresh favourite recipes tab
                 if (mSelectedTab == 2)
                 {
-                    Items = new ObservableCollection<RecipeDataModel>(mResponseModel.FavouriteRecipes);
+                    Items = new ObservableCollection<ResponseCookModel>(mResponseModel.Where(x => x.IsFollowed));
                     OnPropertyChanged("Items");
                 }
             });
@@ -214,10 +172,6 @@ namespace Foodbook.MobileApp.ViewModels
             SecondTabTextColor = Color.Gray;
             SecondTabIndicatorColor = Color.FromHex("#effcea");
 
-            ThirdTabColor = Color.FromHex("#effcea");
-            ThirdTabTextColor = Color.Gray;
-            ThirdTabIndicatorColor = Color.FromHex("#effcea");
-
             FirstContainer = false;
             SecondContainer = false;
 
@@ -229,7 +183,7 @@ namespace Foodbook.MobileApp.ViewModels
                     FirstTabTextColor = Color.Green;
                     FirstTabIndicatorColor = Color.Green;
                     FirstContainer = true;
-                    Items = new ObservableCollection<RecipeDataModel> (mResponseModel.MyRecipes);
+                    Items = new ObservableCollection<ResponseCookModel> (mResponseModel);
                     break;
 
                 case "2":
@@ -237,20 +191,14 @@ namespace Foodbook.MobileApp.ViewModels
                     SecondTabTextColor = Color.Green;
                     SecondTabIndicatorColor = Color.Green;
                     SecondContainer = true;
-                    Items = new ObservableCollection<RecipeDataModel>(mResponseModel.FavouriteRecipes);
+                    Items = new ObservableCollection<ResponseCookModel>(mResponseModel.Where(x => x.IsFollowed));
                     break;
-
-                case "3":
-                    mSelectedTab = 3;
-                    thirdTabTextColor = Color.Green;
-                    ThirdTabIndicatorColor = Color.Green;
-                    Items = new ObservableCollection<RecipeDataModel>(mResponseModel.AllRecipes);
-                    break;
+               
                 default:
                     mSelectedTab = 1;
                     FirstTabTextColor = Color.Green;
                     FirstTabIndicatorColor = Color.Green;
-                    Items = new ObservableCollection<RecipeDataModel>(mResponseModel.MyRecipes);
+                    Items = new ObservableCollection<ResponseCookModel>(mResponseModel);
                     break;
             }
         }
@@ -270,10 +218,10 @@ namespace Foodbook.MobileApp.ViewModels
             string token = LocalDataSecureStorage.GetToken();
             IsUserAuthenticated = await AccountDataService.IsUserAuthenticated(token);
 
-            mResponseModel = await RecipeDataService.GetRecipes(requestModel);
+            mResponseModel = await CookDataService.GetCooks(LocalDataSecureStorage.GetToken());
 
             if (mResponseModel != null)
-                Items = IsUserAuthenticated ? new ObservableCollection<RecipeDataModel>(mResponseModel.MyRecipes) : new ObservableCollection<RecipeDataModel>(mResponseModel.AllRecipes);
+                Items = new ObservableCollection<ResponseCookModel>(mResponseModel);
 
             
             TabContainerHeight = IsUserAuthenticated ? new GridLength(40) : new GridLength(0);

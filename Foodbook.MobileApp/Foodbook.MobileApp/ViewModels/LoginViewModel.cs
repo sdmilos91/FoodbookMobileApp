@@ -47,6 +47,11 @@ namespace Foodbook.MobileApp.ViewModels
         {
             MasterDetailPage masterPage = App.Current.MainPage as MasterDetailPage;
             await masterPage.Detail.Navigation.PushAsync(new RegisterPage());
+            //Background color
+            masterPage.Detail.SetValue(NavigationPage.BarBackgroundColorProperty, Color.FromHex("#EF5350"));
+
+            //Title color
+            masterPage.Detail.SetValue(NavigationPage.BarTextColorProperty, Color.White);
         }
 
         private void Skip()

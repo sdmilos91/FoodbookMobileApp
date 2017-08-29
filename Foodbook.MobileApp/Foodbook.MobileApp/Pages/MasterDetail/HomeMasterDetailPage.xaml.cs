@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Foodbook.MobileApp.Pages.Cook;
+using Foodbook.MobileApp.Pages.Recipe;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -33,8 +35,14 @@ namespace Foodbook.MobileApp.Pages
 
             var page = (Page)Activator.CreateInstance(item.TargetType);
             page.Title = item.Title;
+            
+           // Detail = new NavigationPage(new LoginPage());
+            Detail = new NavigationPage(new CooksPage());
+            //Background color
+            Detail.SetValue(NavigationPage.BarBackgroundColorProperty, Color.FromHex("#EF5350"));
 
-            Detail = new NavigationPage(new LoginPage());
+            //Title color
+            Detail.SetValue(NavigationPage.BarTextColorProperty, Color.White);
 
             IsPresented = false;
 

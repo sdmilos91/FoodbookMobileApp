@@ -1,0 +1,287 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Foodbook.MobileApp.Pages.Recipe.EditRecipePage"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:behaviors="clr-namespace:Foodbook.MobileApp.Behaviors;assembly=Foodbook.MobileApp"
+             Title="Ažuriranje recepta">
+    <ContentPage.Content>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="50" />
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" RowSpacing="0" Padding="30, 0, 30, 0" BackgroundColor="{StaticResource PinkColor}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="30" />
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="30" />
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="30" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="13" />
+                    <RowDefinition Height="4" />
+                    <RowDefinition Height="13" />
+                </Grid.RowDefinitions>
+
+                <Label Text="1" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" BackgroundColor="{StaticResource YellowColor}" TextColor="White" Grid.Column="0" Grid.Row="0" Grid.RowSpan="3"></Label>
+                <BoxView x:Name="secondPageLine" BackgroundColor="{Binding SecondStepLineColor}" Grid.Column="1" Grid.Row="1"></BoxView>
+                <Label Text="2" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" BackgroundColor="{Binding SecondStepIndicatorColor}" TextColor="{Binding SecondStepIndicatorTextColor}" Grid.Column="2" Grid.Row="0" Grid.RowSpan="3"></Label>
+                <BoxView x:Name="thirdPageLine" BackgroundColor="{Binding ThirdStepLineColor}" Grid.Column="3" Grid.Row="1"></BoxView>
+                <Label x:Name="thirdPageIndicator" Text="3" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"  BackgroundColor="{Binding ThirdStepIndicatorColor}" TextColor="{Binding ThirdStepIndicatorTextColor}" Grid.Column="4" Grid.Row="0" Grid.RowSpan="3"></Label>
+            </Grid>
+
+            <ScrollView Grid.Row="1" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+
+
+                    <!--STEP 1-->
+                    <StackLayout IsVisible="{Binding StepOneContainer}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+
+                        <RelativeLayout >
+
+                            <StackLayout 
+                                     RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
+			                         RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}"
+                                     >
+
+                                <Grid RowSpacing="0" Padding="20, 0, 20, 0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="16" />
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="20" />
+                                    </Grid.RowDefinitions>
+
+                                    <Image Source="name" Grid.Column="0" Grid.Row="0" VerticalOptions="Center" HorizontalOptions="Center"/>
+                                    <Label Text="Naziv: *" Grid.Column="1" Grid.Row="0" Style="{StaticResource EntryTitleLblStyle}"/>
+                                    <Entry Text="{Binding RecipeName}" Placeholder="Naziv" HorizontalTextAlignment="Start" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2">
+                                        <Entry.Behaviors>
+                                            <behaviors:RequiredValidatorBehavior x:Name="nameBehavior"  mLbl="{x:Reference nameValidationLbl}" />
+                                        </Entry.Behaviors>
+                                    </Entry>
+                                    <Label x:Name="nameValidationLbl" IsVisible="False" Text="Naziv: *" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" FontSize="Micro" TextColor="Red"/>
+
+                                </Grid>
+
+                                <Grid RowSpacing="0" Padding="20, 0, 20, 0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="16" />
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+
+                                    <Image Source="category1" Grid.Column="0" Grid.Row="0" VerticalOptions="Center" HorizontalOptions="Center"/>
+                                    <Label Text="Kategorija: *" Grid.Column="1" Grid.Row="0" Style="{StaticResource EntryTitleLblStyle}"/>
+                                    <Picker ItemsSource="{Binding Categories}" ItemDisplayBinding="{Binding CategoryName}" SelectedIndex="{Binding SelectedCategory}" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2"/>
+
+                                </Grid>
+
+                                <Grid RowSpacing="0" Padding="20, 0, 20, 0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="16" />
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+
+                                    <Image Source="earth" Grid.Column="0" Grid.Row="0" VerticalOptions="Center" HorizontalOptions="Center"/>
+                                    <Label Text="Kuhinja: *" Grid.Column="1" Grid.Row="0" Style="{StaticResource EntryTitleLblStyle}"/>
+                                    <Picker ItemsSource="{Binding Cuisines}" ItemDisplayBinding="{Binding CuisineName}" SelectedIndex="{Binding SelectedCuisine}"  Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2"/>
+
+                                </Grid>
+
+                                <Grid RowSpacing="0" Padding="20, 0, 20, 0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="16" />
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="20" />
+                                    </Grid.RowDefinitions>
+
+                                    <Image Source="time" Grid.Column="0" Grid.Row="0" VerticalOptions="Center" HorizontalOptions="Center"/>
+                                    <Label Text="Vreme pripreme (min): *" Grid.Column="1" Grid.Row="0" Style="{StaticResource EntryTitleLblStyle}"/>
+                                    <Entry Text="{Binding PreparationTime}" Placeholder="Vreme pripreme" Keyboard="Numeric" HorizontalTextAlignment="Start" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2">
+                                        <Entry.Behaviors>
+                                            <behaviors:RequiredValidatorBehavior x:Name="preparationTimeBehavior"  mLbl="{x:Reference preparationValidationLbl}" />
+                                        </Entry.Behaviors>
+                                    </Entry>
+                                    <Label x:Name="preparationValidationLbl" IsVisible="False" Text="Naziv: *" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" FontSize="Micro" TextColor="Red"/>
+
+                                </Grid>
+
+                                <Grid RowSpacing="0" Padding="20, 0, 20, 0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="16" />
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+
+                                    <Image Source="calories" Grid.Column="0" Grid.Row="0" VerticalOptions="Center" HorizontalOptions="Center"/>
+                                    <Label Text="Kaloričnost: *" Grid.Column="1" Grid.Row="0" Style="{StaticResource EntryTitleLblStyle}"/>
+                                    <Picker ItemsSource="{Binding Caloricities}" ItemDisplayBinding="{Binding Name}" SelectedIndex="{Binding SelectedCaloricity}"  Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2"/>
+
+                                </Grid>
+
+                            </StackLayout>
+
+                        </RelativeLayout>
+
+                    </StackLayout>
+                    <!--END STEP 1-->
+
+                    <!--STEP 2-->
+                    <StackLayout IsVisible="{Binding StepTwoContainer}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+
+                        <RelativeLayout>
+                            <StackLayout VerticalOptions="FillAndExpand"
+                                     RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
+			                         RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}"
+                                     >
+                                <Grid RowSpacing="0" Padding="30">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="30" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="40" />
+                                    </Grid.RowDefinitions>
+                                    <Label Text="Priprema recepta: *" Style="{StaticResource EntryTitleLblStyle}" Grid.Row="0"/>
+                                    <Entry Text="{Binding RecipeText}" VerticalOptions="FillAndExpand" Grid.Row="1" HeightRequest="250">
+                                        <Entry.Behaviors>
+                                            <behaviors:RequiredValidatorBehavior x:Name="recipeTextValidator"   mLbl="{x:Reference recipeTextValidationLbl}" />
+                                        </Entry.Behaviors>
+                                    </Entry>
+                                    <Label x:Name="recipeTextValidationLbl" IsVisible="False" Grid.Row="2" FontSize="Micro" TextColor="Red"/>
+                                </Grid>
+                            </StackLayout>
+                        </RelativeLayout>
+
+                    </StackLayout>
+                    <!--END STEP 2-->
+
+                    <!--STEP 3-->
+                    <StackLayout IsVisible="{Binding StepThreeContainer}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+
+                        <RelativeLayout>
+                            <ListView ItemsSource="{Binding Photos}"
+                                x:Name="photoList"
+                                RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
+			                    RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-50}"
+                                HeightRequest="100"
+                                RowHeight="100">
+
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <ViewCell>
+                                            <StackLayout x:Name="Item" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" HeightRequest="100" Margin="0,2,0,0">
+                                                <RelativeLayout>
+                                                    <ffimageloading:CachedImage Aspect="AspectFill"          
+                                        DownsampleWidth="300"
+			                            DownsampleToViewSize="True"
+                                        LoadingPlaceholder="addphoto"                                                                                                                     
+			                            Source = "{Binding Url}"
+                                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
+				                        RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}"
+                                        >
+                                                        </ffimageloading:CachedImage>
+                                                 
+
+
+                                                    <Image Source="viewImage" Aspect="AspectFill" HorizontalOptions="FillAndExpand" HeightRequest="36"
+                               RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-90}"
+				               RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0, Constant=10}"
+                               />
+                                                    <Image Source="deleteImage" Aspect="AspectFill" HorizontalOptions="FillAndExpand" HeightRequest="36"
+                               RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-40}"
+				               RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0, Constant=10}"
+                               >
+
+                                                        <Image.GestureRecognizers>
+                                                            <TapGestureRecognizer
+                            BindingContext="{Binding Source={x:Reference photoList}, Path=BindingContext}"
+                            Command="{Binding DeleteImageCommand}" CommandParameter="{Binding Source={x:Reference Item}, Path=BindingContext}"
+                            NumberOfTapsRequired="1" />
+                                                        </Image.GestureRecognizers>
+
+                                                    </Image>
+                                                </RelativeLayout>
+                                            </StackLayout>
+                                        </ViewCell>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                            <StackLayout 
+                                Padding="5"
+                                BackgroundColor="#C0C0C0"
+                                RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0}"
+				                RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant= -50}"
+                                RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
+                                VerticalOptions="FillAndExpand"
+                                >
+                                <Image x:Name="addImageBtn" Source="addphoto" HeightRequest="40" WidthRequest="48">
+                                    <Image.GestureRecognizers>
+                                        <TapGestureRecognizer
+                            Command="{Binding AddImageCommand}" CommandParameter="{x:Reference addImageBtn}"
+                            NumberOfTapsRequired="1" />
+                                    </Image.GestureRecognizers>
+                                </Image>
+
+                            </StackLayout>
+                        </RelativeLayout>
+
+                    </StackLayout>
+                    <!--END STEP 3-->
+                    
+                </StackLayout>
+
+
+
+
+            </ScrollView>
+
+            <Grid Grid.Row="2" BackgroundColor="{StaticResource HeadingColor}" Padding="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Image Source="{Binding BackBtnIcon}" Grid.Column="0" Aspect="AspectFit" x:Name="cancelBtn">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer
+                            Command="{Binding PreviousStepCommand}" CommandParameter="{x:Reference cancelBtn}"
+                            NumberOfTapsRequired="1" />
+                    </Image.GestureRecognizers>
+
+                </Image>
+
+                <Image Source="{Binding NextBtnIcon}" Grid.Column="1" Aspect="AspectFit" x:Name="nextBtn">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer
+                            Command="{Binding NextStepCommand}" CommandParameter="{x:Reference nextBtn}"
+                            NumberOfTapsRequired="1" />
+                    </Image.GestureRecognizers>
+
+                </Image>
+
+            </Grid>
+
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

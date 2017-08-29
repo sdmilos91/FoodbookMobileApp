@@ -14,11 +14,11 @@ namespace Foodbook.MobileApp.Pages
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class AddCommentPopupPage : PopupPage
     {
-		public AddCommentPopupPage (long recipeId)
+		public AddCommentPopupPage (long id, bool cookComment = false)
 		{
 			InitializeComponent ();
 
-            BindingContext = new AddCommentViewModel(recipeId);
+            BindingContext = new AddCommentViewModel(id, cookComment);
 		}
 
         protected override void OnAppearing()

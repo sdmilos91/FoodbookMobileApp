@@ -5,9 +5,10 @@
              >
     <ContentPage.Content>
         <RelativeLayout>
-            <Image Source="{Binding PhotoUrl}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
+            <Image Source="{Binding PhotoUrl}" Aspect="AspectFit"
+                   RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0, Constant=70}"
                    RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
-				   RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}"
+				   RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-100}"
                    />
             <Image Source="close" WidthRequest="48" HeightRequest="48" Opacity="0.6"
                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-65}"

@@ -60,5 +60,60 @@ namespace Foodbook.MobileApp.Data.Services
             }
             return model;
         }
+
+        public static async Task<bool> RegisterUser(PostRegisterModel model)
+        {
+            string url = ApiUrls.REGISTER_USER;   
+
+            try
+            {
+                using (var client = new HttpClient())
+                {
+                    client.DefaultRequestHeaders.TryAddWithoutValidation("Content-Type", "application/json");
+
+                    string content = Newtonsoft.Json.JsonConvert.SerializeObject(model);
+
+                    HttpResponseMessage result = await client.PostAsync(url, new StringContent(content, Encoding.UTF8, "application/json"));
+                    if (result.StatusCode == System.Net.HttpStatusCode.OK)
+                    {
+                        string resultContent = await result.Content.ReadAsStringAsync();
+                        return true;
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+
+            return false;
+        }
+
+        public static async Task<bool> IsUserAuthenticated(string token)
+        {
+            string url = ApiUrls.IS_USER_AUTHENTICATED;
+
+            try
+            {
+                using (var client = new HttpClient())
+                {
+                    client.DefaultRequestHeaders.TryAddWithoutValidation("Authorization", "Bearer " + token);
+
+                    HttpResponseMessage result = await client.GetAsync(url);
+                    if (result.StatusCode == System.Net.HttpStatusCode.OK)
+                    {
+                        return true;
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+
+            return false;
+        }
     }
 }

@@ -28,7 +28,9 @@ namespace Foodbook.MobileApp.Data.Models
         public double? Rating { get; set; }
         public int PreparationTime { get; set; }
         public List<PhotoModel> Photos { get; set; }
-        public string PhotoUrl { get; set; }
+        public string ProfilePhotoUrl { get; set; }
+        public bool IsMine { get; set; }
+        public bool IsFavourite { get; set; }
     }
 
     public class Comment
@@ -39,6 +41,42 @@ namespace Foodbook.MobileApp.Data.Models
         public int CookId { get; set; }
         public string CookName { get; set; }
         public DateTime InsertDate { get; set; }
+    }
+
+    public class RequestRecipeModel
+    {
+        public RequestRecipeModel()
+        {
+            StartIndex = 0;
+            Text = string.Empty;
+            CategoryId = null;
+            CuisineId = null;
+            JustsAllRecipes = true;
+            
+        }
+
+        [JsonIgnore]
+        public string Token { get; set; }
+
+        public int StartIndex { get; set; }
+        public string Text { get; set; }
+        public long? CategoryId { get; set; }
+        public long? CuisineId { get; set; }
+        public bool JustsAllRecipes { get; set; }
+    }
+
+    public class ResponseRecipeModel
+    {
+        public ResponseRecipeModel()
+        {
+            MyRecipes = new List<RecipeDataModel>();
+            FavouriteRecipes = new List<RecipeDataModel>();
+            AllRecipes = new List<RecipeDataModel>();
+        }
+
+        public List<RecipeDataModel> MyRecipes { get; set; }
+        public List<RecipeDataModel> FavouriteRecipes { get; set; }
+        public List<RecipeDataModel> AllRecipes { get; set; }
     }
 
     public class PostRecipeModel
@@ -68,6 +106,9 @@ namespace Foodbook.MobileApp.Data.Models
 
         [JsonIgnore]
         public bool IsAdded { get; set; }
+
+        [JsonIgnore]
+        public bool IsDeleted { get; set; }
 
         [JsonIgnore]
         public Stream PhotoStream { get; set; }

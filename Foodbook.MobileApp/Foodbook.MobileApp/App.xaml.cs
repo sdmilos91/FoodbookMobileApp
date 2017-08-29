@@ -1,4 +1,6 @@
-﻿using Foodbook.MobileApp.Pages;
+﻿using Foodbook.MobileApp.Data.Services;
+using Foodbook.MobileApp.Pages;
+using Foodbook.MobileApp.Tools;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,12 +16,40 @@ namespace Foodbook.MobileApp
         {
             InitializeComponent();
 
-            MainPage = new HomeMasterDetailPage();            
+            string token = LocalDataSecureStorage.GetToken();
+            
+
+            if (string.IsNullOrEmpty(token))
+            {
+                MainPage = new NavigationPage(new LoginPage());
+                //Background color
+                MainPage.SetValue(NavigationPage.BarBackgroundColorProperty, Color.FromHex("#EF5350"));
+
+                //Title color
+                MainPage.SetValue(NavigationPage.BarTextColorProperty, Color.White);
+            }
+            else
+            {
+
+                MainPage = new HomeMasterDetailPage();
+            }
         }
 
-        protected override void OnStart()
+        protected override async void OnStart()
         {
             // Handle when your app starts
+            string token = LocalDataSecureStorage.GetToken();
+            bool isAuth = await AccountDataService.IsUserAuthenticated(token);
+
+            if (!isAuth)
+            {
+                MainPage = new NavigationPage(new LoginPage());
+                //Background color
+                MainPage.SetValue(NavigationPage.BarBackgroundColorProperty, Color.FromHex("#EF5350"));
+
+                //Title color
+                MainPage.SetValue(NavigationPage.BarTextColorProperty, Color.White);
+            }
         }
 
         protected override void OnSleep()

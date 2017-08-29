@@ -1,8 +1,10 @@
 ﻿using Acr.UserDialogs;
 using Foodbook.MobileApp.Data.Models;
 using Foodbook.MobileApp.Data.Services;
+using Foodbook.MobileApp.Pages.Recipe;
 using Foodbook.MobileApp.Tools;
 using Foodbook.MobileApp.ViewModels;
+using Foodbook.Pages;
 using Rg.Plugins.Popup.Extensions;
 using System;
 using System.Collections.ObjectModel;
@@ -13,24 +15,18 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace Foodbook.MobileApp.Pages.Recipe
+namespace Foodbook.MobileApp.Pages.Cook
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class RecipesPage : ContentPage
+    public partial class CooksPage : ContentPage
     {
         public ObservableCollection<RecipeDataModel> Items { get; set; }
         public string RecipePhoto { get; set; }
 
-        public RecipesPage()
+        public CooksPage()
         {
             InitializeComponent();
 
-            MessagingCenter.Subscribe<AddRecipeViewModel>(this, MessageCenterKeys.ADDED, (sender) => {
-
-                DisplayAlert("Obaveštenje", "Recept je uspešno dodat.", "U redu");
-                App.Current.MainPage = new HomeMasterDetailPage();
-
-            });
 
             MessagingCenter.Subscribe<EditRecipeViewModel>(this, MessageCenterKeys.EDITED, (sender) => {
 
@@ -39,7 +35,7 @@ namespace Foodbook.MobileApp.Pages.Recipe
 
             });
 
-            BindingContext = new RecipesPageViewModel();
+            BindingContext = new CooksPageViewModel();
         }
 
 
@@ -48,9 +44,9 @@ namespace Foodbook.MobileApp.Pages.Recipe
             if (e.SelectedItem == null)
                 return;
 
-            RecipeDataModel recipe = e.SelectedItem as RecipeDataModel;
+            ResponseCookModel cook = e.SelectedItem as ResponseCookModel;
 
-            await Navigation.PushAsync(new RecipeDetailsPage(recipe));
+            await Navigation.PushAsync(new UserDetailsPage(cook));
 
             //Deselect Item
             ((ListView)sender).SelectedItem = null;

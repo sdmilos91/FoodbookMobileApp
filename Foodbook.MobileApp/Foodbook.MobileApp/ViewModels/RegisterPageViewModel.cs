@@ -1,4 +1,5 @@
 ﻿using Foodbook.MobileApp.Data.Models;
+using Foodbook.MobileApp.Data.Services;
 using Foodbook.MobileApp.Helpers;
 using System;
 using System.Collections.Generic;
@@ -71,7 +72,21 @@ namespace Foodbook.MobileApp.ViewModels
 
             if (isFormValid && Utils.IsEmailValid(RegisterModel.Email))
             {
+                Device.BeginInvokeOnMainThread(() => Dialogs.Show());
+                bool res = await AccountDataService.RegisterUser(registerModel);
+                Device.BeginInvokeOnMainThread(() => Dialogs.Hide());
 
+                MasterDetailPage masterPage = App.Current.MainPage as MasterDetailPage;
+                if (res)
+                {
+                    
+                    await masterPage.Detail.DisplayAlert("Obaveštenje", "Uspešno ste se registrovali. Možete se prijaviti sa registrovanim nalogom.", "U redu");
+                    await masterPage.Detail.Navigation.PopAsync();
+                }
+                else
+                {
+                    await masterPage.Detail.DisplayAlert("Obaveštenje", "Greška Prilikom registracije.", "U redu");
+                }
             }
             else
             {

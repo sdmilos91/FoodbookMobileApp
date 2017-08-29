@@ -11,18 +11,18 @@ namespace Foodbook.MobileApp.Data.Services
 {
     public class RecipeDataService
     {
-        public static async Task<List<RecipeDataModel>> GetRecipes(string text = "", long? categoryId = null, long? cuisineId = null)
+        public static async Task<ResponseRecipeModel> GetRecipes(RequestRecipeModel details)
         {
             try
             {
-                string url = string.Format("{0}?text={1}&categoryId={2}&cuisineId={3}", ApiUrls.RECIPE_RESOURCE, text, categoryId, cuisineId);
+                string url = string.Format("{0}?text={1}&categoryId={2}&cuisineId={3}", ApiUrls.RECIPE_RESOURCE, details.Text, details.CategoryId, details.CuisineId);
 
-                List<RecipeDataModel> model = new List<RecipeDataModel>();
+                ResponseRecipeModel model = new ResponseRecipeModel();
 
                 using (var client = new HttpClient())
                 {
                     client.DefaultRequestHeaders.TryAddWithoutValidation("Content-Type", "application/json");
-                    //client.DefaultRequestHeaders.TryAddWithoutValidation("Authorization", "Bearer " + details.Token);
+                    client.DefaultRequestHeaders.TryAddWithoutValidation("Authorization", "Bearer " + details.Token);
 
 
                     HttpResponseMessage result = await client.GetAsync(url);
@@ -31,11 +31,11 @@ namespace Foodbook.MobileApp.Data.Services
                         string resultContent = await result.Content.ReadAsStringAsync();
                         try
                         {
-                            model = (List<RecipeDataModel>)Newtonsoft.Json.JsonConvert.DeserializeObject(resultContent.ToString(), typeof(List<RecipeDataModel>));
+                            model = (ResponseRecipeModel)Newtonsoft.Json.JsonConvert.DeserializeObject(resultContent.ToString(), typeof(ResponseRecipeModel));
                         }
                         catch (Exception ex)
                         {
-                            model = new List<RecipeDataModel>();
+                            model = new ResponseRecipeModel();
                         }
                     }
                 }
@@ -85,6 +85,34 @@ namespace Foodbook.MobileApp.Data.Services
             }
         }
 
+        public static async Task<bool> DeleteRecipe(long id, string token)
+        {
+            try
+            {
+                string url = string.Format("{0}/{1}", ApiUrls.RECIPE_RESOURCE, id);
+
+                RecipeCommonDataModel model = new RecipeCommonDataModel();
+
+                using (var client = new HttpClient())
+                {
+                    client.DefaultRequestHeaders.TryAddWithoutValidation("Content-Type", "application/json");
+                    client.DefaultRequestHeaders.TryAddWithoutValidation("Authorization", "Bearer " + token);
+
+
+                    HttpResponseMessage result = await client.DeleteAsync(url);
+                    if (result.StatusCode == System.Net.HttpStatusCode.OK)
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
         public static async Task<bool> AddRecipe(PostRecipeModel model, string token)
         {
             foreach (var item in model.Photos.Where(x => x.IsAdded))
@@ -110,6 +138,34 @@ namespace Foodbook.MobileApp.Data.Services
             return false;
         }
 
+        public static async Task<bool> EditRecipe(PostRecipeModel model, long recipeId, string token)
+        {
+            foreach (var item in model.Photos.Where(x => x.IsAdded))
+            {
+                item.Url = await UploadFileToAzureBlob.BasicStorageBlockBlobOperationsAsync(item.PhotoStream, item.Name);
+            }
+
+            List<string> photosForDeleting = model.Photos.Where(x => x.IsDeleted).Select(x => x.Url).ToList();
+            UploadFileToAzureBlob.DeleteBlob(photosForDeleting);
+
+            string url = string.Format("{0}/{1}", ApiUrls.RECIPE_RESOURCE, recipeId);
+
+            using (var client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.TryAddWithoutValidation("Content-Type", "application/json");
+                client.DefaultRequestHeaders.TryAddWithoutValidation("Authorization", "Bearer " + token);
+
+                string content = Newtonsoft.Json.JsonConvert.SerializeObject(model);
+
+                HttpResponseMessage result = await client.PutAsync(url, new StringContent(content, Encoding.UTF8, "application/json"));
+                if (result.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         public static async Task<bool> AddComment(PostRecipeCommentModel model, string token)
         {
 
@@ -131,6 +187,25 @@ namespace Foodbook.MobileApp.Data.Services
             return false;
         }
 
+        public static async Task<bool> FavouriteRecept(long recipeId, string token)
+        {
 
+            string url = string.Format("{0}/{1}", ApiUrls.FAVOURITE_RECIPE_RESOURCE, recipeId);
+
+            using (var client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.TryAddWithoutValidation("Content-Type", "application/json");
+                client.DefaultRequestHeaders.TryAddWithoutValidation("Authorization", "Bearer " + token);
+
+                string content = string.Empty;
+
+                HttpResponseMessage result = await client.PutAsync(url, null);
+                if (result.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 }

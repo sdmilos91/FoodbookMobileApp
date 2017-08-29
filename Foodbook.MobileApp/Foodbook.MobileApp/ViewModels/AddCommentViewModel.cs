@@ -12,7 +12,7 @@ namespace Foodbook.MobileApp.ViewModels
 {
     public class AddCommentViewModel : BaseViewModel
     {
-        private long mRecipeId;
+        private long mId;
 
         private int rating;
 
@@ -43,11 +43,11 @@ namespace Foodbook.MobileApp.ViewModels
         public Command SetRatingCommand { get;}
         public Command AddCommentCommand { get; }
 
-        public AddCommentViewModel(long recipeId)
+        public AddCommentViewModel(long id, bool cookComment)
         {
-            mRecipeId = recipeId;
+            mId = id;
             SetRatingCommand = new Command((x) => SetRating(x));
-            AddCommentCommand = new Command(() => AddComment());
+            AddCommentCommand = new Command(() => AddComment(cookComment));
             IsRatingInvalid = false;
         }
 
@@ -58,7 +58,7 @@ namespace Foodbook.MobileApp.ViewModels
 
         }
 
-        private async void AddComment()
+        private async void AddComment(bool cookComment)
         {
             bool isInvalidForm = false;
 
@@ -76,18 +76,37 @@ namespace Foodbook.MobileApp.ViewModels
 
             if (!isInvalidForm)
             {
-                PostRecipeCommentModel model = new PostRecipeCommentModel
-                {
-                    CommentText = CommentText,
-                    Rating = Rating,
-                    InsertDate = DateTime.Now,
-                    RecipeId = mRecipeId
-                };
                 Device.BeginInvokeOnMainThread(() => Dialogs.Show());
-                bool res = await RecipeDataService.AddComment(model, LocalDataSecureStorage.GetToken());
-                if (res)
+
+                if (!cookComment)
                 {
-                    MessagingCenter.Send(this, "COMMENT_ADDED", model);
+                    PostRecipeCommentModel model = new PostRecipeCommentModel
+                    {
+                        CommentText = CommentText,
+                        Rating = Rating,
+                        InsertDate = DateTime.Now,
+                        RecipeId = mId
+                    };
+                    bool res = await RecipeDataService.AddComment(model, LocalDataSecureStorage.GetToken());
+                    if (res)
+                    {
+                        MessagingCenter.Send(this, "COMMENT_ADDED", model);
+                    }
+                }
+                else
+                {
+                    PostCookCommentModel model = new PostCookCommentModel
+                    {
+                        CommentText = CommentText,
+                        Rating = Rating,
+                        InsertDate = DateTime.Now,
+                        CookId = mId
+                    };
+                    bool res = await CookDataService.AddComment(model, LocalDataSecureStorage.GetToken());
+                    if (res)
+                    {
+                        MessagingCenter.Send(this, "COOK_COMMENT_ADDED", model);
+                    }
                 }
                 Device.BeginInvokeOnMainThread(() => Dialogs.Hide());
                 
