@@ -206,17 +206,20 @@ namespace Foodbook.MobileApp.ViewModels
 
         private void ChangeTab(string tab)
         {
-            FirstTabColor = Color.FromHex("#effcea");
+            Color mainColor = Color.FromHex(MyColors.LIGHT_GREEN);
+            Color indicatorColor = Color.FromHex(MyColors.GREEN);
+
+            FirstTabColor = mainColor;
+            FirstTabIndicatorColor = mainColor;
             FirstTabTextColor = Color.Gray;
-            FirstTabIndicatorColor = Color.FromHex("#effcea");
 
-            SecondTabColor = Color.FromHex("#effcea");
+            SecondTabColor = mainColor;
+            SecondTabIndicatorColor = mainColor;
             SecondTabTextColor = Color.Gray;
-            SecondTabIndicatorColor = Color.FromHex("#effcea");
 
-            ThirdTabColor = Color.FromHex("#effcea");
+            ThirdTabColor = mainColor;
+            ThirdTabIndicatorColor = mainColor;
             ThirdTabTextColor = Color.Gray;
-            ThirdTabIndicatorColor = Color.FromHex("#effcea");
 
             FirstContainer = false;
             SecondContainer = false;
@@ -226,30 +229,30 @@ namespace Foodbook.MobileApp.ViewModels
             {
                 case "1":
                     mSelectedTab = 1;
-                    FirstTabTextColor = Color.Green;
-                    FirstTabIndicatorColor = Color.Green;
+                    FirstTabIndicatorColor = indicatorColor;
+                    FirstTabTextColor = indicatorColor;
                     FirstContainer = true;
                     Items = new ObservableCollection<RecipeDataModel> (mResponseModel.MyRecipes);
                     break;
 
                 case "2":
                     mSelectedTab = 2;
-                    SecondTabTextColor = Color.Green;
-                    SecondTabIndicatorColor = Color.Green;
+                    SecondTabIndicatorColor = indicatorColor;
+                    SecondTabTextColor = indicatorColor;
                     SecondContainer = true;
                     Items = new ObservableCollection<RecipeDataModel>(mResponseModel.FavouriteRecipes);
                     break;
 
                 case "3":
                     mSelectedTab = 3;
-                    thirdTabTextColor = Color.Green;
-                    ThirdTabIndicatorColor = Color.Green;
+                    ThirdTabIndicatorColor = indicatorColor;
+                    ThirdTabTextColor = indicatorColor;
                     Items = new ObservableCollection<RecipeDataModel>(mResponseModel.AllRecipes);
                     break;
                 default:
                     mSelectedTab = 1;
-                    FirstTabTextColor = Color.Green;
-                    FirstTabIndicatorColor = Color.Green;
+                    FirstTabIndicatorColor = indicatorColor;
+                    FirstTabTextColor = indicatorColor;
                     Items = new ObservableCollection<RecipeDataModel>(mResponseModel.MyRecipes);
                     break;
             }
@@ -274,13 +277,20 @@ namespace Foodbook.MobileApp.ViewModels
 
             if (mResponseModel != null)
                 Items = IsUserAuthenticated ? new ObservableCollection<RecipeDataModel>(mResponseModel.MyRecipes) : new ObservableCollection<RecipeDataModel>(mResponseModel.AllRecipes);
-
-            
-            TabContainerHeight = IsUserAuthenticated ? new GridLength(40) : new GridLength(0);
+           
+            if (IsUserAuthenticated)
+            {
+                TabContainerHeight = new GridLength(40);
+                ChangeTab("1");
+            }
+            else
+            {
+                TabContainerHeight = new GridLength(0);
+            }
 
             Device.BeginInvokeOnMainThread(() => Dialogs.Hide());
 
-            ChangeTab("1");
+           
 
         }
 

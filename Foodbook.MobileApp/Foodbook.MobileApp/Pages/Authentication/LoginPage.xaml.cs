@@ -32,5 +32,11 @@ namespace Foodbook.MobileApp.Pages
 
             });
         }
+
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+            MessagingCenter.Unsubscribe<LoginViewModel, bool>(this, MessageCenterKeys.LOGGED_IN);
+        }
     }
 }

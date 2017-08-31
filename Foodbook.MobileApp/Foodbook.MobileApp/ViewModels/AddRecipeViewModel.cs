@@ -508,21 +508,21 @@ namespace Foodbook.MobileApp.ViewModels
                 NextBtnIcon = "save";
                 BackBtnIcon = "back1";
                 StepThreeContainer = true;
-                SecondStepIndicatorColor = Color.FromHex(MyColors.YELLOW);
+                SecondStepIndicatorColor = Color.FromHex(MyColors.GREEN);
                 SecondStepIndicatorTextColor = Color.White;
-                SecondStepLineColor = Color.FromHex(MyColors.YELLOW);
-                ThirdStepIndicatorColor = Color.FromHex(MyColors.YELLOW);
+                SecondStepLineColor = Color.FromHex(MyColors.GREEN);
+                ThirdStepIndicatorColor = Color.FromHex(MyColors.GREEN);
                 ThirdStepIndicatorTextColor = Color.White;
-                ThirdStepLineColor = Color.FromHex(MyColors.YELLOW);
+                ThirdStepLineColor = Color.FromHex(MyColors.GREEN);
             }
             else if (mPageNumber == 1)
             {
                 NextBtnIcon = "next";
                 BackBtnIcon = "back1";
                 StepTwoContainer = true;
-                SecondStepIndicatorColor = Color.FromHex(MyColors.YELLOW);
+                SecondStepIndicatorColor = Color.FromHex(MyColors.GREEN);
                 SecondStepIndicatorTextColor = Color.White;
-                SecondStepLineColor = Color.FromHex(MyColors.YELLOW);
+                SecondStepLineColor = Color.FromHex(MyColors.GREEN);
 
             }
             else if (mPageNumber == 0)

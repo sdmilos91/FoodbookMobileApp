@@ -164,13 +164,16 @@ namespace Foodbook.MobileApp.ViewModels
 
         private void ChangeTab(string tab)
         {
-            FirstTabColor = Color.FromHex("#effcea");
-            FirstTabTextColor = Color.Gray;
-            FirstTabIndicatorColor = Color.FromHex("#effcea");
+            Color mainColor = Color.FromHex(MyColors.LIGHT_GREEN);
+            Color indicatorColor = Color.FromHex(MyColors.GREEN);
 
-            SecondTabColor = Color.FromHex("#effcea");
+            FirstTabColor = mainColor;
+            FirstTabIndicatorColor = mainColor;
+            FirstTabTextColor = Color.Gray;
+
+            SecondTabColor = mainColor;
+            SecondTabIndicatorColor = mainColor;
             SecondTabTextColor = Color.Gray;
-            SecondTabIndicatorColor = Color.FromHex("#effcea");
 
             FirstContainer = false;
             SecondContainer = false;
@@ -180,24 +183,24 @@ namespace Foodbook.MobileApp.ViewModels
             {
                 case "1":
                     mSelectedTab = 1;
-                    FirstTabTextColor = Color.Green;
-                    FirstTabIndicatorColor = Color.Green;
+                    FirstTabIndicatorColor = indicatorColor;
+                    FirstTabTextColor = indicatorColor;
                     FirstContainer = true;
                     Items = new ObservableCollection<ResponseCookModel> (mResponseModel);
                     break;
 
                 case "2":
                     mSelectedTab = 2;
-                    SecondTabTextColor = Color.Green;
-                    SecondTabIndicatorColor = Color.Green;
+                    SecondTabIndicatorColor = indicatorColor;
+                    SecondTabTextColor = indicatorColor;
                     SecondContainer = true;
                     Items = new ObservableCollection<ResponseCookModel>(mResponseModel.Where(x => x.IsFollowed));
                     break;
                
                 default:
                     mSelectedTab = 1;
-                    FirstTabTextColor = Color.Green;
-                    FirstTabIndicatorColor = Color.Green;
+                    FirstTabIndicatorColor = indicatorColor;
+                    FirstTabTextColor = indicatorColor;
                     Items = new ObservableCollection<ResponseCookModel>(mResponseModel);
                     break;
             }

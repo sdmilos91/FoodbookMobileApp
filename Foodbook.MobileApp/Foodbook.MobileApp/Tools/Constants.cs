@@ -8,8 +8,8 @@ namespace Foodbook.MobileApp.Tools
 {
     public class ApiUrls
     {
-        public static string BASE_URL = "http://192.168.0.107:50226";
-       // public static string BASE_URL = "http://srv.dunavnet.eu/FoodBookApi";
+        //public static string BASE_URL = "http://192.168.0.107:50226";
+        public static string BASE_URL = "http://srv.dunavnet.eu/FoodBookApi";
 
         //Recipe
         public static string RECIPE_RESOURCE_ID(long id)
@@ -65,7 +65,10 @@ namespace Foodbook.MobileApp.Tools
     public class MyColors
     {
         public static string PINK = "";
-        public static string GREEN = "";
+        public static string DARK_RED = "#b61827";
+        public static string MIDDLE_RED = "#ef5350";
+        public static string GREEN = "#4BB04F";
+        public static string LIGHT_GREEN = "#effcea";
         public static string YELLOW = "#FFD54F";
     }
 

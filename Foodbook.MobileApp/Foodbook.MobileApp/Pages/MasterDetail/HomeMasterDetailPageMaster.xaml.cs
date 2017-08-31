@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Foodbook.MobileApp.Pages.Cook;
+using Foodbook.MobileApp.Pages.Recipe;
+using Foodbook.MobileApp.Tools;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -33,11 +36,11 @@ namespace Foodbook.MobileApp.Pages
             {
                 MenuItems = new ObservableCollection<HomeMasterDetailPageMenuItem>(new[]
                 {
-                    new HomeMasterDetailPageMenuItem { Id = 0, Title = "Page 1" },
-                    new HomeMasterDetailPageMenuItem { Id = 1, Title = "Page 2" },
-                    new HomeMasterDetailPageMenuItem { Id = 2, Title = "Page 3" },
-                    new HomeMasterDetailPageMenuItem { Id = 3, Title = "Page 4" },
-                    new HomeMasterDetailPageMenuItem { Id = 4, Title = "Page 5" },
+                    new HomeMasterDetailPageMenuItem { Id = 0, Title = "Recepti", TargetType = typeof(RecipesPage) },
+                    new HomeMasterDetailPageMenuItem { Id = 1, Title = "Kuvari", TargetType = typeof(CooksPage) },
+                    new HomeMasterDetailPageMenuItem { Id = 2, Title = "Profil", TargetType = typeof(RecipesPage) },
+                    new HomeMasterDetailPageMenuItem { Id = 3, Title = "Podešavanja", TargetType = typeof(RecipesPage) },
+                    new HomeMasterDetailPageMenuItem { Id = 4, Title = string.IsNullOrEmpty(LocalDataSecureStorage.GetToken()) ? "Prijavite se" : "Odjavite se"},
                 });
             }
 

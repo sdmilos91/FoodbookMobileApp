@@ -10,6 +10,13 @@
             <Color x:Key="PinkColor">#EF5350</Color>
             <Color x:Key="YellowColor">#FFD54F</Color>
             <Color x:Key="NormalTextColor">Blue</Color>
+            <Color x:Key="DarkRed">#b61827</Color>
+            <Color x:Key="MidleRed">#ef5350</Color>
+            <Color x:Key="LightGreen">#effcea</Color>
+            <Color x:Key="PageBackground">#e1e2e1</Color>
+            <Color x:Key="LightGray">#eeefee</Color>
+
+
             <Style x:Key="EntryTitleLblStyle" TargetType="Label">
                 <Setter Property="FontAttributes" Value="Bold" />
                 <Setter Property="FontSize" Value="Medium"/>

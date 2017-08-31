@@ -171,14 +171,21 @@ namespace Foodbook.MobileApp.ViewModels
 
         private void SwitchTab(string tab)
         {
-            FirstTabColor = Color.FromHex("#EF5350");
-            FirstTabIndicatorColor = Color.FromHex("#EF5350");
 
-            SecondTabColor = Color.FromHex("#EF5350");
-            SecondTabIndicatorColor = Color.FromHex("#EF5350");
+            Color mainColor = Color.FromHex(MyColors.LIGHT_GREEN);
+            Color indicatorColor = Color.FromHex(MyColors.GREEN);
 
-            ThirdTabColor = Color.FromHex("#EF5350");
-            ThirdTabIndicatorColor = Color.FromHex("#EF5350");
+            FirstTabColor = mainColor;
+            FirstTabIndicatorColor = mainColor;
+            FirstTabTextColor = Color.Gray;
+
+            SecondTabColor = mainColor;
+            SecondTabIndicatorColor = mainColor;
+            SecondTabTextColor = Color.Gray;
+
+            ThirdTabColor = mainColor;
+            ThirdTabIndicatorColor = mainColor;
+            ThirdTabTextColor = Color.Gray;
 
             FirstContainer = false;
             SecondContainer = false;
@@ -189,24 +196,28 @@ namespace Foodbook.MobileApp.ViewModels
             {
                 case "1":
 
-                    FirstTabIndicatorColor = Color.FromHex("#FFD54F");
+                    FirstTabIndicatorColor = indicatorColor;
+                    FirstTabTextColor = indicatorColor;
                     FirstContainer = true;
                     ImageContainerHeight = new GridLength(1, GridUnitType.Star);
                     break;
 
                 case "2":
-                    SecondTabIndicatorColor = Color.FromHex("#FFD54F");
+                    SecondTabIndicatorColor = indicatorColor;
+                    SecondTabTextColor = indicatorColor;
                     SecondContainer = true;
                     ImageContainerHeight = new GridLength(0, GridUnitType.Star);
                     break;
 
                 case "3":
-                    ThirdTabIndicatorColor = Color.FromHex("#FFD54F");
+                    ThirdTabIndicatorColor = indicatorColor;
+                    ThirdTabTextColor = indicatorColor;
                     ThirdContainer = true;
                     ImageContainerHeight = new GridLength(0, GridUnitType.Star);
                     break;
                 default:
-                    FirstTabIndicatorColor = Color.FromHex("#FFD54F");
+                    FirstTabIndicatorColor = indicatorColor;
+                    FirstTabTextColor = indicatorColor;
                     FirstContainer = true;
                     ImageContainerHeight = new GridLength(1, GridUnitType.Star);
                     break;

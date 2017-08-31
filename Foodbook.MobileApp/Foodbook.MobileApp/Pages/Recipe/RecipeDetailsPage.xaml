@@ -6,6 +6,7 @@
              xmlns:controls="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions"
              xmlns:localConverters="clr-namespace:Foodbook.MobileApp.Converters;assembly=Foodbook.MobileApp"
              xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             BackgroundColor="{StaticResource PageBackground}"
              Title="{Binding Name}"
              >
 
@@ -47,14 +48,14 @@
                        />
             </RelativeLayout>
             <StackLayout
-                    BackgroundColor="{StaticResource PinkColor}"
+                    BackgroundColor="{StaticResource LightGreen}"
 				    Grid.Row="2">
                 <BoxView BackgroundColor="White" HeightRequest="1" VerticalOptions="Start"/>
                 <StackLayout Spacing="0" Padding="5">
 
                     <StackLayout HorizontalOptions="StartAndExpand" Orientation="Horizontal" Margin="5,0,0,0">
                         <Image Source="cook" WidthRequest="24" HeightRequest="24" />
-                        <Label Text="{Binding CookName}"  TextColor="White" FontSize="25"  FontAttributes="Bold" />
+                        <Label Text="{Binding CookName}"  TextColor="Gray" FontSize="25"  />
                     </StackLayout>
                 </StackLayout>
             </StackLayout>
@@ -68,7 +69,7 @@
                     <RowDefinition Height="*" />
                     <RowDefinition Height="4" />
                 </Grid.RowDefinitions>
-                <Label  BackgroundColor="{Binding FirstTabColor}" Text="Detalji" TextColor="White" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Grid.Column="0" Grid.Row="0" HorizontalOptions="FillAndExpand">
+                <Label  BackgroundColor="{Binding FirstTabColor}" Text="Detalji" TextColor="{Binding FirstTabTextColor}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Grid.Column="0" Grid.Row="0" HorizontalOptions="FillAndExpand">
                     <Label.GestureRecognizers>
 
                         <TapGestureRecognizer Command="{Binding SwitchTabCommand}" CommandParameter="1"/>
@@ -77,7 +78,7 @@
                 </Label>
                 <BoxView x:Name="indicatorTab1" BackgroundColor="{Binding FirstTabIndicatorColor}" Grid.Column="0" Grid.Row="1" />
 
-                <Label x:Name="lblTab2" BackgroundColor="{Binding SecondTabColor}" Text="Priprema" TextColor="White"  HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Grid.Column="1" Grid.Row="0" HorizontalOptions="FillAndExpand">
+                <Label x:Name="lblTab2" BackgroundColor="{Binding SecondTabColor}" Text="Priprema" TextColor="{Binding SecondTabTextColor}"  HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Grid.Column="1" Grid.Row="0" HorizontalOptions="FillAndExpand">
                     <Label.GestureRecognizers>
 
                         <TapGestureRecognizer Command="{Binding SwitchTabCommand}" CommandParameter="2"/>
@@ -87,7 +88,7 @@
                 </Label>
                 <BoxView x:Name="indicatorTab2" BackgroundColor="{Binding SecondTabIndicatorColor}" Grid.Column="1" Grid.Row="1" />
 
-                <Label x:Name="lblTab3" BackgroundColor="{Binding ThirdTabColor}" Text="Komentari" TextColor="White"  HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Grid.Column="2" Grid.Row="0" HorizontalOptions="FillAndExpand">
+                <Label x:Name="lblTab3" BackgroundColor="{Binding ThirdTabColor}" Text="Komentari" TextColor="{Binding ThirdTabTextColor}"  HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Grid.Column="2" Grid.Row="0" HorizontalOptions="FillAndExpand">
                     <Label.GestureRecognizers>
 
                         <TapGestureRecognizer Command="{Binding SwitchTabCommand}" CommandParameter="3"/>
@@ -158,7 +159,7 @@
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
-                                <Grid Padding="5" RowSpacing="0" BackgroundColor="White">
+                                <Grid Padding="5" RowSpacing="0" BackgroundColor="{StaticResource LightGray}">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="32" />
                                         <ColumnDefinition Width="*" />
@@ -224,10 +225,10 @@
 				    Size="Mini"		
                     IsVisible="{Binding AddCommentEnabled}"
 				    RippleColor="Gray"
-                    NormalColor="{StaticResource PinkColor}"
+                    NormalColor="{StaticResource HeadingColor}"
                     Command="{Binding AddCommentCommand}"
-				    RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-75}"
-				    RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-75}" />
+				    RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-90}"
+				    RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-90}" />
             </RelativeLayout>
 
 

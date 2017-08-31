@@ -27,14 +27,6 @@ namespace Foodbook.MobileApp.Pages.Cook
         {
             InitializeComponent();
 
-
-            MessagingCenter.Subscribe<EditRecipeViewModel>(this, MessageCenterKeys.EDITED, (sender) => {
-
-                DisplayAlert("Obaveštenje", "Recept je uspešno ažuriran.", "U redu");
-                App.Current.MainPage = new HomeMasterDetailPage();
-
-            });
-
             BindingContext = new CooksPageViewModel();
         }
 

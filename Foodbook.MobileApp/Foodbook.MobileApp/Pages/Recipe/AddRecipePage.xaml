@@ -4,17 +4,18 @@
              x:Class="Foodbook.MobileApp.Pages.Recipe.AddRecipePage"
              xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              xmlns:behaviors="clr-namespace:Foodbook.MobileApp.Behaviors;assembly=Foodbook.MobileApp"
+             BackgroundColor="{StaticResource PageBackground}"
              Title="Novi recept">
     <ContentPage.Content>
 
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="40" />
+                <RowDefinition Height="50" />
                 <RowDefinition Height="*" />
                 <RowDefinition Height="50" />
             </Grid.RowDefinitions>
 
-            <Grid Grid.Row="0" RowSpacing="0" Padding="30, 0, 30, 0" BackgroundColor="{StaticResource PinkColor}">
+            <Grid Grid.Row="0" RowSpacing="0" Padding="30, 10, 30, 0" BackgroundColor="{StaticResource LightGreen}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="30" />
                     <ColumnDefinition Width="*"/>
@@ -28,7 +29,7 @@
                     <RowDefinition Height="13" />
                 </Grid.RowDefinitions>
 
-                <Label Text="1" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" BackgroundColor="{StaticResource YellowColor}" TextColor="White" Grid.Column="0" Grid.Row="0" Grid.RowSpan="3"></Label>
+                <Label Text="1" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" BackgroundColor="{StaticResource HeadingColor}" TextColor="White" Grid.Column="0" Grid.Row="0" Grid.RowSpan="3"></Label>
                 <BoxView x:Name="secondPageLine" BackgroundColor="{Binding SecondStepLineColor}" Grid.Column="1" Grid.Row="1"></BoxView>
                 <Label Text="2" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" BackgroundColor="{Binding SecondStepIndicatorColor}" TextColor="{Binding SecondStepIndicatorTextColor}" Grid.Column="2" Grid.Row="0" Grid.RowSpan="3"></Label>
                 <BoxView x:Name="thirdPageLine" BackgroundColor="{Binding ThirdStepLineColor}" Grid.Column="3" Grid.Row="1"></BoxView>
@@ -256,7 +257,7 @@
 
             </ScrollView>
 
-            <Grid Grid.Row="2" BackgroundColor="{StaticResource HeadingColor}" Padding="10">
+            <Grid Grid.Row="2" BackgroundColor="{StaticResource DarkRed}" Padding="10">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />

@@ -5,6 +5,7 @@
              xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
              xmlns:behaviors="clr-namespace:Foodbook.MobileApp.Behaviors;assembly=Foodbook.MobileApp"
              xmlns:localConverters="clr-namespace:Foodbook.MobileApp.Converters;assembly=Foodbook.MobileApp"
+             BackgroundColor="{StaticResource PageBackground}"
              x:Class="Foodbook.MobileApp.Pages.AddCommentPopupPage">
 
 

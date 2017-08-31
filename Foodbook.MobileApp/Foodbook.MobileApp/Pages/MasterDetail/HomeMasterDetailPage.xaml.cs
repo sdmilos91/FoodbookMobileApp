@@ -1,5 +1,6 @@
 ﻿using Foodbook.MobileApp.Pages.Cook;
 using Foodbook.MobileApp.Pages.Recipe;
+using Foodbook.MobileApp.Tools;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,7 +22,7 @@ namespace Foodbook.MobileApp.Pages
             MasterPage.ListView.ItemSelected += ListView_ItemSelected;
 
             //Background color
-            Detail.SetValue(NavigationPage.BarBackgroundColorProperty, Color.FromHex("#EF5350"));
+            Detail.SetValue(NavigationPage.BarBackgroundColorProperty, Color.FromHex(MyColors.DARK_RED));
 
             //Title color
             Detail.SetValue(NavigationPage.BarTextColorProperty, Color.White);
@@ -34,16 +35,36 @@ namespace Foodbook.MobileApp.Pages
                 return;
 
             var page = (Page)Activator.CreateInstance(item.TargetType);
-            page.Title = item.Title;
-            
-           // Detail = new NavigationPage(new LoginPage());
-            Detail = new NavigationPage(new CooksPage());
-            //Background color
-            Detail.SetValue(NavigationPage.BarBackgroundColorProperty, Color.FromHex("#EF5350"));
+            if (item.Id == 4)
+            {
+                if (string.IsNullOrEmpty(LocalDataSecureStorage.GetToken()))
+                {
+                    App.Current.MainPage = new NavigationPage(new LoginPage());
+                    //Background color
+                    App.Current.MainPage.SetValue(NavigationPage.BarBackgroundColorProperty, Color.FromHex(MyColors.DARK_RED));
 
-            //Title color
-            Detail.SetValue(NavigationPage.BarTextColorProperty, Color.White);
+                    //Title color
+                    App.Current.MainPage.SetValue(NavigationPage.BarTextColorProperty, Color.White);
+                }
+                else
+                {
+                    LocalDataSecureStorage.DeleteEmail();
+                    LocalDataSecureStorage.DeleteToken();
+                    App.Current.MainPage = new HomeMasterDetailPage();
+                }
+            }
+            else
+            {
+                page.Title = item.Title;
 
+                // Detail = new NavigationPage(new LoginPage());
+                Detail = new NavigationPage(page);
+                //Background color
+                Detail.SetValue(NavigationPage.BarBackgroundColorProperty, Color.FromHex(MyColors.DARK_RED));
+
+                //Title color
+                Detail.SetValue(NavigationPage.BarTextColorProperty, Color.White);
+            }
             IsPresented = false;
 
             MasterPage.ListView.SelectedItem = null;

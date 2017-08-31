@@ -45,13 +45,10 @@ namespace Foodbook.MobileApp.ViewModels
 
         private async void Register()
         {
-            MasterDetailPage masterPage = App.Current.MainPage as MasterDetailPage;
-            await masterPage.Detail.Navigation.PushAsync(new RegisterPage());
-            //Background color
-            masterPage.Detail.SetValue(NavigationPage.BarBackgroundColorProperty, Color.FromHex("#EF5350"));
+            Page page = App.Current.MainPage;
 
-            //Title color
-            masterPage.Detail.SetValue(NavigationPage.BarTextColorProperty, Color.White);
+            MasterDetailPage masterPage = page as MasterDetailPage;
+            await page.Navigation.PushAsync(new RegisterPage());            
         }
 
         private void Skip()

@@ -76,16 +76,16 @@ namespace Foodbook.MobileApp.ViewModels
                 bool res = await AccountDataService.RegisterUser(registerModel);
                 Device.BeginInvokeOnMainThread(() => Dialogs.Hide());
 
-                MasterDetailPage masterPage = App.Current.MainPage as MasterDetailPage;
+                Page masterPage = App.Current.MainPage;
                 if (res)
                 {
                     
-                    await masterPage.Detail.DisplayAlert("Obaveštenje", "Uspešno ste se registrovali. Možete se prijaviti sa registrovanim nalogom.", "U redu");
-                    await masterPage.Detail.Navigation.PopAsync();
+                    await masterPage.DisplayAlert("Obaveštenje", "Uspešno ste se registrovali. Možete se prijaviti sa registrovanim nalogom.", "U redu");
+                    await masterPage.Navigation.PopAsync();
                 }
                 else
                 {
-                    await masterPage.Detail.DisplayAlert("Obaveštenje", "Greška Prilikom registracije.", "U redu");
+                    await masterPage.DisplayAlert("Obaveštenje", "Greška Prilikom registracije.", "U redu");
                 }
             }
             else

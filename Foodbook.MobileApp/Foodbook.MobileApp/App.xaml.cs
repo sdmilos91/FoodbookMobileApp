@@ -23,7 +23,7 @@ namespace Foodbook.MobileApp
             {
                 MainPage = new NavigationPage(new LoginPage());
                 //Background color
-                MainPage.SetValue(NavigationPage.BarBackgroundColorProperty, Color.FromHex("#EF5350"));
+                MainPage.SetValue(NavigationPage.BarBackgroundColorProperty, Color.FromHex(MyColors.DARK_RED));
 
                 //Title color
                 MainPage.SetValue(NavigationPage.BarTextColorProperty, Color.White);
@@ -45,7 +45,7 @@ namespace Foodbook.MobileApp
             {
                 MainPage = new NavigationPage(new LoginPage());
                 //Background color
-                MainPage.SetValue(NavigationPage.BarBackgroundColorProperty, Color.FromHex("#EF5350"));
+                MainPage.SetValue(NavigationPage.BarBackgroundColorProperty, Color.FromHex(MyColors.DARK_RED));
 
                 //Title color
                 MainPage.SetValue(NavigationPage.BarTextColorProperty, Color.White);

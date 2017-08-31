@@ -4,6 +4,7 @@
              x:Class="Foodbook.MobileApp.Pages.Recipe.EditRecipePage"
              xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              xmlns:behaviors="clr-namespace:Foodbook.MobileApp.Behaviors;assembly=Foodbook.MobileApp"
+             BackgroundColor="{StaticResource PageBackground}"
              Title="Ažuriranje recepta">
     <ContentPage.Content>
 
@@ -256,7 +257,7 @@
 
             </ScrollView>
 
-            <Grid Grid.Row="2" BackgroundColor="{StaticResource HeadingColor}" Padding="10">
+            <Grid Grid.Row="2" BackgroundColor="{StaticResource DarkRed}" Padding="10">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />

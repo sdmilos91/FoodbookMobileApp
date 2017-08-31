@@ -5,6 +5,7 @@
               xmlns:fab="clr-namespace:FAB.Forms;assembly=FAB.Forms"
              xmlns:localConverters="clr-namespace:Foodbook.MobileApp.Converters;assembly=Foodbook.MobileApp"
              xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             BackgroundColor="{StaticResource PageBackground}"
              Title="Foodbook">
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -99,7 +100,7 @@
                                     </RelativeLayout>
 
                                     <Label Text="{Binding FullName}" FontSize="Small" Grid.Column="1" Grid.Row="0" TextColor="Black"/>
-                                    
+
                                     <StackLayout HorizontalOptions="StartAndExpand" Grid.Column="1" Grid.Row="1" Orientation="Horizontal">
                                         <Label Text="Broj recepta: "  TextColor="Gray" />
                                     </StackLayout>
@@ -114,19 +115,10 @@
 
                 </ListView>
             </StackLayout>
-            <fab:FloatingActionButton
-                    IsVisible="{Binding IsUserAuthenticated}"
-				    Source="plus.png"
-				    Size="Normal"				     
-				    RippleColor="Gray"
-                    Command="{Binding AddRecipeCommand}"
-                    NormalColor="{StaticResource PinkColor}"                   
-				    RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-80}"
-				    RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-100}" />
         </RelativeLayout>
 
 
-        <Grid Grid.Row="2" BackgroundColor="{StaticResource HeadingColor}" Padding="10">
+        <Grid Grid.Row="2" BackgroundColor="{StaticResource DarkRed}" Padding="10">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
