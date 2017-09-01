@@ -289,9 +289,6 @@ namespace Foodbook.MobileApp.ViewModels
             }
 
             Device.BeginInvokeOnMainThread(() => Dialogs.Hide());
-
-           
-
         }
 
         private void Addrecipe()

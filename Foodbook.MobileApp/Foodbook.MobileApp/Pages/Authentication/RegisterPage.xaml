@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
               xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              xmlns:behaviors="clr-namespace:Foodbook.MobileApp.Behaviors;assembly=Foodbook.MobileApp"
+             xmlns:renderers="clr-namespace:Foodbook.MobileApp.Renderers;assembly=Foodbook.MobileApp"
              x:Class="Foodbook.MobileApp.Pages.Authentication.RegisterPage"
              BackgroundColor="{StaticResource PageBackground}"
              Title="Registracija"
@@ -14,70 +15,55 @@
 
                 <!--First Name-->
                 <Grid RowSpacing="0" Padding="20, 0, 20, 0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="16" />
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" />
                         <RowDefinition Height="*" />
                         <RowDefinition Height="20" />
                     </Grid.RowDefinitions>
 
-                    <Image Source="name" Grid.Column="0" Grid.Row="0" VerticalOptions="Center" HorizontalOptions="Center"/>
-                    <Label Text="Ime: *" Grid.Column="1" Grid.Row="0" Style="{StaticResource EntryTitleLblStyle}"/>
-                    <Entry Text="{Binding RegisterModel.FirstName}" Placeholder="Ime" HorizontalTextAlignment="Start" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2">
+                    <Label Text="Ime: *" Grid.Row="0" Style="{StaticResource EntryTitleLblStyle}"/>
+                    <renderers:CustomEntry Text="{Binding RegisterModel.FirstName}" Placeholder="Ime" HorizontalTextAlignment="Start" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2">
                         <Entry.Behaviors>
                             <behaviors:RequiredValidatorBehavior  mLbl="{x:Reference firstNameValidationLbl}" />
                         </Entry.Behaviors>
-                    </Entry>
+                    </renderers:CustomEntry>
                     <Label x:Name="firstNameValidationLbl" IsVisible="False"  Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" FontSize="Small" TextColor="Red"/>
 
                 </Grid>
 
                 <!--Last Name-->
                 <Grid RowSpacing="0" Padding="20, 0, 20, 0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="16" />
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" />
                         <RowDefinition Height="*" />
                         <RowDefinition Height="20" />
                     </Grid.RowDefinitions>
-
-                    <Image Source="name" Grid.Column="0" Grid.Row="0" VerticalOptions="Center" HorizontalOptions="Center"/>
-                    <Label Text="Prezime: *" Grid.Column="1" Grid.Row="0" Style="{StaticResource EntryTitleLblStyle}"/>
-                    <Entry Text="{Binding RegisterModel.LastName}" Placeholder="Prezime" HorizontalTextAlignment="Start" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2">
+                    
+                    <Label Text="Prezime: *" Grid.Row="0" Style="{StaticResource EntryTitleLblStyle}"/>
+                    <renderers:CustomEntry Text="{Binding RegisterModel.LastName}" Placeholder="Prezime" HorizontalTextAlignment="Start" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2">
                         <Entry.Behaviors>
                             <behaviors:RequiredValidatorBehavior  mLbl="{x:Reference lastNameValidationLbl}" />
                         </Entry.Behaviors>
-                    </Entry>
+                    </renderers:CustomEntry>
                     <Label x:Name="lastNameValidationLbl" IsVisible="False"  Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" FontSize="Small" TextColor="Red"/>
 
                 </Grid>
 
                 <!--Email Name-->
                 <Grid RowSpacing="0" Padding="20, 0, 20, 0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="16" />
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" />
                         <RowDefinition Height="*" />
                         <RowDefinition Height="20" />
                     </Grid.RowDefinitions>
 
-                    <Image Source="name" Grid.Column="0" Grid.Row="0" VerticalOptions="Center" HorizontalOptions="Center"/>
-                    <Label Text="Email adresa: *" Grid.Column="1" Grid.Row="0" Style="{StaticResource EntryTitleLblStyle}"/>
-                    <Entry Text="{Binding RegisterModel.Email}" Placeholder="Email adresa" HorizontalTextAlignment="Start" Keyboard="Email" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2">
+                    <Label Text="Email adresa: *" Grid.Row="0" Style="{StaticResource EntryTitleLblStyle}"/>
+                    <renderers:CustomEntry Text="{Binding RegisterModel.Email}" Placeholder="Email adresa" HorizontalTextAlignment="Start" Keyboard="Email" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2">
                         <Entry.Behaviors>
                             <behaviors:RequiredValidatorBehavior  mLbl="{x:Reference emailValidationLbl}" />
                             <behaviors:EmailValidatorBehavior  mLbl="{x:Reference emailValidationLbl}" />
                         </Entry.Behaviors>
-                    </Entry>
+                    </renderers:CustomEntry>
                     <Label x:Name="emailValidationLbl" IsVisible="False"  Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" FontSize="Small" TextColor="Red"/>
 
                 </Grid>
@@ -85,72 +71,57 @@
 
                 <!--Password-->
                 <Grid RowSpacing="0" Padding="20, 0, 20, 0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="16" />
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" />
                         <RowDefinition Height="*" />
                         <RowDefinition Height="20" />
                     </Grid.RowDefinitions>
-
-                    <Image Source="name" Grid.Column="0" Grid.Row="0" VerticalOptions="Center" HorizontalOptions="Center"/>
-                    <Label Text="Lozinka: *" Grid.Column="1" Grid.Row="0" Style="{StaticResource EntryTitleLblStyle}"/>
-                    <Entry Text="{Binding RegisterModel.Password}" x:Name="passwordEntry" IsPassword="True" Placeholder="Lozinka" HorizontalTextAlignment="Start" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2">
+                    
+                    <Label Text="Lozinka: *" Grid.Row="0" Style="{StaticResource EntryTitleLblStyle}"/>
+                    <renderers:CustomEntry Text="{Binding RegisterModel.Password}" x:Name="passwordEntry" IsPassword="True" Placeholder="Lozinka" HorizontalTextAlignment="Start" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2">
                         <Entry.Behaviors>
                             <behaviors:RequiredValidatorBehavior  mLbl="{x:Reference passwordValidationLbl}" />
                             <behaviors:RequiredValidatorBehavior  mLbl="{x:Reference passwordValidationLbl}" />
                         </Entry.Behaviors>
-                    </Entry>
+                    </renderers:CustomEntry>
                     <Label x:Name="passwordValidationLbl" IsVisible="False"  Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" FontSize="Small" TextColor="Red"/>
 
                 </Grid>
 
                 <!--Confirm Password-->
                 <Grid RowSpacing="0" Padding="20, 0, 20, 0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="16" />
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" />
                         <RowDefinition Height="*" />
                         <RowDefinition Height="20" />
                     </Grid.RowDefinitions>
-
-                    <Image Source="name" Grid.Column="0" Grid.Row="0" VerticalOptions="Center" HorizontalOptions="Center"/>
-                    <Label Text="Potvrda lozinke: *" Grid.Column="1" Grid.Row="0" Style="{StaticResource EntryTitleLblStyle}"/>
-                    <Entry Text="{Binding RegisterModel.ConfirmPassword}" Placeholder="Potvrda lozinke" HorizontalTextAlignment="Start" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2">
+                    
+                    <Label Text="Potvrda lozinke: *" Grid.Row="0" Style="{StaticResource EntryTitleLblStyle}"/>
+                    <renderers:CustomEntry IsPassword="True" Text="{Binding RegisterModel.ConfirmPassword}" Placeholder="Potvrda lozinke" HorizontalTextAlignment="Start" Grid.Row="1" Grid.ColumnSpan="2">
                         <Entry.Behaviors>
                             <behaviors:RequiredValidatorBehavior  mLbl="{x:Reference confirmPassValidationLbl}" />
                             <behaviors:ConfirmPasswordValidatorBehavior  mLbl="{x:Reference confirmPassValidationLbl}" PasswordEntry="{x:Reference passwordEntry}"/>
                         </Entry.Behaviors>
-                    </Entry>
-                    <Label x:Name="confirmPassValidationLbl" IsVisible="False"  Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" FontSize="Small" TextColor="Red"/>
+                    </renderers:CustomEntry>
+                    <Label x:Name="confirmPassValidationLbl" IsVisible="False"  Grid.Row="2" FontSize="Small" TextColor="Red"/>
 
                 </Grid>
 
                 <!--About-->
                 <Grid RowSpacing="0" Padding="20, 0, 20, 0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="16" />
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="*" />
+                        <RowDefinition Height="30" />
                         <RowDefinition Height="*" />
                         <RowDefinition Height="20" />
                     </Grid.RowDefinitions>
-
-                    <Image Source="name" Grid.Column="0" Grid.Row="0" VerticalOptions="Center" HorizontalOptions="Center"/>
-                    <Label Text="O kuvaru: *" Grid.Column="1" Grid.Row="0" Style="{StaticResource EntryTitleLblStyle}"/>
-                    <Entry Text="{Binding RegisterModel.Biography}" Placeholder="O kuvaru" HorizontalTextAlignment="Start" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2">
+                    
+                    <Label Text="O kuvaru: *" Grid.Row="0" Style="{StaticResource EntryTitleLblStyle}"/>
+                    <renderers:CustomEntry EntryType="MULTILINE"  Text="{Binding RegisterModel.Biography}" HeightRequest="100"  Placeholder="O kuvaru" HorizontalTextAlignment="Start" Grid.Row="1" Grid.ColumnSpan="2">
                         <Entry.Behaviors>
                             <behaviors:RequiredValidatorBehavior  mLbl="{x:Reference biographyValidationLbl}" />
                         </Entry.Behaviors>
-                    </Entry>
-                    <Label x:Name="biographyValidationLbl" IsVisible="False"  Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" FontSize="Small" TextColor="Red"/>
+                    </renderers:CustomEntry>
+                    <Label x:Name="biographyValidationLbl" IsVisible="False"  Grid.Row="2" FontSize="Small" TextColor="Red"/>
 
                 </Grid>
 

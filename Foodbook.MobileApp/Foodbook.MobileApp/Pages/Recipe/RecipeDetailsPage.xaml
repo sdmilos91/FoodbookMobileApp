@@ -165,7 +165,7 @@
                                         <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="15" />
+                                        <RowDefinition Height="20" />
                                         <RowDefinition Height="14" />
                                         <RowDefinition Height="*" />
                                         <RowDefinition Height="14" />
@@ -188,26 +188,16 @@
 
                                     <Label Text="{Binding CookName}"  TextColor="Gray" FontSize="Small" FontAttributes="Bold" Grid.Column="1" Grid.Row="0"/>
                                     <StackLayout HorizontalOptions="EndAndExpand" Grid.Column="1" Grid.Row="0" Orientation="Horizontal">
-                                        <Image Source="star" WidthRequest="10" HeightRequest="10" 
+                                        <Image Source="star" WidthRequest="15" HeightRequest="15" 
                                                IsVisible="{Binding Rating, Converter={StaticResource rtngStarVisibility}, ConverterParameter=1}"/>
-                                        <Image Source="star" WidthRequest="10" HeightRequest="10" 
+                                        <Image Source="star" WidthRequest="15" HeightRequest="15" 
                                                IsVisible="{Binding Rating, Converter={StaticResource rtngStarVisibility}, ConverterParameter=2}"/>
-                                        <Image Source="star" WidthRequest="10" HeightRequest="10" 
+                                        <Image Source="star" WidthRequest="15" HeightRequest="15" 
                                                IsVisible="{Binding Rating, Converter={StaticResource rtngStarVisibility}, ConverterParameter=3}"/>
-                                        <Image Source="star" WidthRequest="10" HeightRequest="10" 
+                                        <Image Source="star" WidthRequest="15" HeightRequest="15" 
                                                IsVisible="{Binding Rating, Converter={StaticResource rtngStarVisibility}, ConverterParameter=4}"/>
-                                        <Image Source="star" WidthRequest="10" HeightRequest="10" 
+                                        <Image Source="star" WidthRequest="15" HeightRequest="15" 
                                                IsVisible="{Binding Rating, Converter={StaticResource rtngStarVisibility}, ConverterParameter=5}"/>
-                                        <Image Source="star" WidthRequest="10" HeightRequest="10" 
-                                               IsVisible="{Binding Rating, Converter={StaticResource rtngStarVisibility}, ConverterParameter=6}"/>
-                                        <Image Source="star" WidthRequest="10" HeightRequest="10" 
-                                               IsVisible="{Binding Rating, Converter={StaticResource rtngStarVisibility}, ConverterParameter=7}"/>
-                                        <Image Source="star" WidthRequest="10" HeightRequest="10" 
-                                               IsVisible="{Binding Rating, Converter={StaticResource rtngStarVisibility}, ConverterParameter=8}"/>
-                                        <Image Source="star" WidthRequest="10" HeightRequest="10" 
-                                               IsVisible="{Binding Rating, Converter={StaticResource rtngStarVisibility}, ConverterParameter=9}"/>
-                                        <Image Source="star" WidthRequest="10" HeightRequest="10" 
-                                               IsVisible="{Binding Rating, Converter={StaticResource rtngStarVisibility}, ConverterParameter=10}"/>
                                     </StackLayout>
                                     <StackLayout Orientation="Horizontal" VerticalOptions="FillAndExpand" Grid.Column="1" Grid.Row="1"></StackLayout>
                                     <Label Text="{Binding CommentText}"  TextColor="Gray" FontSize="Micro"  Grid.Column="1" Grid.Row="2"/>
@@ -222,7 +212,7 @@
 
                 <fab:FloatingActionButton
 				    Source="comment.png"
-				    Size="Mini"		
+				    Size="Normal"		
                     IsVisible="{Binding AddCommentEnabled}"
 				    RippleColor="Gray"
                     NormalColor="{StaticResource HeadingColor}"

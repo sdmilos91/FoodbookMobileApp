@@ -5,6 +5,7 @@
              xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
              xmlns:behaviors="clr-namespace:Foodbook.MobileApp.Behaviors;assembly=Foodbook.MobileApp"
              xmlns:localConverters="clr-namespace:Foodbook.MobileApp.Converters;assembly=Foodbook.MobileApp"
+             xmlns:renderers="clr-namespace:Foodbook.MobileApp.Renderers;assembly=Foodbook.MobileApp"
              BackgroundColor="{StaticResource PageBackground}"
              x:Class="Foodbook.MobileApp.Pages.AddCommentPopupPage">
 
@@ -86,46 +87,7 @@
                                                     NumberOfTapsRequired="1" />
                         </Image.GestureRecognizers>
                     </Image>
-
-                    <Image Source="{Binding Rating, Converter={StaticResource rtngStarIcon}, ConverterParameter=6}" HeightRequest="24" WidthRequest="24">
-                        <Image.GestureRecognizers>
-                            <TapGestureRecognizer
-                                                    Command="{Binding SetRatingCommand}" CommandParameter="6"
-                                                    NumberOfTapsRequired="1" />
-                        </Image.GestureRecognizers>
-                    </Image>
-
-                    <Image Source="{Binding Rating, Converter={StaticResource rtngStarIcon}, ConverterParameter=7}" HeightRequest="24" WidthRequest="24">
-                        <Image.GestureRecognizers>
-                            <TapGestureRecognizer
-                                                    Command="{Binding SetRatingCommand}" CommandParameter="7"
-                                                    NumberOfTapsRequired="1" />
-                        </Image.GestureRecognizers>
-                    </Image>
-
-                    <Image Source="{Binding Rating, Converter={StaticResource rtngStarIcon}, ConverterParameter=8}" HeightRequest="24" WidthRequest="24">
-                        <Image.GestureRecognizers>
-                            <TapGestureRecognizer
-                                                    Command="{Binding SetRatingCommand}" CommandParameter="8"
-                                                    NumberOfTapsRequired="1" />
-                        </Image.GestureRecognizers>
-                    </Image>
-
-                    <Image Source="{Binding Rating, Converter={StaticResource rtngStarIcon}, ConverterParameter=9}" HeightRequest="24" WidthRequest="24">
-                        <Image.GestureRecognizers>
-                            <TapGestureRecognizer
-                                                    Command="{Binding SetRatingCommand}" CommandParameter="9"
-                                                    NumberOfTapsRequired="1" />
-                        </Image.GestureRecognizers>
-                    </Image>
-
-                    <Image Source="{Binding Rating, Converter={StaticResource rtngStarIcon}, ConverterParameter=10}" HeightRequest="24" WidthRequest="24">
-                        <Image.GestureRecognizers>
-                            <TapGestureRecognizer
-                                                    Command="{Binding SetRatingCommand}" CommandParameter="10"
-                                                    NumberOfTapsRequired="1" />
-                        </Image.GestureRecognizers>
-                    </Image>
+                    
                 </StackLayout>
                 <Label IsVisible="{Binding IsRatingInvalid}" Text="Morate dati ocenu receptu." Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" FontSize="Micro" TextColor="Red"/>
 
@@ -138,11 +100,11 @@
                     <RowDefinition Height="40" />
                 </Grid.RowDefinitions>
                 <Label Text="Komentar: *" Style="{StaticResource EntryTitleLblStyle}" Grid.Row="0"/>
-                <Entry Text="{Binding CommentText}" VerticalOptions="FillAndExpand" Grid.Row="1" HeightRequest="250">
+              <renderers:CustomEntry Text="{Binding CommentText}" EntryType="MULTILINE" VerticalOptions="FillAndExpand" Grid.Row="1" HeightRequest="250">
                     <Entry.Behaviors>
                         <behaviors:RequiredValidatorBehavior x:Name="recipeTextValidator"   mLbl="{x:Reference recipeTextValidationLbl}" />
                     </Entry.Behaviors>
-                </Entry>
+                </renderers:CustomEntry>
                 <Label x:Name="recipeTextValidationLbl" IsVisible="False" Grid.Row="2" FontSize="Micro" TextColor="Red"/>
             </Grid>
             <Button BackgroundColor="{StaticResource HeadingColor}" TextColor="White" Text="Dodaj komentar" HorizontalOptions="FillAndExpand" Command="{Binding AddCommentCommand}"/>

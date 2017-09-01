@@ -6112,8 +6112,8 @@ namespace Foodbook.MobileApp.Droid
 			// aapt resource value: 0x7f0200bc
 			public const int next = 2130837692;
 			
-			// aapt resource value: 0x7f0200c8
-			public const int notification_template_icon_bg = 2130837704;
+			// aapt resource value: 0x7f0200c9
+			public const int notification_template_icon_bg = 2130837705;
 			
 			// aapt resource value: 0x7f0200bd
 			public const int plus = 2130837693;
@@ -6147,6 +6147,9 @@ namespace Foodbook.MobileApp.Droid
 			
 			// aapt resource value: 0x7f0200c7
 			public const int viewImage = 2130837703;
+			
+			// aapt resource value: 0x7f0200c8
+			public const int viewImageWhite = 2130837704;
 			
 			static Drawable()
 			{
