@@ -46,5 +46,58 @@ namespace Foodbook.MobileApp.Tools
 
         #endregion
 
+        #region ID
+        public static void SaveCookId(long id)
+        {
+            CrossSecureStorage.Current.SetValue(SecureStorageKeys.ID, id.ToString());
+        }
+
+        public static long? GetCookId()
+        {
+            string id = CrossSecureStorage.Current.GetValue(SecureStorageKeys.ID);
+
+            try
+            {
+                return long.Parse(id);
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        public static void DeleteCookId()
+        {
+            CrossSecureStorage.Current.DeleteKey(SecureStorageKeys.ID);
+        }
+
+        #endregion
+
+        #region CookName
+        public static void SaveCookName(string name)
+        {
+            CrossSecureStorage.Current.SetValue(SecureStorageKeys.FULL_NAME, name);
+        }
+
+        public static string GetCookName()
+        {
+            return CrossSecureStorage.Current.GetValue(SecureStorageKeys.FULL_NAME);
+        }
+
+        public static void DeleteCookName()
+        {
+            CrossSecureStorage.Current.DeleteKey(SecureStorageKeys.FULL_NAME);
+        }
+
+        #endregion
+
+        public static void ClearAllData()
+        {
+            DeleteToken();
+            DeleteCookId();
+            DeleteCookName();
+            DeleteEmail();
+        }
+
     }
 }

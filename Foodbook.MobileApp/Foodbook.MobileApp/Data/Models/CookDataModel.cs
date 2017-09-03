@@ -23,6 +23,13 @@ namespace Foodbook.MobileApp.Data.Models
 
     public class ResponseCookModel : CookModel
     {
+        public ResponseCookModel()
+        {
+            FollowedCooks = new List<CookModel>();
+            Recipes = new List<RecipeDataModel>();
+            FavouriteRecipes = new List<RecipeDataModel>();
+            Comments = new List<CookCommentModel>();
+        }
 
         public List<CookModel> FollowedCooks { get; set; }
         public List<RecipeDataModel> Recipes { get; set; }

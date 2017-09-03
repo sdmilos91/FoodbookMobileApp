@@ -4,7 +4,7 @@
              xmlns:fab="clr-namespace:FAB.Forms;assembly=FAB.Forms"
              x:Class="Foodbook.Pages.UserDetailsPage"
              xmlns:controls="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions"
-              xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              xmlns:localConverters="clr-namespace:Foodbook.MobileApp.Converters;assembly=Foodbook.MobileApp"
              BackgroundColor="{StaticResource PageBackground}"
              Title="Informacije o kuvaru"
@@ -27,15 +27,19 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <RelativeLayout  Grid.Row="0" Grid.RowSpan="2">
-                <Image Source="{Binding Cook.PhotoUrl}" Aspect="AspectFill"
-                       RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
-				        RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}"
-                       >
+                <ffimageloading:CachedImage 
+                                        Source="{Binding Cook.PhotoUrl}"
+                                        DownsampleToViewSize="True"
+                                        DownsampleWidth="300"
+                                        Aspect="AspectFill"                                      
+                                        LoadingPlaceholder="loadingImage"
+                                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
+				                        RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}">
                     <Image.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding ViewImageCommand}"/>
                     </Image.GestureRecognizers>
 
-                </Image>
+                </ffimageloading:CachedImage>
                 <Image Source="viewImage" WidthRequest="48" HeightRequest="48"
                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-55}"
 				        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0, Constant=10}"

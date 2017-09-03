@@ -4,10 +4,9 @@
              xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              xmlns:behaviors="clr-namespace:Foodbook.MobileApp.Behaviors;assembly=Foodbook.MobileApp"
              xmlns:renderers="clr-namespace:Foodbook.MobileApp.Renderers;assembly=Foodbook.MobileApp"
-             x:Class="Foodbook.MobileApp.Pages.Authentication.RegisterPage"
              BackgroundColor="{StaticResource PageBackground}"
-             Title="Registracija"
-             >
+             Title="Ažuriranje korisnika"
+             x:Class="Foodbook.MobileApp.Pages.Cook.EditUserDetailsPage">
     <ContentPage.Content>
         <ScrollView Grid.Row="1" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
             <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
@@ -38,7 +37,7 @@
                         <RowDefinition Height="*" />
                         <RowDefinition Height="20" />
                     </Grid.RowDefinitions>
-                    
+
                     <Label Text="Prezime: *" Grid.Row="0" Style="{StaticResource EntryTitleLblStyle}"/>
                     <renderers:CustomEntry Text="{Binding RegisterModel.LastName}" Placeholder="Prezime" HorizontalTextAlignment="Start" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2">
                         <Entry.Behaviors>
@@ -58,52 +57,8 @@
                     </Grid.RowDefinitions>
 
                     <Label Text="Email adresa: *" Grid.Row="0" Style="{StaticResource EntryTitleLblStyle}"/>
-                    <renderers:CustomEntry Text="{Binding RegisterModel.Email}" Placeholder="Email adresa" HorizontalTextAlignment="Start" Keyboard="Email" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2">
-                        <Entry.Behaviors>
-                            <behaviors:RequiredValidatorBehavior  mLbl="{x:Reference emailValidationLbl}" />
-                            <behaviors:EmailValidatorBehavior  mLbl="{x:Reference emailValidationLbl}" />
-                        </Entry.Behaviors>
+                    <renderers:CustomEntry Text="{Binding RegisterModel.Email}" IsEnabled="False"  Placeholder="Email adresa" HorizontalTextAlignment="Start" Keyboard="Email" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2">
                     </renderers:CustomEntry>
-                    <Label x:Name="emailValidationLbl" IsVisible="False"  Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" FontSize="Small" TextColor="Red"/>
-
-                </Grid>
-
-
-                <!--Password-->
-                <Grid RowSpacing="0" Padding="20, 0, 20, 0">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="20" />
-                    </Grid.RowDefinitions>
-                    
-                    <Label Text="Lozinka: *" Grid.Row="0" Style="{StaticResource EntryTitleLblStyle}"/>
-                    <renderers:CustomEntry Text="{Binding RegisterModel.Password}" x:Name="passwordEntry" IsPassword="True" Placeholder="Lozinka" HorizontalTextAlignment="Start" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2">
-                        <Entry.Behaviors>
-                            <behaviors:RequiredValidatorBehavior  mLbl="{x:Reference passwordValidationLbl}" />
-                            <behaviors:RequiredValidatorBehavior  mLbl="{x:Reference passwordValidationLbl}" />
-                        </Entry.Behaviors>
-                    </renderers:CustomEntry>
-                    <Label x:Name="passwordValidationLbl" IsVisible="False"  Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" FontSize="Small" TextColor="Red"/>
-
-                </Grid>
-
-                <!--Confirm Password-->
-                <Grid RowSpacing="0" Padding="20, 0, 20, 0">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="20" />
-                    </Grid.RowDefinitions>
-                    
-                    <Label Text="Potvrda lozinke: *" Grid.Row="0" Style="{StaticResource EntryTitleLblStyle}"/>
-                    <renderers:CustomEntry IsPassword="True" Text="{Binding RegisterModel.ConfirmPassword}" Placeholder="Potvrda lozinke" HorizontalTextAlignment="Start" Grid.Row="1" Grid.ColumnSpan="2">
-                        <Entry.Behaviors>
-                            <behaviors:RequiredValidatorBehavior  mLbl="{x:Reference confirmPassValidationLbl}" />
-                            <behaviors:ConfirmPasswordValidatorBehavior  mLbl="{x:Reference confirmPassValidationLbl}" PasswordEntry="{x:Reference passwordEntry}"/>
-                        </Entry.Behaviors>
-                    </renderers:CustomEntry>
-                    <Label x:Name="confirmPassValidationLbl" IsVisible="False"  Grid.Row="2" FontSize="Small" TextColor="Red"/>
 
                 </Grid>
 
@@ -114,7 +69,7 @@
                         <RowDefinition Height="*" />
                         <RowDefinition Height="20" />
                     </Grid.RowDefinitions>
-                    
+
                     <Label Text="O kuvaru: *" Grid.Row="0" Style="{StaticResource EntryTitleLblStyle}"/>
                     <renderers:CustomEntry EntryType="MULTILINE"  Text="{Binding RegisterModel.Biography}" HeightRequest="100"  Placeholder="O kuvaru" HorizontalTextAlignment="Start" Grid.Row="1" Grid.ColumnSpan="2">
                         <Entry.Behaviors>
@@ -134,6 +89,7 @@
                     </Grid.RowDefinitions>
 
                     <Label Text="Profilna slika:" Grid.Row="0" Style="{StaticResource EntryTitleLblStyle}"/>
+
                     <RelativeLayout Grid.Row="1" Grid.ColumnSpan="2">
                         <ffimageloading:CachedImage 
                                         x:Name="addImageBtn"
@@ -150,7 +106,6 @@
                             NumberOfTapsRequired="1" />
                             </Image.GestureRecognizers>
                         </ffimageloading:CachedImage>
-
                         <StackLayout
                                     IsVisible="{Binding PhotoPicked}"
                                     Padding="5"
@@ -186,11 +141,10 @@
                             </Image>
 
                         </StackLayout>
-
                     </RelativeLayout>
                 </Grid>
 
-                <Button Command="{Binding RegisterCommand}" BackgroundColor="{StaticResource HeadingColor}" TextColor="White" Text="Registuj se" Margin="20, 0, 20, 0"/>
+                <Button Command="{Binding EditCommand}" BackgroundColor="{StaticResource HeadingColor}" TextColor="White" Text="Ažuriraj" Margin="20, 0, 20, 0"/>
 
 
             </StackLayout>

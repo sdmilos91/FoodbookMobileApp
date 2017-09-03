@@ -27,6 +27,8 @@ namespace Foodbook.MobileApp
 
                 //Title color
                 MainPage.SetValue(NavigationPage.BarTextColorProperty, Color.White);
+
+                LocalDataSecureStorage.ClearAllData();
             }
             else
             {

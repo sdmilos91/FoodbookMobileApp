@@ -1,6 +1,9 @@
-﻿using Foodbook.MobileApp.Pages.Cook;
+﻿using Foodbook.MobileApp.Data.Models;
+using Foodbook.MobileApp.Data.Services;
+using Foodbook.MobileApp.Pages.Cook;
 using Foodbook.MobileApp.Pages.Recipe;
 using Foodbook.MobileApp.Tools;
+using Foodbook.Pages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,13 +31,24 @@ namespace Foodbook.MobileApp.Pages
             Detail.SetValue(NavigationPage.BarTextColorProperty, Color.White);
         }
 
-        private void ListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        private async void ListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             var item = e.SelectedItem as HomeMasterDetailPageMenuItem;
             if (item == null)
                 return;
 
-            var page = (Page)Activator.CreateInstance(item.TargetType);
+            var page = new Page();
+            if (item.TargetType == typeof(UserDetailsPage))
+            {
+                ResponseCookModel userDetails = await CookDataService.GetCookInfo(LocalDataSecureStorage.GetCookId().Value);
+                if(userDetails != null)
+                    page = new UserDetailsPage(userDetails, true);
+            }
+            else
+            {
+                page = (Page)Activator.CreateInstance(item.TargetType);
+            }
+
             if (item.Id == 4)
             {
                 if (string.IsNullOrEmpty(LocalDataSecureStorage.GetToken()))

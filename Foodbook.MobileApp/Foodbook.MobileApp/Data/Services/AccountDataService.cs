@@ -37,6 +37,13 @@ namespace Foodbook.MobileApp.Data.Services
                         string resultContent = await result.Content.ReadAsStringAsync();
                         model = (LoginResponseModel)Newtonsoft.Json.JsonConvert.DeserializeObject(resultContent.ToString(), typeof(LoginResponseModel));
                         model.IsSuccess = true;
+
+                        UserInfoModel userInfo = await GetUserInfo(model.access_token);
+                        if (userInfo != null)
+                        {
+                            model.CookId = userInfo.CookId;
+                            model.CookFullName = userInfo.CookFullName;
+                        }
                     }
                     else if(result.StatusCode == System.Net.HttpStatusCode.BadRequest)
                     {
@@ -67,6 +74,10 @@ namespace Foodbook.MobileApp.Data.Services
 
             try
             {
+                if (model.Photo != null)
+                {
+                    model.PhotoUrl = await UploadFileToAzureBlob.BasicStorageBlockBlobOperationsAsync(model.Photo.PhotoStream, model.Photo.Name);
+                }
                 using (var client = new HttpClient())
                 {
                     client.DefaultRequestHeaders.TryAddWithoutValidation("Content-Type", "application/json");
@@ -114,6 +125,39 @@ namespace Foodbook.MobileApp.Data.Services
             }
 
             return false;
+        }
+
+        public static async Task<UserInfoModel> GetUserInfo(string token)
+        {
+            string url = ApiUrls.USER_INFO;
+
+            try
+            {
+                UserInfoModel model = new UserInfoModel();
+
+                using (var client = new HttpClient())
+                {
+                    client.DefaultRequestHeaders.TryAddWithoutValidation("Authorization", "Bearer " + token);
+
+                    HttpResponseMessage result = await client.GetAsync(url);
+                    if (result.StatusCode == System.Net.HttpStatusCode.OK)
+                    {
+                        string resultContent = await result.Content.ReadAsStringAsync();
+                        model = (UserInfoModel)Newtonsoft.Json.JsonConvert.DeserializeObject(resultContent.ToString(), typeof(UserInfoModel));
+                        return model;
+                    }
+                    else
+                    {
+                        return new UserInfoModel();
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Foodbook.MobileApp.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,6 +25,7 @@ namespace Foodbook.Pages
 
         private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
         {
+            Utils.ButtonPress(sender);
             Navigation.PopModalAsync();
         }
     }

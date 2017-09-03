@@ -30,7 +30,7 @@
         </ResourceDictionary>
     </pages:PopupPage.Resources>
 
-    <StackLayout>
+    <ScrollView>
         <StackLayout HorizontalOptions="FillAndExpand" Margin="10" Padding="10" VerticalOptions="CenterAndExpand" BackgroundColor="White">
 
             <Grid RowSpacing="0" Padding="20, 0, 20, 0">
@@ -110,6 +110,6 @@
             <Button BackgroundColor="{StaticResource HeadingColor}" TextColor="White" Text="Dodaj komentar" HorizontalOptions="FillAndExpand" Command="{Binding AddCommentCommand}"/>
         </StackLayout>
 
-    </StackLayout>
+    </ScrollView>
 
 </pages:PopupPage>

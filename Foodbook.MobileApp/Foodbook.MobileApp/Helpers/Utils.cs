@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace Foodbook.MobileApp.Helpers
 {
@@ -16,5 +17,24 @@ namespace Foodbook.MobileApp.Helpers
         {
             return (Regex.IsMatch(email, emailRegex, RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(250)));
         }
+
+        public static void ButtonPress(object sender)
+        {
+            if (sender == null)
+                return;
+
+            View img = sender as View;
+            img.Opacity = 0.5;
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                Device.StartTimer(TimeSpan.FromSeconds(0.1), () =>
+                {
+                    img.Opacity = 1;
+
+                    return false;
+                });
+            });
+        }
     }
+
 }

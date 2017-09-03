@@ -11,6 +11,39 @@ namespace Foodbook.MobileApp.Data.Services
 {
     public class CookDataService
     {
+        public static async Task<ResponseCookModel> GetCookInfo(long id)
+        {
+            try
+            {
+                string url = ApiUrls.COOK_RESOURCE_ID(id);
+
+                ResponseCookModel model = new ResponseCookModel();
+
+                using (var client = new HttpClient())
+                {
+                    client.DefaultRequestHeaders.TryAddWithoutValidation("Content-Type", "application/json");
+
+                    HttpResponseMessage result = await client.GetAsync(url);
+                    if (result.StatusCode == System.Net.HttpStatusCode.OK)
+                    {
+                        string resultContent = await result.Content.ReadAsStringAsync();
+                        try
+                        {
+                            model = (ResponseCookModel)Newtonsoft.Json.JsonConvert.DeserializeObject(resultContent.ToString(), typeof(ResponseCookModel));
+                        }
+                        catch (Exception ex)
+                        {
+                            model = new ResponseCookModel();
+                        }
+                    }
+                }
+                return model;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
 
         public static async Task<List<ResponseCookModel>> GetCooks(string token = null)
         {
@@ -87,6 +120,34 @@ namespace Foodbook.MobileApp.Data.Services
                     return true;
                 }
             }
+            return false;
+        }
+
+        public static async Task<bool> EditCook(PostRegisterModel model, long cookId, string token)
+        {
+            //foreach (var item in model.Photos.Where(x => x.IsAdded))
+            //{
+            //    item.Url = await UploadFileToAzureBlob.BasicStorageBlockBlobOperationsAsync(item.PhotoStream, item.Name);
+            //}
+
+            //List<string> photosForDeleting = model.Photos.Where(x => x.IsDeleted).Select(x => x.Url).ToList();
+            //UploadFileToAzureBlob.DeleteBlob(photosForDeleting);
+
+            //string url = string.Format("{0}/{1}", ApiUrls.RECIPE_RESOURCE, recipeId);
+
+            //using (var client = new HttpClient())
+            //{
+            //    client.DefaultRequestHeaders.TryAddWithoutValidation("Content-Type", "application/json");
+            //    client.DefaultRequestHeaders.TryAddWithoutValidation("Authorization", "Bearer " + token);
+
+            //    string content = Newtonsoft.Json.JsonConvert.SerializeObject(model);
+
+            //    HttpResponseMessage result = await client.PutAsync(url, new StringContent(content, Encoding.UTF8, "application/json"));
+            //    if (result.StatusCode == System.Net.HttpStatusCode.OK)
+            //    {
+            //        return true;
+            //    }
+            //}
             return false;
         }
 

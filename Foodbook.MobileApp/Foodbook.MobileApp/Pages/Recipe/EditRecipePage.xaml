@@ -206,7 +206,14 @@
                                                         RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0, Constant=0}"
 				                                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-45}">
 
-                                                        <Image Source="viewImageWhite" Aspect="AspectFill" VerticalOptions="Center" HorizontalOptions="Center" WidthRequest="30" HeightRequest="30" />
+                                                        <Image Source="viewImageWhite" Aspect="AspectFill" VerticalOptions="Center" HorizontalOptions="Center" WidthRequest="30" HeightRequest="30">
+                                                            <Image.GestureRecognizers>
+                                                                <TapGestureRecognizer
+                                                                    BindingContext="{Binding Source={x:Reference photoList}, Path=BindingContext}"
+                                                                    Command="{Binding ViewImageCommand}" CommandParameter="{Binding Source={x:Reference Item}, Path=BindingContext}"
+                                                                    NumberOfTapsRequired="1" />
+                                                            </Image.GestureRecognizers>
+                                                        </Image>
 
                                                     </StackLayout>
                                                     <StackLayout

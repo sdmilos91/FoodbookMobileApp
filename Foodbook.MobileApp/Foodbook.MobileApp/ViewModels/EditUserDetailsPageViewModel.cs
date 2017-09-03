@@ -1,6 +1,7 @@
 ﻿using Foodbook.MobileApp.Data.Models;
 using Foodbook.MobileApp.Data.Services;
 using Foodbook.MobileApp.Helpers;
+using Foodbook.MobileApp.Tools;
 using Foodbook.Pages;
 using Plugin.Media;
 using Plugin.Media.Abstractions;
@@ -13,8 +14,9 @@ using Xamarin.Forms;
 
 namespace Foodbook.MobileApp.ViewModels
 {
-    public class RegisterPageViewModel : BaseViewModel
+    public class EditUserDetailsPageViewModel : BaseViewModel
     {
+        private ResponseCookModel mCook;
 
         private PostRegisterModel registerModel;
 
@@ -32,24 +34,42 @@ namespace Foodbook.MobileApp.ViewModels
             set { SetProperty(ref photoPicked, value); }
         }
 
-        public Command RegisterCommand { get; }
+
+        public Command EditCommand { get; }
         public Command AddImageCommand { get; }
         public Command ViewImageCommand { get; }
         public Command DeleteImageCommand { get; }
 
-        public RegisterPageViewModel()
+        public EditUserDetailsPageViewModel(ResponseCookModel cook)
         {
-            RegisterModel = new PostRegisterModel();
-            RegisterModel.PhotoUrl = "addPhotoHolder";
-            PhotoPicked = false;
+            mCook = cook;
+            RegisterModel = new PostRegisterModel
+            {
+                Biography = cook.Biography,
+                Email = LocalDataSecureStorage.GetEmail(),
+                FirstName = cook.FirstName,
+                LastName = cook.LastName,
+                PhotoUrl = cook.PhotoUrl
+            };
 
-            RegisterCommand = new Command(() => Register());
+            if (string.IsNullOrEmpty(cook.PhotoUrl))
+            {
+                PhotoPicked = false;
+                RegisterModel.PhotoUrl = "addPhotoHolder";
+            }
+            else
+            {
+                PhotoPicked = true;
+            }
+            
+
+            EditCommand = new Command(() => Edit());
             AddImageCommand = new Command((x) => AddImage(x));
             ViewImageCommand = new Command((x) => ViewImage(x));
             DeleteImageCommand = new Command((x) => DeleteImage(x));
         }
 
-        private async void Register()
+        private async void Edit()
         {
             if (RegisterModel.PhotoUrl.Equals("addPhotoHolder"))
             {
@@ -67,24 +87,6 @@ namespace Foodbook.MobileApp.ViewModels
             if (string.IsNullOrEmpty(RegisterModel.LastName))
             {
                 RegisterModel.LastName = "";
-                isFormValid = false;
-            }
-
-            if (string.IsNullOrEmpty(RegisterModel.Email))
-            {
-                RegisterModel.Email = "";
-                isFormValid = false;
-            }
-
-            if (string.IsNullOrEmpty(RegisterModel.Password))
-            {
-                RegisterModel.Password = "";
-                isFormValid = false;
-            }
-
-            if (string.IsNullOrEmpty(RegisterModel.ConfirmPassword))
-            {
-                RegisterModel.ConfirmPassword = "";
                 isFormValid = false;
             }
 
@@ -126,6 +128,7 @@ namespace Foodbook.MobileApp.ViewModels
 
             try
             {
+                
                 string action = await App.Current.MainPage.DisplayActionSheet("Dodavanje slike: Izaberite sliku pomoću?", "Otkaži", null, "Kamera", "Galerija");
                 Device.BeginInvokeOnMainThread(() => Dialogs.Show());
                 await CrossMedia.Current.Initialize();
@@ -189,7 +192,6 @@ namespace Foodbook.MobileApp.ViewModels
 
                 RegisterModel.PhotoUrl = file.Path;
                 OnPropertyChanged("RegisterModel");
-
                 PhotoPicked = true;
 
                 Device.BeginInvokeOnMainThread(() => Dialogs.Hide());
@@ -213,8 +215,13 @@ namespace Foodbook.MobileApp.ViewModels
             if (res)
             {
                 RegisterModel.Photo = null;
-                RegisterModel.PhotoUrl = "addPhotoHolder";
-                OnPropertyChanged("RegisterModel");
+                if (RegisterModel.PhotoUrl.Equals(mCook.PhotoUrl))
+                {
+                    RegisterModel.RemovedPhotoUrl = RegisterModel.PhotoUrl;
+                    RegisterModel.PhotoUrl = "addPhotoHolder";
+                    OnPropertyChanged("RegisterModel");
+                }
+
                 PhotoPicked = false;
                 OnPropertyChanged("PhotoPicked");
             }

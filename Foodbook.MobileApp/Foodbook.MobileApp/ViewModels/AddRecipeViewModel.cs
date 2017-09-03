@@ -5,7 +5,9 @@ using Foodbook.MobileApp.Helpers;
 using Foodbook.MobileApp.Pages;
 using Foodbook.MobileApp.Pages.Recipe;
 using Foodbook.MobileApp.Tools;
+using Foodbook.Pages;
 using Plugin.Media;
+using Plugin.Media.Abstractions;
 using Realms;
 using System;
 using System.Collections.Generic;
@@ -222,7 +224,7 @@ namespace Foodbook.MobileApp.ViewModels
 
         public Command DeleteImageCommand { get; }
 
-
+        public Command ViewImageCommand { get; }
 
         public AddRecipeViewModel()
         {
@@ -258,6 +260,7 @@ namespace Foodbook.MobileApp.ViewModels
             CancelCommand = new Command(() => Cancel());
             AddImageCommand = new Command((x) => AddImage(x));
             DeleteImageCommand = new Command((x) => DeleteImage(x));
+            ViewImageCommand = new Command((x) => ViewImage(x));
 
             PhotoStreams = new List<Stream>();
             mPageNumber = 0;
@@ -357,45 +360,57 @@ namespace Foodbook.MobileApp.ViewModels
 
         private async void AddImage(object sender)
         {
-            ButtonPress(sender);
+            Utils.ButtonPress(sender);
 
             try
             {
+                string action = await App.Current.MainPage.DisplayActionSheet("Dodavanje slike: Izaberite sliku pomoću?", "Otkaži", null, "Kamera", "Galerija");
                 Device.BeginInvokeOnMainThread(() => Dialogs.Show());
                 await CrossMedia.Current.Initialize();
 
-                if (!CrossMedia.Current.IsCameraAvailable || !CrossMedia.Current.IsTakePhotoSupported)
-                {
-                    await App.Current.MainPage.DisplayAlert("No Camera", ":( No camera available.", "OK");
-                    Device.BeginInvokeOnMainThread(() => Dialogs.Hide());
-                    return;
-                }
-
                 string photoName = Guid.NewGuid().ToString() + ".jpg";
 
-                var file = await CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions
+                MediaFile file = null;
+                if (action.Equals("Kamera"))
                 {
-                    Directory = "Sample",
-                    Name = photoName,
-                    SaveToAlbum = false,
-                    CompressionQuality = 50
+                    if (!CrossMedia.Current.IsCameraAvailable || !CrossMedia.Current.IsTakePhotoSupported)
+                    {
+                        await App.Current.MainPage.DisplayAlert("No Camera", ":( No camera available.", "OK");
+                        Device.BeginInvokeOnMainThread(() => Dialogs.Hide());
+                        return;
+                    }
 
-                });
 
+                    file = await CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions
+                    {
+                        Directory = "Sample",
+                        Name = photoName,
+                        SaveToAlbum = false,
+                        CompressionQuality = 50
+
+                    });
+                }
+                else
+                {
+                    if (!CrossMedia.Current.IsPickPhotoSupported)
+                    {
+                        await App.Current.MainPage.DisplayAlert("Info", "Ne možete izabrati sliku.", "U redu");
+                        Device.BeginInvokeOnMainThread(() => Dialogs.Hide());
+                        return;
+                    }
+
+                    file = await CrossMedia.Current.PickPhotoAsync(new Plugin.Media.Abstractions.PickMediaOptions
+                    {
+                        CompressionQuality = 50
+
+                    });
+
+                }
                 if (file == null)
                 {
                     Device.BeginInvokeOnMainThread(() => Dialogs.Hide());
                     return;
                 }
-
-                //await DisplayAlert("File Location", file.Path, "OK");
-
-                //image.Source = ImageSource.FromStream(() =>
-                //{
-                //    var stream = file.GetStream();
-                //    file.Dispose();
-                //    return stream;
-                //});
 
 
                 var temp = Photos;
@@ -410,9 +425,7 @@ namespace Foodbook.MobileApp.ViewModels
                 Photos = new ObservableCollection<PhotoModel>(temp);
                 Device.BeginInvokeOnMainThread(() => Dialogs.Hide());
                 file.Dispose();
-                //or:
-                //image.Source = ImageSource.FromFile(file.Path);
-                //image.Dispose();
+
             }
             catch (Exception ex)
             {
@@ -421,23 +434,35 @@ namespace Foodbook.MobileApp.ViewModels
             }
         }
 
-        private void DeleteImage(object photo)
+        private async void DeleteImage(object photo)
         {
-            
-            var temp = Photos;
-            var photoToRemove = photo as PhotoModel;
-            if (photoToRemove != null)
+            bool res = await App.Current.MainPage.DisplayAlert("Uklanjanje slike", "Da li želite da uklonite sliku?", "Da", "Ne");
+
+            if (res)
             {
-                temp.Remove(photoToRemove);
-                if (!photoToRemove.IsAdded)
-                    mDeletedPhotos.Add(photoToRemove);
+                var temp = Photos;
+                var photoToRemove = photo as PhotoModel;
+                if (photoToRemove != null)
+                {
+                    temp.Remove(photoToRemove);
+                    if (!photoToRemove.IsAdded)
+                        mDeletedPhotos.Add(photoToRemove);
+                }
+                Photos = new ObservableCollection<PhotoModel>(temp);
             }
-            Photos = new ObservableCollection<PhotoModel>(temp);
+        }
+
+        private async void ViewImage(object photo)
+        {
+            var photoModel = photo as PhotoModel;
+
+            MasterDetailPage masterPage = App.Current.MainPage as MasterDetailPage;
+            await masterPage.Detail.Navigation.PushModalAsync(new ImageViewPage(photoModel.Url));
         }
 
         private async void NextStep(object sender)
         {
-            ButtonPress(sender);
+            Utils.ButtonPress(sender);
 
             switch (mPageNumber)
             {
@@ -487,7 +512,7 @@ namespace Foodbook.MobileApp.ViewModels
 
         private async void PreviousStep(object sender)
         {
-            ButtonPress(sender);
+            Utils.ButtonPress(sender);
             if(mPageNumber > 0)
                 mPageNumber--;
             else if (mPageNumber == 0)
@@ -541,22 +566,5 @@ namespace Foodbook.MobileApp.ViewModels
             }
         }
 
-        private void ButtonPress(object sender)
-        {
-            if (sender == null)
-                return;
-
-            Image img = sender as Image;
-            img.Opacity = 0.5;
-            Device.BeginInvokeOnMainThread(() =>
-            {
-                Device.StartTimer(TimeSpan.FromSeconds(0.3), () =>
-                {
-                    img.Opacity = 1;
-
-                    return false;
-                });
-            });
-        }
     }
 }

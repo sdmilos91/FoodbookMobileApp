@@ -1,6 +1,7 @@
 ﻿using Foodbook.MobileApp;
 using Foodbook.MobileApp.Data.Models;
 using Foodbook.MobileApp.Data.Services;
+using Foodbook.MobileApp.Pages.Cook;
 using Foodbook.MobileApp.Pages.Recipe;
 using Foodbook.MobileApp.Tools;
 using Foodbook.MobileApp.ViewModels;
@@ -41,6 +42,19 @@ namespace Foodbook.Pages
             {
                 Icon = "edit",
                 Order = ToolbarItemOrder.Primary
+            };
+
+            edit.Clicked += async delegate
+            {
+                try
+                {
+                    await Navigation.PushAsync(new EditUserDetailsPage(cook));
+
+                }
+                catch (Exception ex)
+                {
+
+                    int i = 2;                }
             };
 
             if (!string.IsNullOrEmpty(LocalDataSecureStorage.GetToken()))

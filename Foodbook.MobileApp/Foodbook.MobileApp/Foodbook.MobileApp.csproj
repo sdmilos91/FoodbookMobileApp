@@ -77,6 +77,9 @@
     <Compile Include="Pages\Cook\CooksPage.xaml.cs">
       <DependentUpon>CooksPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Cook\EditUserDetailsPage.xaml.cs">
+      <DependentUpon>EditUserDetailsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Cook\UserDetailsPage.xaml.cs">
       <DependentUpon>UserDetailsPage.xaml</DependentUpon>
     </Compile>
@@ -118,6 +121,7 @@
     <Compile Include="ViewModels\EditRecipeViewModel.cs" />
     <Compile Include="ViewModels\AddRecipeViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
+    <Compile Include="ViewModels\EditUserDetailsPageViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\RecipeDetailViewModel.cs" />
     <Compile Include="ViewModels\CooksPageViewModel.cs" />
@@ -313,6 +317,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Pages\Cook\CooksPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\Cook\EditUserDetailsPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
