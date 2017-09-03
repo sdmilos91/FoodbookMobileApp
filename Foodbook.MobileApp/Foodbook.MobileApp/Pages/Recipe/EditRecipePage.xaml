@@ -4,18 +4,19 @@
              x:Class="Foodbook.MobileApp.Pages.Recipe.EditRecipePage"
              xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              xmlns:behaviors="clr-namespace:Foodbook.MobileApp.Behaviors;assembly=Foodbook.MobileApp"
+             xmlns:renderers="clr-namespace:Foodbook.MobileApp.Renderers;assembly=Foodbook.MobileApp"
              BackgroundColor="{StaticResource PageBackground}"
              Title="Ažuriranje recepta">
     <ContentPage.Content>
 
-        <Grid>
+        <Grid RowSpacing="0">
             <Grid.RowDefinitions>
-                <RowDefinition Height="40" />
+                <RowDefinition Height="50" />
                 <RowDefinition Height="*" />
                 <RowDefinition Height="50" />
             </Grid.RowDefinitions>
 
-            <Grid Grid.Row="0" RowSpacing="0" Padding="30, 0, 30, 0" BackgroundColor="{StaticResource PinkColor}">
+            <Grid Grid.Row="0" RowSpacing="0" Padding="30, 10, 30, 0" BackgroundColor="{StaticResource LightGreen}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="30" />
                     <ColumnDefinition Width="*"/>
@@ -29,7 +30,7 @@
                     <RowDefinition Height="13" />
                 </Grid.RowDefinitions>
 
-                <Label Text="1" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" BackgroundColor="{StaticResource YellowColor}" TextColor="White" Grid.Column="0" Grid.Row="0" Grid.RowSpan="3"></Label>
+                <Label Text="1" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" BackgroundColor="{StaticResource HeadingColor}" TextColor="White" Grid.Column="0" Grid.Row="0" Grid.RowSpan="3"></Label>
                 <BoxView x:Name="secondPageLine" BackgroundColor="{Binding SecondStepLineColor}" Grid.Column="1" Grid.Row="1"></BoxView>
                 <Label Text="2" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" BackgroundColor="{Binding SecondStepIndicatorColor}" TextColor="{Binding SecondStepIndicatorTextColor}" Grid.Column="2" Grid.Row="0" Grid.RowSpan="3"></Label>
                 <BoxView x:Name="thirdPageLine" BackgroundColor="{Binding ThirdStepLineColor}" Grid.Column="3" Grid.Row="1"></BoxView>
@@ -45,104 +46,101 @@
 
                         <RelativeLayout >
 
-                            <StackLayout 
+                            <ScrollView 
                                      RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
 			                         RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}"
                                      >
+                                <StackLayout Margin="0,30,0,30">
+                                    <Grid RowSpacing="0" Padding="20, 0, 20, 0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="20" />
+                                        </Grid.RowDefinitions>
 
-                                <Grid RowSpacing="0" Padding="20, 0, 20, 0">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="16" />
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="*" />
-                                        <RowDefinition Height="*" />
-                                        <RowDefinition Height="20" />
-                                    </Grid.RowDefinitions>
+                                        <Label Text="Naziv: *"  Grid.Row="0" Style="{StaticResource EntryTitleLblStyle}"/>
+                                        <renderers:CustomEntry Text="{Binding RecipeName}" Placeholder="Naziv" HorizontalTextAlignment="Start" Grid.Row="1" >
+                                            <Entry.Behaviors>
+                                                <behaviors:RequiredValidatorBehavior x:Name="nameBehavior"  mLbl="{x:Reference nameValidationLbl}" />
+                                            </Entry.Behaviors>
+                                        </renderers:CustomEntry>
+                                        <Label x:Name="nameValidationLbl" IsVisible="False" Text="Naziv: *" Grid.Row="2" FontSize="Small" TextColor="Red"/>
 
-                                    <Image Source="name" Grid.Column="0" Grid.Row="0" VerticalOptions="Center" HorizontalOptions="Center"/>
-                                    <Label Text="Naziv: *" Grid.Column="1" Grid.Row="0" Style="{StaticResource EntryTitleLblStyle}"/>
-                                    <Entry Text="{Binding RecipeName}" Placeholder="Naziv" HorizontalTextAlignment="Start" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2">
-                                        <Entry.Behaviors>
-                                            <behaviors:RequiredValidatorBehavior x:Name="nameBehavior"  mLbl="{x:Reference nameValidationLbl}" />
-                                        </Entry.Behaviors>
-                                    </Entry>
-                                    <Label x:Name="nameValidationLbl" IsVisible="False" Text="Naziv: *" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" FontSize="Micro" TextColor="Red"/>
+                                    </Grid>
 
-                                </Grid>
+                                    <Grid RowSpacing="0" Padding="20, 0, 20, 0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="20" />
+                                        </Grid.RowDefinitions>
 
-                                <Grid RowSpacing="0" Padding="20, 0, 20, 0">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="16" />
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="*" />
-                                        <RowDefinition Height="*" />
-                                    </Grid.RowDefinitions>
+                                        <Label Text="Kategorija: *" Grid.Row="0" Style="{StaticResource EntryTitleLblStyle}"/>
+                                        <Picker x:Name="categoryPicker" ItemsSource="{Binding Categories}" ItemDisplayBinding="{Binding CategoryName}" SelectedIndex="{Binding SelectedCategory}" IsVisible="False"/>
+                                        <renderers:CustomEntry Text="{Binding CategoryName}" Placeholder="Kategorija" HorizontalTextAlignment="Start" Grid.Row="1">
 
-                                    <Image Source="category1" Grid.Column="0" Grid.Row="0" VerticalOptions="Center" HorizontalOptions="Center"/>
-                                    <Label Text="Kategorija: *" Grid.Column="1" Grid.Row="0" Style="{StaticResource EntryTitleLblStyle}"/>
-                                    <Picker ItemsSource="{Binding Categories}" ItemDisplayBinding="{Binding CategoryName}" SelectedIndex="{Binding SelectedCategory}" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2"/>
+                                            <Entry.Behaviors>
+                                                <behaviors:EntriPickerBehavior  RelatedPicker="{x:Reference categoryPicker}" PickerType="CATEGORY"/>
+                                            </Entry.Behaviors>
 
-                                </Grid>
+                                        </renderers:CustomEntry>
+                                    </Grid>
 
-                                <Grid RowSpacing="0" Padding="20, 0, 20, 0">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="16" />
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="*" />
-                                        <RowDefinition Height="*" />
-                                    </Grid.RowDefinitions>
+                                    <Grid RowSpacing="0" Padding="20, 0, 20, 0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="20" />
+                                        </Grid.RowDefinitions>
 
-                                    <Image Source="earth" Grid.Column="0" Grid.Row="0" VerticalOptions="Center" HorizontalOptions="Center"/>
-                                    <Label Text="Kuhinja: *" Grid.Column="1" Grid.Row="0" Style="{StaticResource EntryTitleLblStyle}"/>
-                                    <Picker ItemsSource="{Binding Cuisines}" ItemDisplayBinding="{Binding CuisineName}" SelectedIndex="{Binding SelectedCuisine}"  Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2"/>
+                                        <Label Text="Kuhinja: *" Grid.Row="0" Style="{StaticResource EntryTitleLblStyle}"/>
+                                        <Picker x:Name="cuisinePicker" ItemsSource="{Binding Cuisines}" ItemDisplayBinding="{Binding CuisineName}" SelectedIndex="{Binding SelectedCuisine}"  IsVisible="False"/>
+                                        <renderers:CustomEntry Text="{Binding CuisineName}" Placeholder="Kuhinja" HorizontalTextAlignment="Start" Grid.Row="1" >
 
-                                </Grid>
+                                            <Entry.Behaviors>
+                                                <behaviors:EntriPickerBehavior  RelatedPicker="{x:Reference cuisinePicker}" PickerType="CUISINE"/>
+                                            </Entry.Behaviors>
 
-                                <Grid RowSpacing="0" Padding="20, 0, 20, 0">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="16" />
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="*" />
-                                        <RowDefinition Height="*" />
-                                        <RowDefinition Height="20" />
-                                    </Grid.RowDefinitions>
+                                        </renderers:CustomEntry>
+                                    </Grid>
 
-                                    <Image Source="time" Grid.Column="0" Grid.Row="0" VerticalOptions="Center" HorizontalOptions="Center"/>
-                                    <Label Text="Vreme pripreme (min): *" Grid.Column="1" Grid.Row="0" Style="{StaticResource EntryTitleLblStyle}"/>
-                                    <Entry Text="{Binding PreparationTime}" Placeholder="Vreme pripreme" Keyboard="Numeric" HorizontalTextAlignment="Start" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2">
-                                        <Entry.Behaviors>
-                                            <behaviors:RequiredValidatorBehavior x:Name="preparationTimeBehavior"  mLbl="{x:Reference preparationValidationLbl}" />
-                                        </Entry.Behaviors>
-                                    </Entry>
-                                    <Label x:Name="preparationValidationLbl" IsVisible="False" Text="Naziv: *" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" FontSize="Micro" TextColor="Red"/>
+                                    <Grid RowSpacing="0" Padding="20, 0, 20, 0">
 
-                                </Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="20" />
+                                        </Grid.RowDefinitions>
 
-                                <Grid RowSpacing="0" Padding="20, 0, 20, 0">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="16" />
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="*" />
-                                        <RowDefinition Height="*" />
-                                    </Grid.RowDefinitions>
+                                        <Label Text="Vreme pripreme (min): *" Grid.Row="0" Style="{StaticResource EntryTitleLblStyle}"/>
+                                        <renderers:CustomEntry Text="{Binding PreparationTime}" Placeholder="Vreme pripreme" Keyboard="Numeric" HorizontalTextAlignment="Start" Grid.Row="1" >
+                                            <Entry.Behaviors>
+                                                <behaviors:RequiredValidatorBehavior x:Name="preparationTimeBehavior"  mLbl="{x:Reference preparationValidationLbl}" />
+                                            </Entry.Behaviors>
+                                        </renderers:CustomEntry>
+                                        <Label x:Name="preparationValidationLbl" IsVisible="False" Text="Naziv: *" Grid.Row="2" FontSize="Small" TextColor="Red"/>
 
-                                    <Image Source="calories" Grid.Column="0" Grid.Row="0" VerticalOptions="Center" HorizontalOptions="Center"/>
-                                    <Label Text="Kaloričnost: *" Grid.Column="1" Grid.Row="0" Style="{StaticResource EntryTitleLblStyle}"/>
-                                    <Picker ItemsSource="{Binding Caloricities}" ItemDisplayBinding="{Binding Name}" SelectedIndex="{Binding SelectedCaloricity}"  Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2"/>
+                                    </Grid>
 
-                                </Grid>
+                                    <Grid RowSpacing="0" Padding="20, 0, 20, 0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="20" />
+                                        </Grid.RowDefinitions>
 
-                            </StackLayout>
+                                        <Label Text="Kaloričnost: *" Grid.Row="0" Style="{StaticResource EntryTitleLblStyle}"/>
+                                        <Picker x:Name="caloryPicker" ItemsSource="{Binding Caloricities}" ItemDisplayBinding="{Binding Name}" SelectedIndex="{Binding SelectedCaloricity}" IsVisible="False"/>
+                                        <renderers:CustomEntry Text="{Binding CaloryName}" Placeholder="Kaloričnost" HorizontalTextAlignment="Start" Grid.Row="1" >
+
+                                            <Entry.Behaviors>
+                                                <behaviors:EntriPickerBehavior  RelatedPicker="{x:Reference caloryPicker}" PickerType="CALORY"/>
+                                            </Entry.Behaviors>
+
+                                        </renderers:CustomEntry>
+                                    </Grid>
+                                </StackLayout>
+                            </ScrollView>
 
                         </RelativeLayout>
 
@@ -164,12 +162,12 @@
                                         <RowDefinition Height="40" />
                                     </Grid.RowDefinitions>
                                     <Label Text="Priprema recepta: *" Style="{StaticResource EntryTitleLblStyle}" Grid.Row="0"/>
-                                    <Entry Text="{Binding RecipeText}" VerticalOptions="FillAndExpand" Grid.Row="1" HeightRequest="250">
+                                    <renderers:CustomEntry Text="{Binding RecipeText}" EntryType="MULTILINE" HeightRequest="300" VerticalOptions="FillAndExpand" Grid.Row="1" >
                                         <Entry.Behaviors>
                                             <behaviors:RequiredValidatorBehavior x:Name="recipeTextValidator"   mLbl="{x:Reference recipeTextValidationLbl}" />
                                         </Entry.Behaviors>
-                                    </Entry>
-                                    <Label x:Name="recipeTextValidationLbl" IsVisible="False" Grid.Row="2" FontSize="Micro" TextColor="Red"/>
+                                    </renderers:CustomEntry>
+                                    <Label x:Name="recipeTextValidationLbl" IsVisible="False" Grid.Row="2" FontSize="Small" TextColor="Red"/>
                                 </Grid>
                             </StackLayout>
                         </RelativeLayout>
@@ -185,8 +183,8 @@
                                 x:Name="photoList"
                                 RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
 			                    RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-50}"
-                                HeightRequest="100"
-                                RowHeight="100">
+                                HeightRequest="130"
+                                RowHeight="130">
 
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
@@ -201,27 +199,35 @@
                                         RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
 				                        RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}"
                                         >
-                                                        </ffimageloading:CachedImage>
-                                                 
+                                                    </ffimageloading:CachedImage>
+                                                    <StackLayout
+                                                        Padding="5"
+                                                        BackgroundColor="Gray"
+                                                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0, Constant=0}"
+				                                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-45}">
 
+                                                        <Image Source="viewImageWhite" Aspect="AspectFill" VerticalOptions="Center" HorizontalOptions="Center" WidthRequest="30" HeightRequest="30" />
 
-                                                    <Image Source="viewImage" Aspect="AspectFill" HorizontalOptions="FillAndExpand" HeightRequest="36"
-                               RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-90}"
-				               RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0, Constant=10}"
-                               />
-                                                    <Image Source="deleteImage" Aspect="AspectFill" HorizontalOptions="FillAndExpand" HeightRequest="36"
-                               RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-40}"
-				               RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0, Constant=10}"
-                               >
+                                                    </StackLayout>
+                                                    <StackLayout
+                                                        Opacity="0.7"
+                                                        Padding="5"
+                                                        BackgroundColor="Gray"
+                                                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-40}"
+				                                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-45}">
 
-                                                        <Image.GestureRecognizers>
-                                                            <TapGestureRecognizer
-                            BindingContext="{Binding Source={x:Reference photoList}, Path=BindingContext}"
-                            Command="{Binding DeleteImageCommand}" CommandParameter="{Binding Source={x:Reference Item}, Path=BindingContext}"
-                            NumberOfTapsRequired="1" />
-                                                        </Image.GestureRecognizers>
+                                                        <Image Source="delete" Aspect="AspectFill" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="30"  HeightRequest="30">
 
-                                                    </Image>
+                                                            <Image.GestureRecognizers>
+                                                                <TapGestureRecognizer
+                                                                    BindingContext="{Binding Source={x:Reference photoList}, Path=BindingContext}"
+                                                                    Command="{Binding DeleteImageCommand}" CommandParameter="{Binding Source={x:Reference Item}, Path=BindingContext}"
+                                                                    NumberOfTapsRequired="1" />
+                                                            </Image.GestureRecognizers>
+
+                                                        </Image>
+
+                                                    </StackLayout>
                                                 </RelativeLayout>
                                             </StackLayout>
                                         </ViewCell>
@@ -230,7 +236,7 @@
                             </ListView>
                             <StackLayout 
                                 Padding="5"
-                                BackgroundColor="#C0C0C0"
+                                BackgroundColor="{StaticResource LightGreen}"
                                 RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0}"
 				                RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant= -50}"
                                 RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
@@ -249,7 +255,7 @@
 
                     </StackLayout>
                     <!--END STEP 3-->
-                    
+
                 </StackLayout>
 
 

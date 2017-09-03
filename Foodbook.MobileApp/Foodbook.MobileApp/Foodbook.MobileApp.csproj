@@ -47,6 +47,7 @@
     <Compile Include="Behaviors\BasePasswordBehavior.cs" />
     <Compile Include="Behaviors\ConfirmPasswordValidatorBehavior.cs" />
     <Compile Include="Behaviors\EmailValidatorBehavior.cs" />
+    <Compile Include="Behaviors\EntriPickerBehavior.cs" />
     <Compile Include="Behaviors\PasswordValidatorBehavior.cs" />
     <Compile Include="Behaviors\RequiredValidatorBehavior.cs" />
     <Compile Include="Converters\PreparationTimeConverter.cs" />

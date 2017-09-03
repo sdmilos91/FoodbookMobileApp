@@ -96,6 +96,12 @@ namespace Foodbook.MobileApp.ViewModels
             set { SetProperty(ref selectedCaloricity, value); }
         }
 
+        public string CategoryName { get; set; }
+
+        public string CuisineName { get; set; }
+
+        public string CaloryName { get; set; }
+
         private ObservableCollection<PhotoModel> photos;
 
         public ObservableCollection<PhotoModel> Photos
@@ -335,7 +341,6 @@ namespace Foodbook.MobileApp.ViewModels
                         realm.Add(item);
                     }
                 });
-                var xx = realm.All<FoodCategoryModel>().ToList();
 
                 Categories = new ObservableCollection<FoodCategoryModel>(commonData.Categories);
                 Cuisines = new ObservableCollection<CuisineModel>(commonData.Cuisines);
@@ -355,6 +360,10 @@ namespace Foodbook.MobileApp.ViewModels
 
             SelectedCaloricity = Caloricities.IndexOf(Caloricities.FirstOrDefault(x => x.CaloricityId == mRecipe.CaloricityId));
             OnPropertyChanged("SelectedCaloricity");
+
+            CategoryName = mCommonData.Categories.ElementAt(SelectedCategory)?.CategoryName;
+            CuisineName = mCommonData.Cuisines.ElementAt(SelectedCuisine)?.CuisineName;
+            CaloryName = mCommonData.Caloricities.ElementAt(SelectedCaloricity)?.Name;
 
             Device.BeginInvokeOnMainThread(() => Dialogs.Hide());
 
@@ -524,21 +533,21 @@ namespace Foodbook.MobileApp.ViewModels
                 NextBtnIcon = "save";
                 BackBtnIcon = "back1";
                 StepThreeContainer = true;
-                SecondStepIndicatorColor = Color.FromHex(MyColors.YELLOW);
+                SecondStepIndicatorColor = Color.FromHex(MyColors.GREEN);
                 SecondStepIndicatorTextColor = Color.White;
-                SecondStepLineColor = Color.FromHex(MyColors.YELLOW);
-                ThirdStepIndicatorColor = Color.FromHex(MyColors.YELLOW);
+                SecondStepLineColor = Color.FromHex(MyColors.GREEN);
+                ThirdStepIndicatorColor = Color.FromHex(MyColors.GREEN);
                 ThirdStepIndicatorTextColor = Color.White;
-                ThirdStepLineColor = Color.FromHex(MyColors.YELLOW);
+                ThirdStepLineColor = Color.FromHex(MyColors.GREEN);
             }
             else if (mPageNumber == 1)
             {
                 NextBtnIcon = "next";
                 BackBtnIcon = "back1";
                 StepTwoContainer = true;
-                SecondStepIndicatorColor = Color.FromHex(MyColors.YELLOW);
+                SecondStepIndicatorColor = Color.FromHex(MyColors.GREEN);
                 SecondStepIndicatorTextColor = Color.White;
-                SecondStepLineColor = Color.FromHex(MyColors.YELLOW);
+                SecondStepLineColor = Color.FromHex(MyColors.GREEN);
 
             }
             else if (mPageNumber == 0)

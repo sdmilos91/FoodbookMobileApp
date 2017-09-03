@@ -47,7 +47,6 @@ namespace Foodbook.MobileApp.Data.Services
             }
         }
 
-
         public static async Task<RecipeCommonDataModel> GetRecipeCommonDate()
         {
             try

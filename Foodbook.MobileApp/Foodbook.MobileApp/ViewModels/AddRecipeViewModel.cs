@@ -47,6 +47,11 @@ namespace Foodbook.MobileApp.ViewModels
             set { SetProperty(ref recipeText, value); }
         }
 
+        public string CategoryName { get; set; }
+
+        public string CuisineName { get; set; }
+
+        public string CaloryName { get; set; }
 
         private ObservableCollection<FoodCategoryModel> categories;
 
@@ -254,9 +259,6 @@ namespace Foodbook.MobileApp.ViewModels
             AddImageCommand = new Command((x) => AddImage(x));
             DeleteImageCommand = new Command((x) => DeleteImage(x));
 
-            SelectedCategory = 1;
-            SelectedCuisine = 1;
-            SelectedCaloricity = 1;
             PhotoStreams = new List<Stream>();
             mPageNumber = 0;
         }
@@ -287,8 +289,6 @@ namespace Foodbook.MobileApp.ViewModels
 
         private async void InitData()
         {
-
-
             Device.BeginInvokeOnMainThread(() => Dialogs.Show());
 
             var realm = Realm.GetInstance();
@@ -331,14 +331,18 @@ namespace Foodbook.MobileApp.ViewModels
 
                 Categories = new ObservableCollection<FoodCategoryModel>(commonData.Categories);
                 Cuisines = new ObservableCollection<CuisineModel>(commonData.Cuisines);
-                Caloricities = new ObservableCollection<CaloricityModel>(commonData.Caloricities);
-
-                SelectedCategory = 0;
-                SelectedCuisine = 0;
-                SelectedCaloricity = 0;
+                Caloricities = new ObservableCollection<CaloricityModel>(commonData.Caloricities);               
 
                 mCommonData = commonData;
             }
+
+            SelectedCategory = 0;
+            SelectedCuisine = 0;
+            SelectedCaloricity = 0;
+
+            CategoryName = mCommonData.Categories.ElementAt(SelectedCategory)?.CategoryName;
+            CuisineName = mCommonData.Cuisines.ElementAt(SelectedCuisine)?.CuisineName;
+            CaloryName = mCommonData.Caloricities.ElementAt(SelectedCaloricity)?.Name;
 
             Device.BeginInvokeOnMainThread(() => Dialogs.Hide());
 
@@ -357,12 +361,13 @@ namespace Foodbook.MobileApp.ViewModels
 
             try
             {
-                //Device.BeginInvokeOnMainThread(() => Dialogs.Show());
+                Device.BeginInvokeOnMainThread(() => Dialogs.Show());
                 await CrossMedia.Current.Initialize();
 
                 if (!CrossMedia.Current.IsCameraAvailable || !CrossMedia.Current.IsTakePhotoSupported)
                 {
-                    // DisplayAlert("No Camera", ":( No camera available.", "OK");
+                    await App.Current.MainPage.DisplayAlert("No Camera", ":( No camera available.", "OK");
+                    Device.BeginInvokeOnMainThread(() => Dialogs.Hide());
                     return;
                 }
 
@@ -378,7 +383,10 @@ namespace Foodbook.MobileApp.ViewModels
                 });
 
                 if (file == null)
+                {
+                    Device.BeginInvokeOnMainThread(() => Dialogs.Hide());
                     return;
+                }
 
                 //await DisplayAlert("File Location", file.Path, "OK");
 

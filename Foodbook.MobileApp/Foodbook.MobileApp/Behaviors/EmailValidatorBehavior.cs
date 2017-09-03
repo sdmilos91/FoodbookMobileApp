@@ -29,7 +29,6 @@ public class EmailValidatorBehavior : BaseEntryBehavior
         void HandleTextChanged(object sender, TextChangedEventArgs e)
         {
             IsValid = Utils.IsEmailValid(e.NewTextValue);
-            //((Entry)sender).TextColor = IsValid ? Color.Default : Color.Red;
 
             bool isRequired = mEntry.Behaviors.Any(x => x.GetType() == typeof(RequiredValidatorBehavior));
             if (!(isRequired && string.IsNullOrEmpty(e.NewTextValue)))
