@@ -125,29 +125,34 @@ namespace Foodbook.MobileApp.Data.Services
 
         public static async Task<bool> EditCook(PostRegisterModel model, long cookId, string token)
         {
-            //foreach (var item in model.Photos.Where(x => x.IsAdded))
-            //{
-            //    item.Url = await UploadFileToAzureBlob.BasicStorageBlockBlobOperationsAsync(item.PhotoStream, item.Name);
-            //}
 
-            //List<string> photosForDeleting = model.Photos.Where(x => x.IsDeleted).Select(x => x.Url).ToList();
-            //UploadFileToAzureBlob.DeleteBlob(photosForDeleting);
+            if (model.Photo != null)
+            {
+                model.PhotoUrl = await UploadFileToAzureBlob.BasicStorageBlockBlobOperationsAsync(model.Photo.PhotoStream, model.Photo.Name);
+            }
 
-            //string url = string.Format("{0}/{1}", ApiUrls.RECIPE_RESOURCE, recipeId);
+            if (!string.IsNullOrEmpty(model.RemovedPhotoUrl))
+            {
+                List<string> photosForDeleting = new List<string>();
+                photosForDeleting.Add(model.RemovedPhotoUrl);
+                UploadFileToAzureBlob.DeleteBlob(photosForDeleting);
+            }
 
-            //using (var client = new HttpClient())
-            //{
-            //    client.DefaultRequestHeaders.TryAddWithoutValidation("Content-Type", "application/json");
-            //    client.DefaultRequestHeaders.TryAddWithoutValidation("Authorization", "Bearer " + token);
+            string url = ApiUrls.COOK_RESOURCE_ID(cookId);
 
-            //    string content = Newtonsoft.Json.JsonConvert.SerializeObject(model);
+            using (var client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.TryAddWithoutValidation("Content-Type", "application/json");
+                client.DefaultRequestHeaders.TryAddWithoutValidation("Authorization", "Bearer " + token);
 
-            //    HttpResponseMessage result = await client.PutAsync(url, new StringContent(content, Encoding.UTF8, "application/json"));
-            //    if (result.StatusCode == System.Net.HttpStatusCode.OK)
-            //    {
-            //        return true;
-            //    }
-            //}
+                string content = Newtonsoft.Json.JsonConvert.SerializeObject(model);
+
+                HttpResponseMessage result = await client.PutAsync(url, new StringContent(content, Encoding.UTF8, "application/json"));
+                if (result.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    return true;
+                }
+            }
             return false;
         }
 

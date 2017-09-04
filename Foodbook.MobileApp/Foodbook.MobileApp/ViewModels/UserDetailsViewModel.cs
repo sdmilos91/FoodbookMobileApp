@@ -17,8 +17,14 @@ namespace Foodbook.MobileApp.ViewModels
 {
     public class UserDetailsViewModel : BaseViewModel
     {
+        private ResponseCookModel mCook;
 
-        public ResponseCookModel Cook { get; set; }
+        public ResponseCookModel Cook
+        {
+            get { return mCook; }
+            set { SetProperty(ref mCook, value); }
+        }
+
 
         public ObservableCollection<RecipeDataModel> Recipes { get; set; }
         public ObservableCollection<CookCommentModel> Comments { get; set; }
@@ -165,6 +171,12 @@ namespace Foodbook.MobileApp.ViewModels
             AddCommentCommand = new Command(() => AddComment(cook.CookId));
             CommentAddedCommand = new Command((x) => CommentAdded(x));
             SwitchTab("1");
+
+            MessagingCenter.Subscribe<EditUserDetailsPageViewModel, ResponseCookModel>(this, "USER_EDIITED", (sender, args) =>
+            {
+                Cook = args;
+                OnPropertyChanged("Cook");
+            });
         }
 
 

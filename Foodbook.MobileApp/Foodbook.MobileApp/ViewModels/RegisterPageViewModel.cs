@@ -152,7 +152,7 @@ namespace Foodbook.MobileApp.ViewModels
 
                     });
                 }
-                else
+                else if (action.Equals("Galerija"))
                 {
                     if (!CrossMedia.Current.IsPickPhotoSupported)
                     {
@@ -199,7 +199,7 @@ namespace Foodbook.MobileApp.ViewModels
             catch (Exception ex)
             {
 
-                int i = 2;
+                Device.BeginInvokeOnMainThread(() => Dialogs.Hide());
             }
         }
 

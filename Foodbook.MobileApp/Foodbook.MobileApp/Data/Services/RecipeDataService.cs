@@ -146,7 +146,7 @@ namespace Foodbook.MobileApp.Data.Services
 
             List<string> photosForDeleting = model.Photos.Where(x => x.IsDeleted).Select(x => x.Url).ToList();
             UploadFileToAzureBlob.DeleteBlob(photosForDeleting);
-
+            model.Photos = new List<PhotoModel>(model.Photos.Where(x => !x.IsDeleted));
             string url = string.Format("{0}/{1}", ApiUrls.RECIPE_RESOURCE, recipeId);
 
             using (var client = new HttpClient())
@@ -160,6 +160,10 @@ namespace Foodbook.MobileApp.Data.Services
                 if (result.StatusCode == System.Net.HttpStatusCode.OK)
                 {
                     return true;
+                }
+                else
+                {
+                    string resultContent = await result.Content.ReadAsStringAsync();
                 }
             }
             return false;

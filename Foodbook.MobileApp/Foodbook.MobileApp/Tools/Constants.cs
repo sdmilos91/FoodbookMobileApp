@@ -8,8 +8,8 @@ namespace Foodbook.MobileApp.Tools
 {
     public class ApiUrls
     {
-        public static string BASE_URL = "http://192.168.1.2:50226";
-       // public static string BASE_URL = "http://srv.dunavnet.eu/FoodBookApi";
+        //public static string BASE_URL = "http://192.168.1.2:50226";
+        public static string BASE_URL = "http://srv.dunavnet.eu/FoodBookApi";
 
         //Recipe
         public static string RECIPE_RESOURCE_ID(long id)

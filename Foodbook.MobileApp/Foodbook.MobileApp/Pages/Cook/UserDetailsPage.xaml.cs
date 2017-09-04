@@ -46,15 +46,7 @@ namespace Foodbook.Pages
 
             edit.Clicked += async delegate
             {
-                try
-                {
-                    await Navigation.PushAsync(new EditUserDetailsPage(cook));
-
-                }
-                catch (Exception ex)
-                {
-
-                    int i = 2;                }
+                await Navigation.PushAsync(new EditUserDetailsPage(cook));
             };
 
             if (!string.IsNullOrEmpty(LocalDataSecureStorage.GetToken()))
@@ -72,6 +64,11 @@ namespace Foodbook.Pages
                 await PopupNavigation.PopAsync();
                 MessagingCenter.Send(this, "COOK_RATING_UPDATED", model);
 
+            });
+
+            MessagingCenter.Subscribe<EditUserDetailsPageViewModel, ResponseCookModel>(this, "USER_EDIITED", (sender, args) =>
+            {
+                cook = args;               
             });
 
             BindingContext = viewModel;

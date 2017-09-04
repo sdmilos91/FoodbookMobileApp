@@ -99,19 +99,25 @@ namespace Foodbook.MobileApp.ViewModels
             if (isFormValid && Utils.IsEmailValid(RegisterModel.Email))
             {
                 Device.BeginInvokeOnMainThread(() => Dialogs.Show());
-                bool res = await AccountDataService.RegisterUser(registerModel);
+                bool res = await CookDataService.EditCook(registerModel, mCook.CookId, LocalDataSecureStorage.GetToken());
                 Device.BeginInvokeOnMainThread(() => Dialogs.Hide());
 
-                Page masterPage = App.Current.MainPage;
+                MasterDetailPage masterPage = App.Current.MainPage as MasterDetailPage;
                 if (res)
-                {
-                    
-                    await masterPage.DisplayAlert("Obaveštenje", "Uspešno ste se registrovali. Možete se prijaviti sa registrovanim nalogom.", "U redu");
-                    await masterPage.Navigation.PopAsync();
+                {                    
+                    mCook.Biography = RegisterModel.Biography;
+                    mCook.FirstName = RegisterModel.FirstName;
+                    mCook.LastName = RegisterModel.LastName;
+                    mCook.FullName = string.Join(" ", RegisterModel.FirstName, RegisterModel.LastName);
+                    mCook.PhotoUrl = RegisterModel.PhotoUrl;
+                    MessagingCenter.Send(this, "USER_EDIITED", mCook);
+
+                    await masterPage.DisplayAlert("Obaveštenje", "Uspešno ste ažurirali profil.", "U redu");
+                    await masterPage.Detail.Navigation.PopAsync();
                 }
                 else
                 {
-                    await masterPage.DisplayAlert("Obaveštenje", "Greška Prilikom registracije.", "U redu");
+                    await masterPage.DisplayAlert("Obaveštenje", "Greška prilikom ažuriranja.", "U redu");
                 }
             }
             else
@@ -155,7 +161,7 @@ namespace Foodbook.MobileApp.ViewModels
 
                     });
                 }
-                else
+                else if (action.Equals("Galerija"))
                 {
                     if (!CrossMedia.Current.IsPickPhotoSupported)
                     {
@@ -201,7 +207,7 @@ namespace Foodbook.MobileApp.ViewModels
             catch (Exception ex)
             {
 
-                int i = 2;
+                Device.BeginInvokeOnMainThread(() => Dialogs.Hide());
             }
         }
 

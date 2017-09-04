@@ -33,6 +33,7 @@
                                         DownsampleWidth="300"
                                         Aspect="AspectFill"                                      
                                         LoadingPlaceholder="loadingImage"
+                                        ErrorPlaceholder="chefIcon"
                                         RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
 				                        RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}">
                     <Image.GestureRecognizers>

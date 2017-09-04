@@ -25,20 +25,6 @@ namespace Foodbook.MobileApp.Pages.Recipe
         {
             InitializeComponent();
 
-            MessagingCenter.Subscribe<AddRecipeViewModel>(this, MessageCenterKeys.ADDED, (sender) => {
-
-                DisplayAlert("Obaveštenje", "Recept je uspešno dodat.", "U redu");
-                App.Current.MainPage = new HomeMasterDetailPage();
-
-            });
-
-            MessagingCenter.Subscribe<EditRecipeViewModel>(this, MessageCenterKeys.EDITED, (sender) => {
-
-                DisplayAlert("Obaveštenje", "Recept je uspešno ažuriran.", "U redu");
-                App.Current.MainPage = new HomeMasterDetailPage();
-
-            });
-
             BindingContext = new RecipesPageViewModel();
         }
 
@@ -55,5 +41,6 @@ namespace Foodbook.MobileApp.Pages.Recipe
             //Deselect Item
             ((ListView)sender).SelectedItem = null;
         }
+
     }
 }

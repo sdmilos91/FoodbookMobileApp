@@ -296,7 +296,11 @@ namespace Foodbook.MobileApp.ViewModels
             Device.BeginInvokeOnMainThread(() => Dialogs.Hide());
 
             if (result)
-                MessagingCenter.Send(this, MessageCenterKeys.EDITED);
+            {
+                await App.Current.MainPage.DisplayAlert("Obaveštenje", "Recept je uspešno ažuriran.", "U redu");
+                App.Current.MainPage = new HomeMasterDetailPage();
+            }
+                
             else
                 await App.Current.MainPage.DisplayAlert("Obveštenje", "Greška prilikom ažuriranja recepta.", "U redu");
 
@@ -413,7 +417,7 @@ namespace Foodbook.MobileApp.ViewModels
 
                     });
                 }
-                else
+                else if (action.Equals("Galerija"))
                 {
                     if (!CrossMedia.Current.IsPickPhotoSupported)
                     {
@@ -431,8 +435,10 @@ namespace Foodbook.MobileApp.ViewModels
                 }
 
                 if (file == null)
+                {
+                    Device.BeginInvokeOnMainThread(() => Dialogs.Hide());
                     return;
-
+                }
 
                 var temp = Photos;
                 temp.Add(new PhotoModel
@@ -449,8 +455,7 @@ namespace Foodbook.MobileApp.ViewModels
             }
             catch (Exception ex)
             {
-
-                int i = 2;
+                Device.BeginInvokeOnMainThread(() => Dialogs.Hide());
             }
         }
 
