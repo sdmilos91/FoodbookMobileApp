@@ -1,7 +1,10 @@
 ﻿using Foodbook.MobileApp.Data.Models;
 using Foodbook.MobileApp.Data.Services;
+using Foodbook.MobileApp.Helpers;
 using Foodbook.MobileApp.Pages.Recipe;
 using Foodbook.MobileApp.Tools;
+using Realms;
+using Rg.Plugins.Popup.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -18,6 +21,8 @@ namespace Foodbook.MobileApp.ViewModels
     {
 
         private ResponseRecipeModel mResponseModel;
+        private ObservableCollection<RecipeDataModel> mUnfilteredItems;
+        private RecipeCommonDataFilterModel FilterModel;
 
         private ObservableCollection<RecipeDataModel> items;
 
@@ -149,6 +154,8 @@ namespace Foodbook.MobileApp.ViewModels
 
         public Command AddRecipeCommand { get;}
 
+        public Command FilterRecipeCommand { get; }
+
         public RecipesPageViewModel()
         {
             mResponseModel = new ResponseRecipeModel();
@@ -156,6 +163,7 @@ namespace Foodbook.MobileApp.ViewModels
             
             ChangeTabCommand = new Command((x) => ChangeTab(x.ToString()));
             AddRecipeCommand = new Command(() => Addrecipe());
+            FilterRecipeCommand = new Command((x) => FilterRecipeAsync(x));
 
             MessagingCenter.Subscribe<RecipeDetailViewModel, PostRecipeCommentModel>(this, "RATING_UPDATED", (sender, addedComment) =>
             {
@@ -167,6 +175,7 @@ namespace Foodbook.MobileApp.ViewModels
                     InsertDate = addedComment.InsertDate,
                     Rating = addedComment.Rating,
                     CookName = addedComment.CookName,
+                    CookPhotoUrl = LocalDataSecureStorage.GetCookPhoto()
                 });
 
                 recipe.Rating = recipe.Comments.Average(x => x.Rating);
@@ -181,6 +190,7 @@ namespace Foodbook.MobileApp.ViewModels
                 Items.Remove(recipe);
 
             });
+
 
             MessagingCenter.Subscribe<RecipeDetailViewModel, RecipeDataModel>(this, "FAVOURITE", (sender, recipe) =>
             {
@@ -199,6 +209,20 @@ namespace Foodbook.MobileApp.ViewModels
                     Items = new ObservableCollection<RecipeDataModel>(mResponseModel.FavouriteRecipes);
                     OnPropertyChanged("Items");
                 }
+            });
+
+            MessagingCenter.Subscribe<RecipeFilterViewModel, RecipeCommonDataFilterModel>(this, "FILTERED", (sender, filterModel) => {
+
+                var filteredItems = mUnfilteredItems.Where(x =>
+                        (!string.IsNullOrEmpty(filterModel.RecipeName) ? x.Name.ToLower().Contains(filterModel.RecipeName.ToLower()) : true) &&
+                        (filterModel.SelectedCategory.HasValue ? x.CategoryId == filterModel.SelectedCategory.Value : true) &&
+                        (filterModel.SelectedCuisine.HasValue ? x.CuisineId == filterModel.SelectedCuisine.Value : true) &&
+                        (filterModel.SelectedCaloricity.HasValue ? x.CaloricityId == filterModel.SelectedCaloricity.Value : true)
+                    );
+
+                Items = new ObservableCollection<RecipeDataModel>(filteredItems);
+                FilterModel = filterModel;
+
             });
         }
 
@@ -256,6 +280,9 @@ namespace Foodbook.MobileApp.ViewModels
                     Items = new ObservableCollection<RecipeDataModel>(mResponseModel.MyRecipes);
                     break;
             }
+
+            mUnfilteredItems = Items;
+            FilterModel = new RecipeCommonDataFilterModel();
         }
 
         private async void InitData()
@@ -277,6 +304,8 @@ namespace Foodbook.MobileApp.ViewModels
 
             if (mResponseModel != null)
                 Items = IsUserAuthenticated ? new ObservableCollection<RecipeDataModel>(mResponseModel.MyRecipes) : new ObservableCollection<RecipeDataModel>(mResponseModel.AllRecipes);
+
+            mUnfilteredItems = Items;
            
             if (IsUserAuthenticated)
             {
@@ -295,6 +324,21 @@ namespace Foodbook.MobileApp.ViewModels
         {
             MasterDetailPage masterPage = App.Current.MainPage as MasterDetailPage;
             masterPage.Detail.Navigation.PushAsync(new AddRecipePage());
+        }
+
+        private async void FilterRecipeAsync(object sender)
+        {
+            Utils.ButtonPress(sender);
+           
+
+            if (FilterModel == null)
+            {
+                FilterModel = new RecipeCommonDataFilterModel();
+            }
+
+            MasterDetailPage master = App.Current.MainPage as MasterDetailPage;
+            await master.Detail.Navigation.PushPopupAsync(new RecipeFilerPopupPage(FilterModel));
+            Device.BeginInvokeOnMainThread(() => Dialogs.Hide());
         }
     }
 }

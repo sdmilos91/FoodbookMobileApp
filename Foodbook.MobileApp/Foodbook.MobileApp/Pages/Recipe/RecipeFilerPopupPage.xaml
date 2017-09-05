@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+             xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"             
+             xmlns:renderers="clr-namespace:Foodbook.MobileApp.Renderers;assembly=Foodbook.MobileApp"
+                  xmlns:behaviors="clr-namespace:Foodbook.MobileApp.Behaviors;assembly=Foodbook.MobileApp"
+             x:Class="Foodbook.MobileApp.Pages.Recipe.RecipeFilerPopupPage">
+
+
+    <!--Animations use example-->
+    <pages:PopupPage.Animation>
+        <animations:ScaleAnimation 
+      PositionIn="Center"
+      PositionOut="Center"
+      ScaleIn="1.2"
+      ScaleOut="0.8"
+      DurationIn="400"
+      DurationOut="300"
+      EasingIn="SinOut"
+      EasingOut="SinIn"
+      HasBackgroundAnimation="True"/>
+    </pages:PopupPage.Animation>
+
+    <ScrollView>
+        <StackLayout HorizontalOptions="FillAndExpand" Margin="10" Padding="10" VerticalOptions="CenterAndExpand" BackgroundColor="White">
+
+            <Grid RowSpacing="0" Padding="20, 0, 20, 0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="20" />
+                </Grid.RowDefinitions>
+                <Label Text="Naziv: *" Style="{StaticResource EntryTitleLblStyle}" Grid.Row="0"/>
+                <renderers:CustomEntry Text="{Binding FilterModel.RecipeName}" VerticalOptions="FillAndExpand" Grid.Row="1">
+                </renderers:CustomEntry>
+            </Grid>
+
+            <Grid RowSpacing="0" Padding="20, 0, 20, 0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="20" />
+                </Grid.RowDefinitions>
+
+                <Label Text="Kategorija: *" Grid.Row="0" Style="{StaticResource EntryTitleLblStyle}"/>
+                <Picker x:Name="categoryPicker" ItemsSource="{Binding CommonData.Categories}" ItemDisplayBinding="{Binding CategoryName}" SelectedIndex="{Binding SelectedCategoryIndex}" IsVisible="False"/>
+                <renderers:CustomEntry Text="{Binding CategoryName}" Placeholder="Kategorija" HorizontalTextAlignment="Start" Grid.Row="1">
+
+                    <Entry.Behaviors>
+                        <behaviors:EntriPickerBehavior  RelatedPicker="{x:Reference categoryPicker}" PickerType="CATEGORY"/>
+                    </Entry.Behaviors>
+
+                </renderers:CustomEntry>
+            </Grid>
+
+            <Grid RowSpacing="0" Padding="20, 0, 20, 0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="20" />
+                </Grid.RowDefinitions>
+
+                <Label Text="Kuhinja: *" Grid.Row="0" Style="{StaticResource EntryTitleLblStyle}"/>
+                <Picker x:Name="cuisinePicker" ItemsSource="{Binding CommonData.Cuisines}" ItemDisplayBinding="{Binding CuisineName}" SelectedIndex="{Binding SelectedCuisineIndex}"  IsVisible="False"/>
+                <renderers:CustomEntry Text="{Binding CuisineName}" Placeholder="Kuhinja" HorizontalTextAlignment="Start" Grid.Row="1" >
+
+                    <Entry.Behaviors>
+                        <behaviors:EntriPickerBehavior  RelatedPicker="{x:Reference cuisinePicker}" PickerType="CUISINE"/>
+                    </Entry.Behaviors>
+
+                </renderers:CustomEntry>
+            </Grid>
+
+            <Grid RowSpacing="0" Padding="20, 0, 20, 0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="20" />
+                </Grid.RowDefinitions>
+
+                <Label Text="Kaloričnost: *" Grid.Row="0" Style="{StaticResource EntryTitleLblStyle}"/>
+                <Picker x:Name="caloryPicker" ItemsSource="{Binding CommonData.Caloricities}" ItemDisplayBinding="{Binding Name}" SelectedIndex="{Binding SelectedCaloricityIndex}"  IsVisible="False"/>
+                <renderers:CustomEntry Text="{Binding CaloryName}" Placeholder="Kaloričnost" HorizontalTextAlignment="Start" Grid.Row="1" >
+
+                    <Entry.Behaviors>
+                        <behaviors:EntriPickerBehavior  RelatedPicker="{x:Reference caloryPicker}" PickerType="CALORY"/>
+                    </Entry.Behaviors>
+
+                </renderers:CustomEntry>
+            </Grid>
+
+            <StackLayout Orientation="Horizontal">
+                <Button BackgroundColor="{StaticResource HeadingColor}" TextColor="White" Text="Filtriraj" HorizontalOptions="FillAndExpand" Command="{Binding FilterCommand}"/>
+                <Button BackgroundColor="{StaticResource DarkRed}" TextColor="White" Text="Otkaži" HorizontalOptions="FillAndExpand" Command="{Binding CancelCommand}"/>
+            </StackLayout>
+        </StackLayout>
+
+    </ScrollView>
+
+</pages:PopupPage>
+
+

@@ -40,5 +40,11 @@ namespace Foodbook.MobileApp.Data.Models
         public string Name { get; set; }
     }
 
-
+    public class RecipeCommonDataFilterModel
+    {
+        public long? SelectedCategory { get; set; }
+        public long? SelectedCuisine { get; set; }
+        public long? SelectedCaloricity { get; set; }
+        public string RecipeName { get; set; }
+    }
 }

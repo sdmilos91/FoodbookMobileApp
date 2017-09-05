@@ -49,6 +49,7 @@ namespace Foodbook.MobileApp.Droid.Renderers
                 sld.AddState(new int[] { }, mNormal);
                 textField.SetBackgroundDrawable(sld);
 
+                textField.InputType = Android.Text.InputTypes.TextFlagNoSuggestions;
 
                 if (mEntry.EntryType == EntryTypes.MULTILINE)
                 {

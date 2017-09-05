@@ -1,6 +1,7 @@
 ﻿using Foodbook.MobileApp.Data.Models;
 using Foodbook.MobileApp.Data.Services;
 using Foodbook.MobileApp.Tools;
+using Rg.Plugins.Popup.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,12 +43,14 @@ namespace Foodbook.MobileApp.ViewModels
 
         public Command SetRatingCommand { get;}
         public Command AddCommentCommand { get; }
+        public Command CancelCommand { get; set; }
 
         public AddCommentViewModel(long id, bool cookComment)
         {
             mId = id;
             SetRatingCommand = new Command((x) => SetRating(x));
             AddCommentCommand = new Command(() => AddComment(cookComment));
+            CancelCommand = new Command(() => Cancel());
             IsRatingInvalid = false;
         }
 
@@ -111,6 +114,12 @@ namespace Foodbook.MobileApp.ViewModels
                 Device.BeginInvokeOnMainThread(() => Dialogs.Hide());
                 
             }
+        }
+
+        private async void Cancel()
+        {
+            MasterDetailPage masterPage = App.Current.MainPage as MasterDetailPage;
+            await masterPage.Detail.Navigation.PopPopupAsync();
         }
     }
 }

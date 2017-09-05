@@ -93,6 +93,9 @@
       <DependentUpon>HomeMasterDetailPageMaster.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\MasterDetail\HomeMasterDetailPageMenuItem.cs" />
+    <Compile Include="Pages\Recipe\RecipeFilerPopupPage.xaml.cs">
+      <DependentUpon>RecipeFilerPopupPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Shared\AddCommentPopupPage.xaml.cs">
       <DependentUpon>AddCommentPopupPage.xaml</DependentUpon>
     </Compile>
@@ -125,6 +128,7 @@
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\RecipeDetailViewModel.cs" />
     <Compile Include="ViewModels\CooksPageViewModel.cs" />
+    <Compile Include="ViewModels\RecipeFilterViewModel.cs" />
     <Compile Include="ViewModels\RecipesPageViewModel.cs" />
     <Compile Include="ViewModels\RegisterPageViewModel.cs" />
     <Compile Include="ViewModels\UserDetailsViewModel.cs" />
@@ -323,6 +327,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Pages\Cook\EditUserDetailsPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\Recipe\RecipeFilerPopupPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

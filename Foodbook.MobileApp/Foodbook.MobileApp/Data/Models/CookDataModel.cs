@@ -52,6 +52,7 @@ namespace Foodbook.MobileApp.Data.Models
         public long CookId { get; set; }
         public string CookName { get; set; }
         public DateTime InsertDate { get; set; }
+        public string CookPhotoUrl { get; set; }
 
     }
 

@@ -18,6 +18,7 @@ namespace Foodbook.MobileApp.Data.Models
         public string expires { get; set; }
         public long CookId { get; set; }
         public string CookFullName { get; set; }
+        public string PhotoUrl { get; set; }
     }
 
 
@@ -49,6 +50,8 @@ namespace Foodbook.MobileApp.Data.Models
         public long CookId { get; set; }
 
         public string CookFullName { get; set; }
+
+        public string PhotoUrl { get; set; }
     }
 
 }

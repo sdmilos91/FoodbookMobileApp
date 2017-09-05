@@ -91,12 +91,30 @@ namespace Foodbook.MobileApp.Tools
 
         #endregion
 
+        #region CookPhoto
+        public static void SaveCookPhoto(string photo)
+        {
+            CrossSecureStorage.Current.SetValue(SecureStorageKeys.COOK_PHOTO, photo);
+        }
+
+        public static string GetCookPhoto()
+        {
+            return CrossSecureStorage.Current.GetValue(SecureStorageKeys.COOK_PHOTO);
+        }
+
+        public static void DeleteCookPhoto()
+        {
+            CrossSecureStorage.Current.DeleteKey(SecureStorageKeys.COOK_PHOTO);
+        }
+        #endregion
+
         public static void ClearAllData()
         {
             DeleteToken();
             DeleteCookId();
             DeleteCookName();
             DeleteEmail();
+            DeleteCookPhoto();
         }
 
     }

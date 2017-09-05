@@ -39,6 +39,7 @@ namespace Foodbook.MobileApp.ViewModels
                 LocalDataSecureStorage.SaveEmail(result.userName);
                 LocalDataSecureStorage.SaveCookId(result.CookId);
                 LocalDataSecureStorage.SaveCookName(result.CookFullName);
+                LocalDataSecureStorage.SaveCookPhoto(result.PhotoUrl);
              
             }
 

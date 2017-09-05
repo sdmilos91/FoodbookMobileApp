@@ -144,10 +144,10 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <Image Source="filter" Grid.Column="0" Aspect="AspectFit" x:Name="cancelBtn">
+            <Image Source="filter" Grid.Column="0" Aspect="AspectFit" x:Name="filterBtn">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer
-                            Command="{Binding AddImageCommand}" CommandParameter="{x:Reference cancelBtn}"
+                            Command="{Binding FilterRecipeCommand}" CommandParameter="{x:Reference filterBtn}"
                             NumberOfTapsRequired="1" />
                 </Image.GestureRecognizers>
 

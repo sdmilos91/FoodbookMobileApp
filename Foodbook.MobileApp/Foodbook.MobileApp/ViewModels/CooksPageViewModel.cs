@@ -141,6 +141,7 @@ namespace Foodbook.MobileApp.ViewModels
                     InsertDate = addedComment.InsertDate,
                     Rating = addedComment.Rating,
                     CookName = addedComment.CookName,
+                    CookPhotoUrl = LocalDataSecureStorage.GetCookPhoto()
                 });
 
                 cook.Rating = cook.Comments.Average(x => x.Rating);

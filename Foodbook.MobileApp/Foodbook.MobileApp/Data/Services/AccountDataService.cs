@@ -43,6 +43,7 @@ namespace Foodbook.MobileApp.Data.Services
                         {
                             model.CookId = userInfo.CookId;
                             model.CookFullName = userInfo.CookFullName;
+                            model.PhotoUrl = userInfo.PhotoUrl;
                         }
                     }
                     else if(result.StatusCode == System.Net.HttpStatusCode.BadRequest)

@@ -57,6 +57,7 @@ namespace Foodbook.MobileApp.Tools
         public static string EMAIL = "EMAIL";
         public static string ID = "ID";
         public static string FULL_NAME = "FULL_NAME";
+        public static string COOK_PHOTO = "COOK_PHOTO";
     }
 
     public class MessageCenterKeys

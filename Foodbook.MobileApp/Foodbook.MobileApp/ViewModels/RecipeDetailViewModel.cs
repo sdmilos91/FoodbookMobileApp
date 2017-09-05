@@ -210,14 +210,15 @@ namespace Foodbook.MobileApp.ViewModels
         {
             PostRecipeCommentModel commentModel = model as PostRecipeCommentModel;
 
-            commentModel.CookName = LocalDataSecureStorage.GetEmail();
+            commentModel.CookName = LocalDataSecureStorage.GetCookName();
 
             Comment comment = new Comment
             {
                 CommentText = commentModel.CommentText,
                 InsertDate = commentModel.InsertDate,
                 Rating = commentModel.Rating,
-                CookName = LocalDataSecureStorage.GetEmail(),
+                CookName = LocalDataSecureStorage.GetCookName(),
+                CookPhotoUrl = LocalDataSecureStorage.GetCookPhoto()
             };
 
             var temp = Comments;
