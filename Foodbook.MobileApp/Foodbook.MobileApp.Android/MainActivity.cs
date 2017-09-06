@@ -8,6 +8,7 @@ using FFImageLoading;
 using FFImageLoading.Forms.Droid;
 using Plugin.Permissions;
 using Plugin.SecureStorage;
+using PushNotification.Plugin;
 using System;
 using System.IO;
 using System.Threading;
@@ -15,7 +16,7 @@ using System.Threading.Tasks;
 
 namespace Foodbook.MobileApp.Droid
 {
-    [Activity(Label = "Foodbook.MobileApp", Icon = "@drawable/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+    [Activity(Label = "Foodbook", Icon = "@drawable/ic_launcher", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
         protected override void OnCreate(Bundle bundle)

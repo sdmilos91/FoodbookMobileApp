@@ -45,7 +45,7 @@
 
                 <Label Text="Kategorija: *" Grid.Row="0" Style="{StaticResource EntryTitleLblStyle}"/>
                 <Picker x:Name="categoryPicker" ItemsSource="{Binding CommonData.Categories}" ItemDisplayBinding="{Binding CategoryName}" SelectedIndex="{Binding SelectedCategoryIndex}" IsVisible="False"/>
-                <renderers:CustomEntry Text="{Binding CategoryName}" Placeholder="Kategorija" HorizontalTextAlignment="Start" Grid.Row="1">
+                <renderers:CustomEntry Text="{Binding CategoryName}" EntryType="PICKER" Placeholder="Kategorija" HorizontalTextAlignment="Start" Grid.Row="1">
 
                     <Entry.Behaviors>
                         <behaviors:EntriPickerBehavior  RelatedPicker="{x:Reference categoryPicker}" PickerType="CATEGORY"/>
@@ -63,7 +63,7 @@
 
                 <Label Text="Kuhinja: *" Grid.Row="0" Style="{StaticResource EntryTitleLblStyle}"/>
                 <Picker x:Name="cuisinePicker" ItemsSource="{Binding CommonData.Cuisines}" ItemDisplayBinding="{Binding CuisineName}" SelectedIndex="{Binding SelectedCuisineIndex}"  IsVisible="False"/>
-                <renderers:CustomEntry Text="{Binding CuisineName}" Placeholder="Kuhinja" HorizontalTextAlignment="Start" Grid.Row="1" >
+                <renderers:CustomEntry Text="{Binding CuisineName}" EntryType="PICKER" Placeholder="Kuhinja" HorizontalTextAlignment="Start" Grid.Row="1" >
 
                     <Entry.Behaviors>
                         <behaviors:EntriPickerBehavior  RelatedPicker="{x:Reference cuisinePicker}" PickerType="CUISINE"/>
@@ -81,7 +81,7 @@
 
                 <Label Text="Kaloričnost: *" Grid.Row="0" Style="{StaticResource EntryTitleLblStyle}"/>
                 <Picker x:Name="caloryPicker" ItemsSource="{Binding CommonData.Caloricities}" ItemDisplayBinding="{Binding Name}" SelectedIndex="{Binding SelectedCaloricityIndex}"  IsVisible="False"/>
-                <renderers:CustomEntry Text="{Binding CaloryName}" Placeholder="Kaloričnost" HorizontalTextAlignment="Start" Grid.Row="1" >
+                <renderers:CustomEntry Text="{Binding CaloryName}" EntryType="PICKER" Placeholder="Kaloričnost" HorizontalTextAlignment="Start" Grid.Row="1" >
 
                     <Entry.Behaviors>
                         <behaviors:EntriPickerBehavior  RelatedPicker="{x:Reference caloryPicker}" PickerType="CALORY"/>

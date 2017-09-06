@@ -1,11 +1,13 @@
 ﻿using Foodbook.MobileApp.Data.Services;
 using Foodbook.MobileApp.Pages;
 using Foodbook.MobileApp.Tools;
+using Plugin.NotificationHub;
+using PushNotification.Plugin;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace Foodbook.MobileApp
@@ -15,7 +17,7 @@ namespace Foodbook.MobileApp
         public App()
         {
             InitializeComponent();
-
+            CrossPushNotification.Current.Register();
             string token = LocalDataSecureStorage.GetToken();
             
 
@@ -32,7 +34,20 @@ namespace Foodbook.MobileApp
             }
             else
             {
-
+                
+                try
+                {
+                    Task.Run(() => 
+                    {
+                        CrossNotificationHub.Current.Unregister();
+                        CrossNotificationHub.Current.Register(PushNotificationSettings.CONNECTION_STRING, PushNotificationSettings.HUB_NAME, LocalDataSecureStorage.GetNotificationToken(), LocalDataSecureStorage.GetEmail());
+                    });
+                    
+                }
+                catch (Exception ex)
+                {
+                    throw;
+                }
                 MainPage = new HomeMasterDetailPage();
             }
         }

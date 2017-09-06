@@ -1,7 +1,9 @@
-﻿using Foodbook.MobileApp.Data.Services;
+﻿using Foodbook.MobileApp.Data.Models;
+using Foodbook.MobileApp.Data.Services;
 using Foodbook.MobileApp.Pages;
 using Foodbook.MobileApp.Pages.Authentication;
 using Foodbook.MobileApp.Tools;
+using Plugin.NotificationHub;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,21 +31,37 @@ namespace Foodbook.MobileApp.ViewModels
 
         private async void LoginUser()
         {
-            Device.BeginInvokeOnMainThread(() => Dialogs.Show());
-            var result = await AccountDataService.LoginUser(Username, Password);
-            Device.BeginInvokeOnMainThread(() => Dialogs.Hide());
-
-            if (result.IsSuccess)
+            if (!string.IsNullOrEmpty(Username) && !string.IsNullOrEmpty(Password))
             {
-                LocalDataSecureStorage.SaveToken(result.access_token);
-                LocalDataSecureStorage.SaveEmail(result.userName);
-                LocalDataSecureStorage.SaveCookId(result.CookId);
-                LocalDataSecureStorage.SaveCookName(result.CookFullName);
-                LocalDataSecureStorage.SaveCookPhoto(result.PhotoUrl);
-             
-            }
+                Device.BeginInvokeOnMainThread(() => Dialogs.Show());
+                LoginResponseModel result = await AccountDataService.LoginUser(Username, Password);
+                Device.BeginInvokeOnMainThread(() => Dialogs.Hide());
 
-            MessagingCenter.Send(this, MessageCenterKeys.LOGGED_IN, result.IsSuccess);
+                if (result.IsSuccess)
+                {
+                    LocalDataSecureStorage.SaveToken(result.access_token);
+                    LocalDataSecureStorage.SaveEmail(result.userName);
+                    LocalDataSecureStorage.SaveCookId(result.CookId);
+                    LocalDataSecureStorage.SaveCookName(result.CookFullName);
+                    LocalDataSecureStorage.SaveCookPhoto(result.PhotoUrl);
+                    Task.Run(() =>
+                        {
+                            CrossNotificationHub.Current.Unregister();
+                            CrossNotificationHub.Current.Register(PushNotificationSettings.CONNECTION_STRING, PushNotificationSettings.HUB_NAME, LocalDataSecureStorage.GetNotificationToken(), LocalDataSecureStorage.GetEmail());
+                        });
+
+                    App.Current.MainPage = new HomeMasterDetailPage();
+                }
+                else
+                {
+                    string message = result.ErrorType == ERROR_TYPES.BAD_REQUEST ? "Pogrešno korisničko ime ili lozinka." : "Greška prilikom prijavljivanja korisnika.";
+                    await App.Current.MainPage.DisplayAlert("Obaveštenje", message, "U redu");
+                }
+            }
+            else
+            {
+                await App.Current.MainPage.DisplayAlert("Obaveštenje", "Morate uneti korisničko ime i lozinku.", "U redu");
+            }
         }
 
         private async void Register()

@@ -23,5 +23,6 @@ namespace Foodbook.MobileApp.Renderers
     {
         DEFAULT = 1,
         MULTILINE = 2,
+        PICKER  = 3
     }
 }

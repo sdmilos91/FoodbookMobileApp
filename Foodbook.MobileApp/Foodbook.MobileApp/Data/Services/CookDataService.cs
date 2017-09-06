@@ -11,7 +11,7 @@ namespace Foodbook.MobileApp.Data.Services
 {
     public class CookDataService
     {
-        public static async Task<ResponseCookModel> GetCookInfo(long id)
+        public static async Task<ResponseCookModel> GetCookInfo(long id, string token)
         {
             try
             {
@@ -22,6 +22,7 @@ namespace Foodbook.MobileApp.Data.Services
                 using (var client = new HttpClient())
                 {
                     client.DefaultRequestHeaders.TryAddWithoutValidation("Content-Type", "application/json");
+                    client.DefaultRequestHeaders.TryAddWithoutValidation("Authorization", "Bearer " + token);
 
                     HttpResponseMessage result = await client.GetAsync(url);
                     if (result.StatusCode == System.Net.HttpStatusCode.OK)

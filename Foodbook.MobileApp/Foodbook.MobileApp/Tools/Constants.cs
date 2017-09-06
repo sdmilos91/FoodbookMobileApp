@@ -58,6 +58,7 @@ namespace Foodbook.MobileApp.Tools
         public static string ID = "ID";
         public static string FULL_NAME = "FULL_NAME";
         public static string COOK_PHOTO = "COOK_PHOTO";
+        public static string NOTIFICATION_TOKEN = "NOTIFICATION_TOKEN";
     }
 
     public class MessageCenterKeys
@@ -82,5 +83,12 @@ namespace Foodbook.MobileApp.Tools
     {
         public static string ACCOUNT_NAME = "storage4milos";
         public static string KEY_VALUE = "oYK0NFl1hflJjB8obVo61ZYxbaSrHVGa+9M3ar2pWG5CJR5DzNN1YxoJY/O+7ZMZ7J3Uh2xsR5bvuoCuxzuWeQ==";
+    }
+
+    public class PushNotificationSettings
+    {
+        public static string SENDER_ID = "665046005764";
+        public static string HUB_NAME = "FoodBookNotificationHub";
+        public static string CONNECTION_STRING = "Endpoint=sb://foodbooknotificationhubns.servicebus.windows.net/;SharedAccessKeyName=DefaultFullSharedAccessSignature;SharedAccessKey=gE9eD1tSAepYbSe4oGbW0C4ZMSmFeeAU8bdVIIeGiOg=";
     }
 }

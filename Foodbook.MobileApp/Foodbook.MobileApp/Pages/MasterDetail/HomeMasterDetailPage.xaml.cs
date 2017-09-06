@@ -40,7 +40,7 @@ namespace Foodbook.MobileApp.Pages
             var page = new Page();
             if (item.TargetType == typeof(UserDetailsPage))
             {
-                ResponseCookModel userDetails = await CookDataService.GetCookInfo(LocalDataSecureStorage.GetCookId().Value);
+                ResponseCookModel userDetails = await CookDataService.GetCookInfo(LocalDataSecureStorage.GetCookId().Value, LocalDataSecureStorage.GetToken());
                 if(userDetails != null)
                     page = new UserDetailsPage(userDetails, true);
             }

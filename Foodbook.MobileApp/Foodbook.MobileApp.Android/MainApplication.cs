@@ -4,6 +4,10 @@ using Android.App;
 using Android.OS;
 using Android.Runtime;
 using Plugin.CurrentActivity;
+using PushNotification.Plugin;
+using Android.Content;
+using Foodbook.MobileApp.PushNotification;
+using Foodbook.MobileApp.Tools;
 
 namespace Foodbook.MobileApp.Droid
 {
@@ -11,6 +15,8 @@ namespace Foodbook.MobileApp.Droid
     [Application]
     public class MainApplication : Application, Application.IActivityLifecycleCallbacks
     {
+        public static Context AppContext;
+
         public MainApplication(IntPtr handle, JniHandleOwnership transer)
           :base(handle, transer)
         {
@@ -19,8 +25,18 @@ namespace Foodbook.MobileApp.Droid
         public override void OnCreate()
         {
             base.OnCreate();
+            AppContext = this.ApplicationContext;
+
             RegisterActivityLifecycleCallbacks(this);
             //A great place to initialize Xamarin.Insights and Dependency Services!
+
+            //TODO: Initialize CrossPushNotification Plugin
+            //TODO: Replace string parameter with your Android SENDER ID
+            //TODO: Specify the listener class implementing IPushNotificationListener interface in the Initialize generic
+            CrossPushNotification.Initialize<CrossPushNotificationListener>(PushNotificationSettings.SENDER_ID);
+
+            //This service will keep your app receiving push even when closed.             
+            StartPushService();
         }
 
         public override void OnTerminate()
@@ -58,6 +74,30 @@ namespace Foodbook.MobileApp.Droid
 
         public void OnActivityStopped(Activity activity)
         {
+        }
+
+        public static void StartPushService()
+        {
+            AppContext.StartService(new Intent(AppContext, typeof(PushNotificationService)));            
+       
+            if (Android.OS.Build.VERSION.SdkInt >= Android.OS.BuildVersionCodes.Kitkat)
+            {
+
+                PendingIntent pintent = PendingIntent.GetService(AppContext, 0, new Intent(AppContext, typeof(PushNotificationService)), 0);
+                AlarmManager alarm = (AlarmManager)AppContext.GetSystemService(Context.AlarmService);
+                alarm.Cancel(pintent);
+            }
+        }
+
+        public static void StopPushService()
+        {
+            AppContext.StopService(new Intent(AppContext, typeof(PushNotificationService)));
+            if (Android.OS.Build.VERSION.SdkInt >= Android.OS.BuildVersionCodes.Kitkat)
+            {
+                PendingIntent pintent = PendingIntent.GetService(AppContext, 0, new Intent(AppContext, typeof(PushNotificationService)), 0);
+                AlarmManager alarm = (AlarmManager)AppContext.GetSystemService(Context.AlarmService);
+                alarm.Cancel(pintent);
+            }
         }
     }
 }

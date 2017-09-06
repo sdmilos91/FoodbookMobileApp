@@ -108,6 +108,23 @@ namespace Foodbook.MobileApp.Tools
         }
         #endregion
 
+        #region PushNotificationToken
+        public static void SaveNotificationToken(string pnToken)
+        {
+            CrossSecureStorage.Current.SetValue(SecureStorageKeys.NOTIFICATION_TOKEN, pnToken);
+        }
+
+        public static string GetNotificationToken()
+        {
+            return CrossSecureStorage.Current.GetValue(SecureStorageKeys.NOTIFICATION_TOKEN);
+        }
+
+        public static void DeleteNotificationToken()
+        {
+            CrossSecureStorage.Current.DeleteKey(SecureStorageKeys.NOTIFICATION_TOKEN);
+        }
+        #endregion 
+
         public static void ClearAllData()
         {
             DeleteToken();

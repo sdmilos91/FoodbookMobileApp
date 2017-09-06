@@ -49,11 +49,14 @@ namespace Foodbook.MobileApp.Droid.Renderers
                 sld.AddState(new int[] { }, mNormal);
                 textField.SetBackgroundDrawable(sld);
 
-                textField.InputType = Android.Text.InputTypes.TextFlagNoSuggestions;
+
 
                 if (mEntry.EntryType == EntryTypes.MULTILINE)
                 {
-                    textField.SetSingleLine(false);          
+                    textField.SetSingleLine(false);
+                } else if (mEntry.EntryType == EntryTypes.PICKER)
+                {
+                    textField.InputType = Android.Text.InputTypes.TextFlagNoSuggestions;
                 }
             }
         }
