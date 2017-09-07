@@ -188,6 +188,21 @@ namespace Foodbook.MobileApp.ViewModels
 
                 RecipeDataModel recipe = Items.FirstOrDefault(x => x.RecipeId == recipeId);
                 Items.Remove(recipe);
+                mUnfilteredItems.Remove(recipe);
+                //if (mResponseModel.AllRecipes.Contains(recipe))
+                //{
+                //    mResponseModel.AllRecipes.Remove(recipe);
+                //}
+
+                //if (mResponseModel.FavouriteRecipes.Contains(recipe))
+                //{
+                //    mResponseModel.FavouriteRecipes.Remove(recipe);
+                //}
+
+                //if (mResponseModel.MyRecipes.Contains(recipe))
+                //{
+                //    mResponseModel.MyRecipes.Remove(recipe);
+                //}
 
             });
 
