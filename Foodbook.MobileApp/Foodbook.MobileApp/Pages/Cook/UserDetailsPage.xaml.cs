@@ -46,6 +46,10 @@ namespace Foodbook.Pages
 
             edit.Clicked += async delegate
             {
+                MessagingCenter.Subscribe<EditUserDetailsPageViewModel, ResponseCookModel>(this, "USER_EDIITED", (sender, args) =>
+                {
+                    cook = args;
+                });
                 await Navigation.PushAsync(new EditUserDetailsPage(cook));
             };
 
@@ -58,18 +62,15 @@ namespace Foodbook.Pages
             }
 
           
-            MessagingCenter.Subscribe<AddCommentViewModel, PostCookCommentModel>(this, "COOK_COMMENT_ADDED", async (sender, model) =>
+            MessagingCenter.Subscribe<AddCommentViewModel>(this, "COOK_COMMENT_ADDED", async (sender) =>
             {
-                viewModel.CommentAddedCommand.Execute(model);
+                viewModel.CommentAddedCommand.Execute(null);
                 await PopupNavigation.PopAsync();
-                MessagingCenter.Send(this, "COOK_RATING_UPDATED", model);
+                //MessagingCenter.Send(this, "COOK_RATING_UPDATED");
 
             });
 
-            MessagingCenter.Subscribe<EditUserDetailsPageViewModel, ResponseCookModel>(this, "USER_EDIITED", (sender, args) =>
-            {
-                cook = args;               
-            });
+          
 
             BindingContext = viewModel;
 
@@ -78,7 +79,6 @@ namespace Foodbook.Pages
         protected override void OnDisappearing()
         {
             base.OnDisappearing();
-            MessagingCenter.Unsubscribe<AddCommentViewModel, PostCookCommentModel>(this, "COOK_COMMENT_ADDED");
         }
 
 

@@ -269,7 +269,7 @@
     <BundleResource Include="Resources\back_3x.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\back.png" />
+    <AndroidResource Include="Resources\back.png" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\back_2x.png" />
@@ -279,6 +279,43 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="PushNotificationApplicationDelegate.txt" />
+    <AndroidResource Include="Resources\addphoto.png" />
+    <AndroidResource Include="Resources\addPhotoHolder.png" />
+    <AndroidResource Include="Resources\back1.png" />
+    <AndroidResource Include="Resources\calories.png" />
+    <AndroidResource Include="Resources\cancel.png" />
+    <AndroidResource Include="Resources\category1.png" />
+    <AndroidResource Include="Resources\chefIcon.png" />
+    <AndroidResource Include="Resources\close.png" />
+    <AndroidResource Include="Resources\comment.png" />
+    <AndroidResource Include="Resources\cook.png" />
+    <AndroidResource Include="Resources\delete.png" />
+    <AndroidResource Include="Resources\deleteImage.png" />
+    <AndroidResource Include="Resources\earth.png" />
+    <AndroidResource Include="Resources\edit.png" />
+    <AndroidResource Include="Resources\favorite.png" />
+    <AndroidResource Include="Resources\favorited.png" />
+    <AndroidResource Include="Resources\filter.png" />
+    <AndroidResource Include="Resources\follower.png" />
+    <AndroidResource Include="Resources\heart.png" />
+    <AndroidResource Include="Resources\icon.png" />
+    <AndroidResource Include="Resources\info.png" />
+    <AndroidResource Include="Resources\loadingImage.png" />
+    <AndroidResource Include="Resources\location.png" />
+    <AndroidResource Include="Resources\loginCover.png" />
+    <AndroidResource Include="Resources\name.png" />
+    <AndroidResource Include="Resources\next.png" />
+    <AndroidResource Include="Resources\plus.png" />
+    <AndroidResource Include="Resources\recipeNumber.png" />
+    <AndroidResource Include="Resources\recipePlaceholder.png" />
+    <AndroidResource Include="Resources\right.png" />
+    <AndroidResource Include="Resources\save.png" />
+    <AndroidResource Include="Resources\sort.png" />
+    <AndroidResource Include="Resources\star.png" />
+    <AndroidResource Include="Resources\starOff.png" />
+    <AndroidResource Include="Resources\time.png" />
+    <AndroidResource Include="Resources\viewImage.png" />
+    <AndroidResource Include="Resources\viewImageWhite.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Import Project="..\..\packages\Xamarin.Forms.2.3.4.247\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets" Condition="Exists('..\..\packages\Xamarin.Forms.2.3.4.247\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets')" />

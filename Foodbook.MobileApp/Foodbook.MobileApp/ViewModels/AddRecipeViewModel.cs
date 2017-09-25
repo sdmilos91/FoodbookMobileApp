@@ -8,7 +8,7 @@ using Foodbook.MobileApp.Tools;
 using Foodbook.Pages;
 using Plugin.Media;
 using Plugin.Media.Abstractions;
-using Realms;
+using Rg.Plugins.Popup.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -109,6 +109,15 @@ namespace Foodbook.MobileApp.ViewModels
             get { return photos; }
             set { SetProperty(ref photos, value); }
         }
+        
+        private ObservableCollection<Ingredient> ingredients;
+
+        public ObservableCollection<Ingredient> Ingredients
+        {
+            get { return ingredients; }
+            set { SetProperty(ref ingredients, value); }
+        }
+
 
         #region Wizzard Indicator
 
@@ -152,6 +161,14 @@ namespace Foodbook.MobileApp.ViewModels
         {
             get { return stepThreeContainer; }
             set { SetProperty(ref stepThreeContainer, value); }
+        }
+
+        private bool stepFourContainer;
+
+        public bool StepFourContainer
+        {
+            get { return stepFourContainer; }
+            set { SetProperty(ref stepFourContainer, value); }
         }
 
         private Color secondStepIndicatorColor;
@@ -202,6 +219,30 @@ namespace Foodbook.MobileApp.ViewModels
             set { SetProperty(ref thirdStepLineColor, value); }
         }
 
+        private Color fourthStepIndicatorColor;
+
+        public Color FourthStepIndicatorColor
+        {
+            get { return fourthStepIndicatorColor; }
+            set { SetProperty(ref fourthStepIndicatorColor, value); }
+        }
+
+        private Color fourthStepIndicatorTextColor;
+
+        public Color FourthStepIndicatorTextColor
+        {
+            get { return fourthStepIndicatorTextColor; }
+            set { SetProperty(ref fourthStepIndicatorTextColor, value); }
+        }
+
+        private Color fourthStepLineColor;
+
+        public Color FourthStepLineColor
+        {
+            get { return fourthStepLineColor; }
+            set { SetProperty(ref fourthStepLineColor, value); }
+        }
+
 
         private int mPageNumber;
 
@@ -226,6 +267,10 @@ namespace Foodbook.MobileApp.ViewModels
 
         public Command ViewImageCommand { get; }
 
+        public Command AddIngredientCommand { get; }
+
+        public Command DeleteIngredientCommand { get; }
+
         public AddRecipeViewModel()
         {
             InitData();
@@ -233,6 +278,7 @@ namespace Foodbook.MobileApp.ViewModels
             mDeletedPhotos = new List<PhotoModel>();            
             DataModel = new PostRecipeModel();
             Photos = new ObservableCollection<PhotoModel>(DataModel.Photos);
+            Ingredients = new ObservableCollection<Ingredient>();
 
             BackBtnIcon = "cancel";
             NextBtnIcon = "next";
@@ -249,9 +295,11 @@ namespace Foodbook.MobileApp.ViewModels
             ThirdStepIndicatorColor = Color.White;
             ThirdStepIndicatorTextColor = Color.Gray;
             ThirdStepLineColor = Color.White;
-            //
 
-            
+            FourthStepIndicatorColor = Color.White;
+            FourthStepIndicatorTextColor = Color.Gray;
+            FourthStepLineColor = Color.White;
+            //
 
             NextStepCommand = new Command((x) => NextStep(x));
             PreviousStepCommand = new Command((x) => PreviousStep(x));
@@ -261,9 +309,12 @@ namespace Foodbook.MobileApp.ViewModels
             AddImageCommand = new Command((x) => AddImage(x));
             DeleteImageCommand = new Command((x) => DeleteImage(x));
             ViewImageCommand = new Command((x) => ViewImage(x));
+            AddIngredientCommand = new Command(() => AddIngredient());
+            DeleteIngredientCommand = new Command((x) => DeleteIngredient(x));
 
             PhotoStreams = new List<Stream>();
             mPageNumber = 0;
+
         }
 
         private async void SaveRecipe()
@@ -275,6 +326,7 @@ namespace Foodbook.MobileApp.ViewModels
             DataModel.PreparationTime = int.Parse(PreparationTime);
             DataModel.RecipeText = RecipeText;
             DataModel.Photos = Photos.ToList();
+            DataModel.Ingredients = Ingredients.ToList();
 
             Device.BeginInvokeOnMainThread(() => Dialogs.Show());
 
@@ -295,50 +347,10 @@ namespace Foodbook.MobileApp.ViewModels
         {
             Device.BeginInvokeOnMainThread(() => Dialogs.Show());
 
-            var realm = Realm.GetInstance();
-            if (realm.All<FoodCategoryModel>().Any() && realm.All<CuisineModel>().Any() && realm.All<CaloricityModel>().Any())
-            {
-                Categories = new ObservableCollection<FoodCategoryModel>(realm.All<FoodCategoryModel>());
-                Cuisines = new ObservableCollection<CuisineModel>(realm.All<CuisineModel>());
-                Caloricities = new ObservableCollection<CaloricityModel>(realm.All<CaloricityModel>());
-
-                mCommonData = new RecipeCommonDataModel
-                {
-                    Caloricities = Caloricities.ToList(),
-                    Categories = Categories.ToList(),
-                    Cuisines = Cuisines.ToList()
-                };
-            }
-            else
-            {
-                RecipeCommonDataModel commonData = await RecipeDataService.GetRecipeCommonDate();
-
-                realm.Write(() =>
-                {
-
-                    foreach (var item in commonData.Categories)
-                    {
-                        realm.Add(item);
-                    }
-
-                    foreach (var item in commonData.Cuisines)
-                    {
-                        realm.Add(item);
-                    }
-
-                    foreach (var item in commonData.Caloricities)
-                    {
-                        realm.Add(item);
-                    }
-                });
-                var xx = realm.All<FoodCategoryModel>().ToList();
-
-                Categories = new ObservableCollection<FoodCategoryModel>(commonData.Categories);
-                Cuisines = new ObservableCollection<CuisineModel>(commonData.Cuisines);
-                Caloricities = new ObservableCollection<CaloricityModel>(commonData.Caloricities);               
-
-                mCommonData = commonData;
-            }
+            mCommonData = await DataMockup.GetRecipeCommonData();
+            Categories = new ObservableCollection<FoodCategoryModel>(mCommonData.Categories);
+            Cuisines = new ObservableCollection<CuisineModel>(mCommonData.Cuisines);
+            Caloricities = new ObservableCollection<CaloricityModel>(mCommonData.Caloricities);
 
             SelectedCategory = 0;
             SelectedCuisine = 0;
@@ -494,6 +506,14 @@ namespace Foodbook.MobileApp.ViewModels
                         mPageNumber++;
                     break;
                 case 1:
+                    if (Ingredients.Any())
+                        mPageNumber++;
+                    else
+                    {
+                        await App.Current.MainPage.DisplayAlert("Obvestenje", "Morate uneti bar jedan sastojak.", "U redu");
+                    }
+                    break;
+                case 2:
                     if (!string.IsNullOrEmpty(RecipeText))
                         mPageNumber++;
                     else
@@ -501,7 +521,7 @@ namespace Foodbook.MobileApp.ViewModels
                         RecipeText = "";
                     }
                     break;
-                case 2:
+                case 3:
                     bool result = await App.Current.MainPage.DisplayAlert("Obvestenje", "Da li ste sigurni da zelite da sacuvate recept?", "Da", "Ne");
                     if (result)
                         SaveRecipe();
@@ -530,16 +550,35 @@ namespace Foodbook.MobileApp.ViewModels
             StepOneContainer = false;
             StepTwoContainer = false;
             StepThreeContainer = false;
+            StepFourContainer = false;
             SecondStepIndicatorColor = Color.White;
             SecondStepIndicatorTextColor = Color.Gray;
             SecondStepLineColor = Color.White;
             ThirdStepIndicatorColor = Color.White;
             ThirdStepIndicatorTextColor = Color.Gray;
             ThirdStepLineColor = Color.White;
+            FourthStepIndicatorColor = Color.White;
+            FourthStepIndicatorTextColor = Color.Gray;
+            FourthStepLineColor = Color.White;
 
-            if (mPageNumber == 2)
+            if (mPageNumber == 3)
             {
                 NextBtnIcon = "save";
+                BackBtnIcon = "back1";
+                StepFourContainer = true;
+                SecondStepIndicatorColor = Color.FromHex(MyColors.GREEN);
+                SecondStepIndicatorTextColor = Color.White;
+                SecondStepLineColor = Color.FromHex(MyColors.GREEN);
+                ThirdStepIndicatorColor = Color.FromHex(MyColors.GREEN);
+                ThirdStepIndicatorTextColor = Color.White;
+                ThirdStepLineColor = Color.FromHex(MyColors.GREEN);
+                FourthStepIndicatorColor = Color.FromHex(MyColors.GREEN);
+                FourthStepIndicatorTextColor = Color.White;
+                FourthStepLineColor = Color.FromHex(MyColors.GREEN);
+            }
+            else if (mPageNumber == 2)
+            {
+                NextBtnIcon = "next";
                 BackBtnIcon = "back1";
                 StepThreeContainer = true;
                 SecondStepIndicatorColor = Color.FromHex(MyColors.GREEN);
@@ -548,6 +587,7 @@ namespace Foodbook.MobileApp.ViewModels
                 ThirdStepIndicatorColor = Color.FromHex(MyColors.GREEN);
                 ThirdStepIndicatorTextColor = Color.White;
                 ThirdStepLineColor = Color.FromHex(MyColors.GREEN);
+
             }
             else if (mPageNumber == 1)
             {
@@ -564,6 +604,41 @@ namespace Foodbook.MobileApp.ViewModels
                 NextBtnIcon = "next";
                 BackBtnIcon = "cancel";
                 StepOneContainer = true;
+            }
+        }
+
+        public void AddIngredient()
+        {
+            MessagingCenter.Subscribe<AddIngredientViewModel, Ingredient>(this, "INGREDIENT_ADDED", (sender, ingredient) =>
+            {
+                Ingredients.Add(new Ingredient
+                {
+                    Name = ingredient.Name,
+                    Value = ingredient.Value
+                });
+
+                OnPropertyChanged("Ingredients");
+
+                MessagingCenter.Unsubscribe<AddIngredientViewModel, Ingredient>(this, "INGREDIENT_ADDED");
+            });
+
+            MasterDetailPage master = App.Current.MainPage as MasterDetailPage;
+
+            master.Detail.Navigation.PushPopupAsync(new AddIngredientPopupPage());
+        }
+
+        private async void DeleteIngredient(object ingredient)
+        {
+            bool res = await App.Current.MainPage.DisplayAlert("Uklanjanje sastojka", "Da li želite da uklonite sastojak?", "Da", "Ne");
+
+            if (res)
+            {
+                var ingredientToRemove = ingredient as Ingredient;
+                if (ingredientToRemove != null)
+                {
+                    Ingredients.Remove(ingredientToRemove);
+                    OnPropertyChanged("Ingredients");
+                }               
             }
         }
 

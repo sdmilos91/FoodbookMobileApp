@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+             xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
+             xmlns:behaviors="clr-namespace:Foodbook.MobileApp.Behaviors;assembly=Foodbook.MobileApp"
+             xmlns:localConverters="clr-namespace:Foodbook.MobileApp.Converters;assembly=Foodbook.MobileApp"
+             xmlns:renderers="clr-namespace:Foodbook.MobileApp.Renderers;assembly=Foodbook.MobileApp"            
+             x:Class="Foodbook.MobileApp.Pages.AddIngredientPopupPage">
+
+
+  <!--Animations use example-->
+  <pages:PopupPage.Animation>
+    <animations:ScaleAnimation
+  PositionIn="Center"
+  PositionOut="Center"
+  ScaleIn="1.2"
+  ScaleOut="0.8"
+  DurationIn="400"
+  DurationOut="300"
+  EasingIn="SinOut"
+  EasingOut="SinIn"
+  HasBackgroundAnimation="True"/>
+  </pages:PopupPage.Animation>
+
+  <pages:PopupPage.Resources>
+    <ResourceDictionary>
+      <localConverters:RatingStarIcon x:Key="rtngStarIcon"></localConverters:RatingStarIcon>
+    </ResourceDictionary>
+  </pages:PopupPage.Resources>
+
+  <ScrollView>
+    <StackLayout HorizontalOptions="FillAndExpand" Margin="10" Padding="10" VerticalOptions="CenterAndExpand" BackgroundColor="White">
+     
+      <Grid RowSpacing="0" Padding="20, 0, 20, 0">
+        <Grid.RowDefinitions>
+          <RowDefinition Height="30" />
+          <RowDefinition Height="*" />
+          <RowDefinition Height="40" />
+        </Grid.RowDefinitions>
+        <Label Text="Sastojak: *" Style="{StaticResource EntryTitleLblStyle}" Grid.Row="0"/>
+        <renderers:CustomEntry Text="{Binding IngredientName}" VerticalOptions="FillAndExpand" Grid.Row="1" >
+          <Entry.Behaviors>
+            <behaviors:RequiredValidatorBehavior mLbl="{x:Reference ingredientNameValidationLbl}" />
+          </Entry.Behaviors>
+        </renderers:CustomEntry>
+        <Label x:Name="ingredientNameValidationLbl" IsVisible="False" Grid.Row="2" FontSize="Small" TextColor="Red"/>
+      </Grid>
+
+      <Grid RowSpacing="0" Padding="20, 0, 20, 0">
+        <Grid.RowDefinitions>
+          <RowDefinition Height="30" />
+          <RowDefinition Height="*" />
+          <RowDefinition Height="40" />
+        </Grid.RowDefinitions>
+        <Label Text="Količina: *" Style="{StaticResource EntryTitleLblStyle}" Grid.Row="0"/>
+        <renderers:CustomEntry Text="{Binding IngredientValue}" VerticalOptions="FillAndExpand" Grid.Row="1" >
+          <Entry.Behaviors>
+            <behaviors:RequiredValidatorBehavior mLbl="{x:Reference ingredientValueValidationLbl}" />
+          </Entry.Behaviors>
+        </renderers:CustomEntry>
+        <Label x:Name="ingredientValueValidationLbl" IsVisible="False" Grid.Row="2" FontSize="Small" TextColor="Red"/>
+      </Grid>
+      
+      
+      <StackLayout Orientation="Horizontal">
+        <Button BackgroundColor="{StaticResource HeadingColor}" TextColor="White" Text="Dodaj" HorizontalOptions="FillAndExpand" Command="{Binding AddIngredientCommand}"/>
+        <Button BackgroundColor="{StaticResource DarkRed}" TextColor="White" Text="Otkaži" HorizontalOptions="FillAndExpand" Command="{Binding CancelCommand}"/>
+      </StackLayout>
+    </StackLayout>
+
+  </ScrollView>
+
+</pages:PopupPage>
+            

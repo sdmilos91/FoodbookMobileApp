@@ -1,4 +1,5 @@
-﻿using Realms;
+﻿using Foodbook.MobileApp.Tools;
+using Realms;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -46,5 +47,26 @@ namespace Foodbook.MobileApp.Data.Models
         public long? SelectedCuisine { get; set; }
         public long? SelectedCaloricity { get; set; }
         public string RecipeName { get; set; }
+    }
+
+    public class CommonDataSortModel
+    {
+        public int OrderById { get; set; }
+        public int OrderId { get; set; }
+
+        public List<Item> OrderByItems { get; set; }
+        public List<Item> OrderItems { get; set; }
+
+        public CommonDataSortModel()
+        {
+            OrderById = RecipeSort.NAME;
+            OrderId = RecipeSort.ORDER_ASC;
+        }
+    }
+
+    public class Item
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
     }
 }

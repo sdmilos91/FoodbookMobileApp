@@ -22,21 +22,11 @@ namespace Foodbook.MobileApp.Pages
             InitializeComponent();
             NavigationPage.SetHasNavigationBar(this, false);
             BindingContext = new LoginViewModel();
-
-            MessagingCenter.Subscribe<LoginViewModel, bool>(this, MessageCenterKeys.LOGGED_IN, (sender, args) => {
-
-                if (args)
-                    App.Current.MainPage = new HomeMasterDetailPage();
-                else
-                    DisplayAlert("Info", "Greska prilikom prijavljivanja.", "Ok");
-
-            });
         }
 
         protected override void OnDisappearing()
         {
             base.OnDisappearing();
-            MessagingCenter.Unsubscribe<LoginViewModel, bool>(this, MessageCenterKeys.LOGGED_IN);
         }
     }
 }

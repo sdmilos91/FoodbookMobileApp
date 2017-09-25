@@ -169,7 +169,7 @@ namespace Foodbook.MobileApp.ViewModels
             ViewImageCommand = new Command(() => ViewImage(cook.PhotoUrl));
             FavouriteCookCommand = new Command((x) => FavouriteCook(x, cook));
             AddCommentCommand = new Command(() => AddComment(cook.CookId));
-            CommentAddedCommand = new Command((x) => CommentAdded(x));
+            CommentAddedCommand = new Command(() => CommentAdded());
             SwitchTab("1");
 
             MessagingCenter.Subscribe<EditUserDetailsPageViewModel, ResponseCookModel>(this, "USER_EDIITED", (sender, args) =>
@@ -244,12 +244,6 @@ namespace Foodbook.MobileApp.ViewModels
             masterPage.Detail.Navigation.PushModalAsync(new ImageViewPage(imageUrl));
         }
 
-        private async void EditRecipe(RecipeDataModel recipe)
-        {
-            MasterDetailPage masterPage = App.Current.MainPage as MasterDetailPage;
-            await masterPage.Detail.Navigation.PushAsync(new EditRecipePage(recipe));
-        }
-
         private async void FavouriteCook(object sender, ResponseCookModel cook)
         {
             var favouriteItem = sender as ToolbarItem;
@@ -258,9 +252,9 @@ namespace Foodbook.MobileApp.ViewModels
             Device.BeginInvokeOnMainThread(() => Dialogs.Hide());
             if (result)
             {
-                cook.IsFollowed = !cook.IsFollowed;
+                DataMockup.AddOrRemoveFavoutiteCook(cook);
                 favouriteItem.Icon = cook.IsFollowed ? "favorited" : "favorite";
-                MessagingCenter.Send(this, "FAVOURITE", cook);
+                MessagingCenter.Send(this, "FAVOURITE");
             }
         }
 
@@ -272,22 +266,9 @@ namespace Foodbook.MobileApp.ViewModels
 
         }
 
-        private void CommentAdded(object model)
+        private void CommentAdded()
         {
-            PostCookCommentModel commentModel = model as PostCookCommentModel;
-
-            commentModel.CookName = LocalDataSecureStorage.GetCookName();
-
-            CookCommentModel comment = new CookCommentModel
-            {
-                CommentText = commentModel.CommentText,
-                InsertDate = commentModel.InsertDate,
-                Rating = commentModel.Rating,
-                CookName = LocalDataSecureStorage.GetCookName(),
-                CookPhotoUrl = LocalDataSecureStorage.GetCookPhoto()
-            };
-
-            Comments.Add(comment);
+            Comments =  new ObservableCollection<CookCommentModel>(DataMockup.GetCookById(mCook.CookId).Comments);
             OnPropertyChanged("Comments");
 
             Rating = Comments.Average(x => x.Rating);

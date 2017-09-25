@@ -80,6 +80,12 @@
     <Compile Include="Pages\Cook\EditUserDetailsPage.xaml.cs">
       <DependentUpon>EditUserDetailsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Cook\CookFilterPopupPage.xaml.cs">
+      <DependentUpon>CookFilterPopupPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Cook\CookSortPopupPage.xaml.cs">
+      <DependentUpon>CookSortPopupPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Cook\UserDetailsPage.xaml.cs">
       <DependentUpon>UserDetailsPage.xaml</DependentUpon>
     </Compile>
@@ -93,8 +99,14 @@
       <DependentUpon>HomeMasterDetailPageMaster.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\MasterDetail\HomeMasterDetailPageMenuItem.cs" />
+    <Compile Include="Pages\Recipe\AddIngredientPopupPage.xaml.cs">
+      <DependentUpon>AddIngredientPopupPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Recipe\RecipeFilerPopupPage.xaml.cs">
       <DependentUpon>RecipeFilerPopupPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Recipe\RecipeSortPopupPage.xaml.cs">
+      <DependentUpon>RecipeSortPopupPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Shared\AddCommentPopupPage.xaml.cs">
       <DependentUpon>AddCommentPopupPage.xaml</DependentUpon>
@@ -119,9 +131,11 @@
     <Compile Include="RealServices\RecipeRealmService.cs" />
     <Compile Include="Renderers\CustomEntry.cs" />
     <Compile Include="Tools\Constants.cs" />
+    <Compile Include="Tools\DataMckup.cs" />
     <Compile Include="Tools\LocalDataSecureStorage.cs" />
     <Compile Include="Tools\UploadFileToAzureBlob.cs" />
     <Compile Include="ViewModels\AddCommentViewModel.cs" />
+    <Compile Include="ViewModels\AddIngredientViewModel.cs" />
     <Compile Include="ViewModels\EditRecipeViewModel.cs" />
     <Compile Include="ViewModels\AddRecipeViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
@@ -129,7 +143,10 @@
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\RecipeDetailViewModel.cs" />
     <Compile Include="ViewModels\CooksPageViewModel.cs" />
+    <Compile Include="ViewModels\CookFilterViewModel.cs" />
     <Compile Include="ViewModels\RecipeFilterViewModel.cs" />
+    <Compile Include="ViewModels\CookSortViewModel.cs" />
+    <Compile Include="ViewModels\RecipeSortViewModel.cs" />
     <Compile Include="ViewModels\RecipesPageViewModel.cs" />
     <Compile Include="ViewModels\RegisterPageViewModel.cs" />
     <Compile Include="ViewModels\UserDetailsViewModel.cs" />
@@ -352,6 +369,30 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Helpers\CrossPushNotificationListener.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\Recipe\RecipeSortPopupPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\Recipe\AddIngredientPopupPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\Cook\CookFilterPopupPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\Cook\CookSortPopupPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\..\packages\Xamarin.Forms.2.3.4.247\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets" Condition="Exists('..\..\packages\Xamarin.Forms.2.3.4.247\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets')" />

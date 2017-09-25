@@ -137,15 +137,49 @@
                 </StackLayout>
             </ScrollView>
             <!--PRIPREMA-->
-            <StackLayout IsVisible="{Binding SecondContainer}" Grid.Row="4" Grid.RowSpan="3" Padding="10" Spacing="5">
-                <Label 
+            <ScrollView IsVisible="{Binding SecondContainer}" Grid.Row="4" Grid.RowSpan="3" Padding="10">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="{Binding IngradientsContainer}"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Label Text="Sastojci: " HorizontalOptions="StartAndExpand" HorizontalTextAlignment="Start" Grid.Row="0" FontSize="17" TextColor="{StaticResource DarkRed}"/>
+
+                    <ListView 
+                    Grid.Row="1"
+                    IsEnabled="False"
+                    ItemsSource="{Binding Ingredients}"
+                        SeparatorVisibility="None"
+                        RowHeight="30">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="{Binding Name}" FontAttributes="Bold" VerticalTextAlignment="Center"/>
+                                    <Label Text="{Binding Value}" VerticalTextAlignment="Center"/>
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+                    <Label Text="Način pripreme: " HorizontalOptions="StartAndExpand" HorizontalTextAlignment="Start" Grid.Row="2" FontSize="17" TextColor="{StaticResource DarkRed}"/>    
+                    
+                    <Label 
+                    Grid.Row="3"
                     Text="{Binding RecipeText}"
                     VerticalOptions="FillAndExpand"
                     HorizontalOptions="FillAndExpand"
-                    FontSize="Small"
+                    VerticalTextAlignment="Start"
                     HorizontalTextAlignment="Start"
+                    FontSize="Small"
                     TextColor="Black"/>
-            </StackLayout>
+
+                </Grid>
+            </ScrollView>
 
             <!--KOMENTARI-->
             <RelativeLayout IsVisible="{Binding ThirdContainer}"  Grid.Row="4" Grid.RowSpan="3" >
