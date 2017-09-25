@@ -1,6 +1,9 @@
 ﻿{
   "dependencies": {
     "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.2",
+    "Realm": "1.5.0",
+    "Rg.Plugins.Popup": "1.1.0-pre2",
+    "Xam.Plugin.PushNotification": "1.2.4",
     "Xamarin.Forms": "2.3.4.224"
   },
   "frameworks": {
