@@ -17,7 +17,13 @@ namespace Foodbook.MobileApp
         public App()
         {
             InitializeComponent();
-            CrossPushNotification.Current.Register();
+
+
+            //Trenutno je uradjeno samo za android
+            if (Device.OS == TargetPlatform.Android)
+            {
+                CrossPushNotification.Current.Register();
+            }
             string token = LocalDataSecureStorage.GetToken();
             
 

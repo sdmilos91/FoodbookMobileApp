@@ -5,6 +5,8 @@ using System.Linq;
 using Foundation;
 using UIKit;
 using CarouselView.FormsPlugin.iOS;
+using FFImageLoading.Forms.Touch;
+using FFImageLoading;
 
 namespace Foodbook.MobileApp.iOS
 {
@@ -25,6 +27,9 @@ namespace Foodbook.MobileApp.iOS
         {
             global::Xamarin.Forms.Forms.Init();
             CarouselViewRenderer.Init();
+
+            CachedImageRenderer.Init();
+            ImageService.Instance.Initialize();            
             LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);
