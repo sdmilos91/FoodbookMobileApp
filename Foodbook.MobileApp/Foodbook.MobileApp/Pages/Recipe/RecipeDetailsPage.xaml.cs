@@ -63,23 +63,10 @@ namespace Foodbook.MobileApp.Pages.Recipe
                     ToolbarItems.Add(edit);
                     ToolbarItems.Add(delete);
                 }
-            }
-          
-
-            MessagingCenter.Subscribe<AddCommentViewModel, PostRecipeCommentModel>(this, "COMMENT_ADDED", async (sender, model) => 
-            {
-                viewModel.CommentAddedCommant.Execute(model);
-                await PopupNavigation.PopAsync();
-
-            });
-
+            }         
 
             BindingContext = viewModel;
 
-        }
-        private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
-        {
-            Navigation.PushModalAsync(new ImageViewPage("http://kuhinjarecepti.com/wp-content/uploads/2012/01/%C5%A0opska-salata.jpeg"));
         }
 
         private void favBtn_Clicked(object sender, EventArgs e)
@@ -95,7 +82,6 @@ namespace Foodbook.MobileApp.Pages.Recipe
         protected override void OnDisappearing()
         {
             base.OnDisappearing();
-            MessagingCenter.Unsubscribe<AddCommentViewModel, PostRecipeCommentModel>(this, "COMMENT_ADDED");
         }
     }
 

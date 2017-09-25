@@ -61,7 +61,8 @@ namespace Foodbook.MobileApp.Behaviors
                         mEntry.Text = caloricityModel.Name;
                         break;
                     default:
-                        mEntry.Text = RelatedPicker.SelectedItem.ToString();
+                        Item item = RelatedPicker.SelectedItem as Item;
+                        mEntry.Text = item.Name;
                         break;
 
                 }

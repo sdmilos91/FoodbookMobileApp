@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+             xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"             
+             xmlns:renderers="clr-namespace:Foodbook.MobileApp.Renderers;assembly=Foodbook.MobileApp"
+             xmlns:behaviors="clr-namespace:Foodbook.MobileApp.Behaviors;assembly=Foodbook.MobileApp"
+             x:Class="Foodbook.MobileApp.Pages.Cook.CookSortPopupPage">
+
+
+    <!--Animations use example-->
+    <pages:PopupPage.Animation>
+        <animations:ScaleAnimation 
+      PositionIn="Center"
+      PositionOut="Center"
+      ScaleIn="1.2"
+      ScaleOut="0.8"
+      DurationIn="400"
+      DurationOut="300"
+      EasingIn="SinOut"
+      EasingOut="SinIn"
+      HasBackgroundAnimation="True"/>
+    </pages:PopupPage.Animation>
+
+    <ScrollView>
+        <StackLayout HorizontalOptions="FillAndExpand" Margin="10" Padding="10" VerticalOptions="CenterAndExpand" BackgroundColor="White">
+
+
+            <Grid RowSpacing="0" Padding="20, 0, 20, 0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="20" />
+                </Grid.RowDefinitions>
+
+                <Label Text="Redosled: " Grid.Row="0" Style="{StaticResource EntryTitleLblStyle}"/>
+                <Picker x:Name="orderPicker" ItemsSource="{Binding OrderModel.OrderItems}" ItemDisplayBinding="{Binding Name}" SelectedIndex="{Binding SelectedOrderIndex}" IsVisible="False"/>
+                <renderers:CustomEntry Text="{Binding OrderName}" EntryType="PICKER" Placeholder="Redosled" HorizontalTextAlignment="Start" Grid.Row="1">
+
+                    <Entry.Behaviors>
+                        <behaviors:EntriPickerBehavior  RelatedPicker="{x:Reference orderPicker}" />
+                    </Entry.Behaviors>
+
+                </renderers:CustomEntry>
+            </Grid>
+
+            <Grid RowSpacing="0" Padding="20, 0, 20, 0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="20" />
+                </Grid.RowDefinitions>
+
+                <Label Text="Redosled po:" Grid.Row="0" Style="{StaticResource EntryTitleLblStyle}"/>
+                <Picker x:Name="orderByPicker" ItemsSource="{Binding OrderModel.OrderByItems}" ItemDisplayBinding="{Binding Name}" SelectedIndex="{Binding SelectedOrderByIndex}"  IsVisible="False"/>
+                <renderers:CustomEntry Text="{Binding OrderByName}" EntryType="PICKER" Placeholder="Kuhinja" HorizontalTextAlignment="Start" Grid.Row="1" >
+
+                    <Entry.Behaviors>
+                        <behaviors:EntriPickerBehavior  RelatedPicker="{x:Reference orderByPicker}" />
+                    </Entry.Behaviors>
+
+                </renderers:CustomEntry>
+            </Grid>
+
+            <StackLayout Orientation="Horizontal">
+                <Button BackgroundColor="{StaticResource HeadingColor}" TextColor="White" Text="Sortiraj" HorizontalOptions="FillAndExpand" Command="{Binding SortCommand}"/>
+                <Button BackgroundColor="{StaticResource DarkRed}" TextColor="White" Text="Otkaži" HorizontalOptions="FillAndExpand" Command="{Binding CancelCommand}"/>
+            </StackLayout>
+        </StackLayout>
+
+    </ScrollView>
+
+</pages:PopupPage>
+
+
+
+
+
+
+
+
+
+

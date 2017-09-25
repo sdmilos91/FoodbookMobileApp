@@ -4,7 +4,7 @@
              xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
              xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"             
              xmlns:renderers="clr-namespace:Foodbook.MobileApp.Renderers;assembly=Foodbook.MobileApp"
-                  xmlns:behaviors="clr-namespace:Foodbook.MobileApp.Behaviors;assembly=Foodbook.MobileApp"
+             xmlns:behaviors="clr-namespace:Foodbook.MobileApp.Behaviors;assembly=Foodbook.MobileApp"
              x:Class="Foodbook.MobileApp.Pages.Recipe.RecipeFilerPopupPage">
 
 

@@ -14,9 +14,23 @@ using Xamarin.Forms;
 namespace Foodbook.MobileApp.ViewModels
 {
     public class LoginViewModel : BaseViewModel
-    {
-        public string Username { get; set; }
-        public string Password { get; set; }
+    {        
+
+        private string username;
+
+        public string Username
+        {
+            get { return username; }
+            set { SetProperty(ref username, value); }
+        }
+
+        private string password;
+
+        public string Password
+        {
+            get { return password; }
+            set { SetProperty(ref password, value); }
+        }        
 
         public Command LoginCommand { get; }
         public Command RegisterCommand { get; }
@@ -31,7 +45,21 @@ namespace Foodbook.MobileApp.ViewModels
 
         private async void LoginUser()
         {
-            if (!string.IsNullOrEmpty(Username) && !string.IsNullOrEmpty(Password))
+            bool isFormValid = true;
+
+            if (string.IsNullOrEmpty(Username))
+            {
+                Username = "";
+                isFormValid = false;
+            }
+
+            if (string.IsNullOrEmpty(Password))
+            {
+                Password = "";
+                isFormValid = false;
+            }
+
+            if (isFormValid)
             {
                 Device.BeginInvokeOnMainThread(() => Dialogs.Show());
                 LoginResponseModel result = await AccountDataService.LoginUser(Username, Password);
@@ -57,10 +85,6 @@ namespace Foodbook.MobileApp.ViewModels
                     string message = result.ErrorType == ERROR_TYPES.BAD_REQUEST ? "Pogrešno korisničko ime ili lozinka." : "Greška prilikom prijavljivanja korisnika.";
                     await App.Current.MainPage.DisplayAlert("Obaveštenje", message, "U redu");
                 }
-            }
-            else
-            {
-                await App.Current.MainPage.DisplayAlert("Obaveštenje", "Morate uneti korisničko ime i lozinku.", "U redu");
             }
         }
 

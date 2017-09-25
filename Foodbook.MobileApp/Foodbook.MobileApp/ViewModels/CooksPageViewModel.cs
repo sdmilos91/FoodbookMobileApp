@@ -1,8 +1,11 @@
 ﻿using Foodbook.MobileApp.Data.Models;
 using Foodbook.MobileApp.Data.Services;
+using Foodbook.MobileApp.Helpers;
+using Foodbook.MobileApp.Pages.Cook;
 using Foodbook.MobileApp.Pages.Recipe;
 using Foodbook.MobileApp.Tools;
 using Foodbook.Pages;
+using Rg.Plugins.Popup.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -16,9 +19,9 @@ using Xamarin.Forms;
 namespace Foodbook.MobileApp.ViewModels
 {
     class CooksPageViewModel : BaseViewModel
-    {
-
-        private List<ResponseCookModel> mResponseModel;
+    {        
+        private string mCookNameFilter;
+        private CommonDataSortModel OrderModel;
 
         private ObservableCollection<ResponseCookModel> items;
 
@@ -123,41 +126,31 @@ namespace Foodbook.MobileApp.ViewModels
 
         public Command AddRecipeCommand { get;}
 
+        public Command FilterRecipeCommand { get; }
+
+        public Command SortRecipeCommand { get; }
+
         public CooksPageViewModel()
         {
             Items = new ObservableCollection<ResponseCookModel>();
             InitData();
             
             ChangeTabCommand = new Command((x) => ChangeTab(x.ToString()));
-            AddRecipeCommand = new Command(() => Addrecipe());
+            FilterRecipeCommand = new Command((x) => FilterRecipeAsync(x));
+            SortRecipeCommand = new Command((x) => SortRecipeAsync(x));
 
-            MessagingCenter.Subscribe<UserDetailsPage, PostCookCommentModel>(this, "COOK_RATING_UPDATED", (sender, addedComment) =>
+            MessagingCenter.Subscribe<UserDetailsPage>(this, "COOK_RATING_UPDATED", (sender) =>
             {
-                var temp = Items;
-                var cook = temp.Where(x => x.CookId == addedComment.CookId).FirstOrDefault();
-                cook.Comments.Add(new CookCommentModel
-                {
-                    CommentText = addedComment.CommentText,
-                    InsertDate = addedComment.InsertDate,
-                    Rating = addedComment.Rating,
-                    CookName = addedComment.CookName,
-                    CookPhotoUrl = LocalDataSecureStorage.GetCookPhoto()
-                });
-
-                cook.Rating = cook.Comments.Average(x => x.Rating);
-                Items = new ObservableCollection<ResponseCookModel>(temp);
+                Items = new ObservableCollection<ResponseCookModel>(DataMockup.GetCooksByType(mSelectedTab));
                 OnPropertyChanged("Items");
 
             });
 
-            MessagingCenter.Subscribe<UserDetailsViewModel, ResponseCookModel>(this, "FAVOURITE", (sender, cook) =>
+            MessagingCenter.Subscribe<UserDetailsViewModel>(this, "FAVOURITE", (sender) =>
             {                
-                //Refresh favourite recipes tab
-                if (mSelectedTab == 2)
-                {
-                    Items = new ObservableCollection<ResponseCookModel>(mResponseModel.Where(x => x.IsFollowed));
-                    OnPropertyChanged("Items");
-                }
+                
+                    Items = new ObservableCollection<ResponseCookModel>(DataMockup.GetCooksByType(mSelectedTab));
+                    OnPropertyChanged("Items");                
             });
         }
 
@@ -183,28 +176,30 @@ namespace Foodbook.MobileApp.ViewModels
             switch (tab)
             {
                 case "1":
-                    mSelectedTab = 1;
+                    mSelectedTab = CooksPageTabs.ALL_COOKS;
                     FirstTabIndicatorColor = indicatorColor;
                     FirstTabTextColor = indicatorColor;
                     FirstContainer = true;
-                    Items = new ObservableCollection<ResponseCookModel> (mResponseModel);
+                   
                     break;
 
                 case "2":
-                    mSelectedTab = 2;
+                    mSelectedTab = CooksPageTabs.FAVORITE_COOKS;
                     SecondTabIndicatorColor = indicatorColor;
                     SecondTabTextColor = indicatorColor;
                     SecondContainer = true;
-                    Items = new ObservableCollection<ResponseCookModel>(mResponseModel.Where(x => x.IsFollowed));
+ 
                     break;
                
                 default:
-                    mSelectedTab = 1;
+                    mSelectedTab = CooksPageTabs.ALL_COOKS;
                     FirstTabIndicatorColor = indicatorColor;
                     FirstTabTextColor = indicatorColor;
-                    Items = new ObservableCollection<ResponseCookModel>(mResponseModel);
+
                     break;
             }
+
+            Items = new ObservableCollection<ResponseCookModel>(DataMockup.GetCooksByType(mSelectedTab));
         }
 
         private async void InitData()
@@ -222,7 +217,8 @@ namespace Foodbook.MobileApp.ViewModels
             string token = LocalDataSecureStorage.GetToken();
             IsUserAuthenticated = await AccountDataService.IsUserAuthenticated(token);
 
-            mResponseModel = await CookDataService.GetCooks(LocalDataSecureStorage.GetToken());
+            var mResponseModel = await CookDataService.GetCooks(LocalDataSecureStorage.GetToken());
+            DataMockup.SaveCooks(new ObservableCollection<ResponseCookModel>(mResponseModel));
 
             if (mResponseModel != null)
                 Items = new ObservableCollection<ResponseCookModel>(mResponseModel);
@@ -233,13 +229,72 @@ namespace Foodbook.MobileApp.ViewModels
             Device.BeginInvokeOnMainThread(() => Dialogs.Hide());
 
             ChangeTab("1");
-
         }
 
-        private void Addrecipe()
+        private async void FilterRecipeAsync(object sender)
         {
-            MasterDetailPage masterPage = App.Current.MainPage as MasterDetailPage;
-            masterPage.Detail.Navigation.PushAsync(new AddRecipePage());
+            Utils.ButtonPress(sender);
+
+            MessagingCenter.Subscribe<CookFilterViewModel, string>(this, "FILTERED", (s, cookName) => {
+
+                var filteredItems = DataMockup.GetCooksByType(mSelectedTab).Where(x => x.FullName.ToLower().Contains(cookName.ToLower()));
+
+                Items = new ObservableCollection<ResponseCookModel>(filteredItems);
+                mCookNameFilter = cookName;
+                MessagingCenter.Unsubscribe<CookFilterViewModel, string>(this, "FILTERED");
+            });
+
+            MasterDetailPage master = App.Current.MainPage as MasterDetailPage;
+            await master.Detail.Navigation.PushPopupAsync(new CookFilterPopupPage(mCookNameFilter));
+            Device.BeginInvokeOnMainThread(() => Dialogs.Hide());
         }
+
+        private async void SortRecipeAsync(object sender)
+        {
+            Utils.ButtonPress(sender);
+
+            MessagingCenter.Subscribe<CookSortViewModel, CommonDataSortModel>(this, "SORTED", (s, sortModel) => {
+
+                List<ResponseCookModel> sortedItems = new List<ResponseCookModel>();
+                switch (sortModel.OrderById)
+                {
+                    case RecipeSort.NAME:
+                        if (sortModel.OrderId == RecipeSort.ORDER_ASC)
+                            sortedItems = Items.OrderBy(x => x.FullName).ToList();
+                        else
+                            sortedItems = Items.OrderByDescending(x => x.FullName).ToList();
+                        break;
+                    case RecipeSort.RATING:
+                        if (sortModel.OrderId == RecipeSort.ORDER_ASC)
+                            sortedItems = Items.OrderBy(x => x.Rating).ToList();
+                        else
+                            sortedItems = Items.OrderByDescending(x => x.Rating).ToList();
+                        break;
+                    default:
+                        if (sortModel.OrderId == RecipeSort.ORDER_ASC)
+                            sortedItems = Items.OrderBy(x => x.FullName).ToList();
+                        else
+                            sortedItems = Items.OrderByDescending(x => x.FullName).ToList();
+                        break;
+                }
+
+                Items = new ObservableCollection<ResponseCookModel>(sortedItems);
+                OrderModel = sortModel;
+
+                MessagingCenter.Unsubscribe<CookSortViewModel, CommonDataSortModel>(this, "SORTED");
+
+            });
+
+            if (OrderModel == null)
+            {
+                OrderModel = new CommonDataSortModel();
+            }
+
+            MasterDetailPage master = App.Current.MainPage as MasterDetailPage;
+            await master.Detail.Navigation.PushPopupAsync(new CookSortPopupPage(OrderModel));
+            Device.BeginInvokeOnMainThread(() => Dialogs.Hide());
+        }
+
+
     }
 }

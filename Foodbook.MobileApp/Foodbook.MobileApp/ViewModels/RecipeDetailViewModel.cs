@@ -32,6 +32,8 @@ namespace Foodbook.MobileApp.ViewModels
         public bool IsMine { get; set; }
         public bool IsFavourite { get; set; }
         public bool AddCommentEnabled { get; set; }
+        public List<Ingredient> Ingredients { get; set; }
+        public int IngradientsContainer { get; set; }
 
         private double? rating;
 
@@ -185,9 +187,10 @@ namespace Foodbook.MobileApp.ViewModels
             IsMine = recipe.IsMine;
             IsFavourite = recipe.IsFavourite;
             AddCommentEnabled = !recipe.IsMine && !string.IsNullOrEmpty(LocalDataSecureStorage.GetToken());
+            Ingredients = recipe.Ingredients;
+            IngradientsContainer = Ingredients.Count() * 40;
 
             AddCommentCommand = new Command(() => AddComment());
-            CommentAddedCommant = new Command((x) => CommentAdded(x));
             ViewImageCommand = new Command(() => ViewImage());
             ImageContainerHeight = new GridLength(1, GridUnitType.Star);
             SwitchTabCommand = new Command((x) => SwitchTab(x.ToString()));
@@ -196,42 +199,36 @@ namespace Foodbook.MobileApp.ViewModels
             FavouriteRecipeCommand = new Command((x) => FavouriteRecipe(x, recipe));
             SwitchTab("1");
 
+          
         }
 
         private void AddComment()
         {
+            MessagingCenter.Subscribe<AddCommentViewModel>(this, "COMMENT_ADDED", (sender) =>
+            {
+                CommentAdded();
+                MessagingCenter.Unsubscribe<AddCommentViewModel>(this, "COMMENT_ADDED");
+            });
+
             MasterDetailPage master = App.Current.MainPage as MasterDetailPage;
 
             master.Detail.Navigation.PushPopupAsync(new AddCommentPopupPage(mRecipeId));
 
         }
 
-        private void CommentAdded(object model)
+        private void CommentAdded()
         {
-            PostRecipeCommentModel commentModel = model as PostRecipeCommentModel;
-
-            commentModel.CookName = LocalDataSecureStorage.GetCookName();
-
-            Comment comment = new Comment
+            var recipe = DataMockup.GetRecipeById(mRecipeId);
+            if (recipe != null)
             {
-                CommentText = commentModel.CommentText,
-                InsertDate = commentModel.InsertDate,
-                Rating = commentModel.Rating,
-                CookName = LocalDataSecureStorage.GetCookName(),
-                CookPhotoUrl = LocalDataSecureStorage.GetCookPhoto()
-            };
+                Comments = new ObservableCollection<Comment>(recipe.Comments);
+                OnPropertyChanged("Comments");
 
-            var temp = Comments;
+                Rating = Comments.Average(x => x.Rating);
+                OnPropertyChanged("Rating");
 
-            temp.Add(comment);
-            Comments = temp;
-
-            Rating = Comments.Average(x => x.Rating);
-            OnPropertyChanged("Rating");
-            
-
-            MessagingCenter.Send(this, "RATING_UPDATED", commentModel);
-
+                MessagingCenter.Send(this, "RATING_UPDATED");
+            }            
         }
 
         private void SwitchTab(string tab)
@@ -309,8 +306,9 @@ namespace Foodbook.MobileApp.ViewModels
 
                 if (result)
                 {
+                    DataMockup.RemoveRecipe(mRecipeId);
                     MasterDetailPage masterPage = App.Current.MainPage as MasterDetailPage;
-                    MessagingCenter.Send(this, "RECIPE_DELETED", mRecipeId);
+                    MessagingCenter.Send(this, "RECIPE_DELETED");
                     await masterPage.Detail.Navigation.PopAsync();
                 }
 
@@ -332,9 +330,10 @@ namespace Foodbook.MobileApp.ViewModels
             Device.BeginInvokeOnMainThread(() => Dialogs.Hide());
             if (result)
             {
-                recipe.IsFavourite = !recipe.IsFavourite;
+                DataMockup.AddOrRemoveFavoutiteRecipe(recipe);
+                //recipe.IsFavourite = !recipe.IsFavourite;
                 favouriteItem.Icon = recipe.IsFavourite ? "favorited" : "favorite";
-                MessagingCenter.Send(this, "FAVOURITE", recipe);               
+                MessagingCenter.Send(this, "FAVOURITE");               
             }
         }
     }

@@ -15,18 +15,31 @@ namespace Foodbook.MobileApp.ViewModels
 
         protected BaseViewModel()
         {
-            this.Dialogs = UserDialogs.Instance.Loading("Loading");
-            Device.BeginInvokeOnMainThread(() => Dialogs.Hide());
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                this.Dialogs = UserDialogs.Instance.Loading("Loading");
+                this.Dialogs.Hide();
+            });
         }
 
 
-        protected IProgressDialog Dialogs { get; }
+        protected IProgressDialog Dialogs { get; set; }
 
         bool isBusy = false;
         public bool IsBusy
         {
             get { return isBusy; }
             set { SetProperty(ref isBusy, value); }
+        }
+
+        public virtual void OnViewDisappearing()
+        {
+
+        }
+
+        public virtual void OnViewAppearing()
+        {
+
         }
     }
 }

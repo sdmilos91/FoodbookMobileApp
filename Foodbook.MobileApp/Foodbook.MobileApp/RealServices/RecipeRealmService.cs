@@ -18,7 +18,6 @@ namespace Foodbook.MobileApp.RealServices
             {
                 foreach (var recipe in recipes)
                 {
-
                 }
             });
         }

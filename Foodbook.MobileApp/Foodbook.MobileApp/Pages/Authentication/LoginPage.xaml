@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:renderers="clr-namespace:Foodbook.MobileApp.Renderers;assembly=Foodbook.MobileApp"
+             xmlns:behaviors="clr-namespace:Foodbook.MobileApp.Behaviors;assembly=Foodbook.MobileApp"
              BackgroundColor="{StaticResource PageBackground}"
              x:Class="Foodbook.MobileApp.Pages.LoginPage">
     <ContentPage.Content>
@@ -16,8 +17,20 @@
             <Image Aspect="AspectFill" Grid.Row="0" Source="loginCover"/>
             <StackLayout Grid.Row="1" Grid.RowSpan="2" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Padding="30">
 
-                <renderers:CustomEntry Placeholder="Email" Keyboard="Email" Text="{Binding Username}" HorizontalOptions="FillAndExpand" VerticalOptions="Center"/>
-                <renderers:CustomEntry Placeholder="Password" IsPassword="True" Text="{Binding Password}" HorizontalOptions="FillAndExpand" VerticalOptions="Center"/>
+                <renderers:CustomEntry Placeholder="Email" Keyboard="Email" Text="{Binding Username}" HorizontalOptions="FillAndExpand" VerticalOptions="Center">
+                    <Entry.Behaviors>
+                        <behaviors:RequiredValidatorBehavior  mLbl="{x:Reference usernameValidationLbl}" />
+                    </Entry.Behaviors>
+                </renderers:CustomEntry>
+                <Label x:Name="usernameValidationLbl" IsVisible="False"  Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" FontSize="Small" TextColor="Red"/>
+               
+                <renderers:CustomEntry Placeholder="Password" IsPassword="True" Text="{Binding Password}" HorizontalOptions="FillAndExpand" VerticalOptions="Center">
+                    <Entry.Behaviors>
+                        <behaviors:RequiredValidatorBehavior  mLbl="{x:Reference passwordValidationLbl}" />
+                    </Entry.Behaviors>
+                </renderers:CustomEntry>
+                <Label x:Name="passwordValidationLbl" IsVisible="False"  Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" FontSize="Small" TextColor="Red"/>
+                
                 <Button Command="{Binding LoginCommand}" Margin="0,30,0,0" Text="Prijavite se" HorizontalOptions="FillAndExpand" BackgroundColor="{StaticResource HeadingColor}" TextColor="White"/>
                 <Button Command="{Binding RegisterCommand}"  Text="Registrujte se" HorizontalOptions="FillAndExpand" BackgroundColor="{StaticResource DarkRed}" TextColor="White" />
                 <Button Command="{Binding SkipCommand}" Text="Nastavite kao gost" HorizontalOptions="FillAndExpand" BackgroundColor="{StaticResource DarkRed}" TextColor="White" />

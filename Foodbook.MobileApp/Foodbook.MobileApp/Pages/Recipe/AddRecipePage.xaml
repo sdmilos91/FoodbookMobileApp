@@ -23,6 +23,8 @@
                     <ColumnDefinition Width="30" />
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="30" />
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="30" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="13" />
@@ -35,6 +37,8 @@
                 <Label Text="2" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" BackgroundColor="{Binding SecondStepIndicatorColor}" TextColor="{Binding SecondStepIndicatorTextColor}" Grid.Column="2" Grid.Row="0" Grid.RowSpan="3"></Label>
                 <BoxView x:Name="thirdPageLine" BackgroundColor="{Binding ThirdStepLineColor}" Grid.Column="3" Grid.Row="1"></BoxView>
                 <Label x:Name="thirdPageIndicator" Text="3" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"  BackgroundColor="{Binding ThirdStepIndicatorColor}" TextColor="{Binding ThirdStepIndicatorTextColor}" Grid.Column="4" Grid.Row="0" Grid.RowSpan="3"></Label>
+                <BoxView x:Name="fourthPageLine" BackgroundColor="{Binding FourthStepLineColor}" Grid.Column="5" Grid.Row="1"></BoxView>
+                <Label x:Name="fourthPageIndicator" Text="4" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"  BackgroundColor="{Binding FourthStepIndicatorColor}" TextColor="{Binding FourthStepIndicatorTextColor}" Grid.Column="6" Grid.Row="0" Grid.RowSpan="3"></Label>
             </Grid>
 
             <ScrollView Grid.Row="1" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
@@ -151,6 +155,58 @@
                     <StackLayout IsVisible="{Binding StepTwoContainer}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
 
                         <RelativeLayout>
+                            <ListView ItemsSource="{Binding Ingredients}"
+                                x:Name="ingredientsList"
+                                RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
+			                    RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-50}"
+                                IsEnabled="False"
+                                HeightRequest="130">
+
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                    <ViewCell>
+
+                                        <Grid x:Name="ingredientItem" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" HeightRequest="100" Padding="5">
+
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="40"/>
+                                            </Grid.ColumnDefinitions>
+                                                <Label Text="{Binding Name}" FontAttributes="Bold" VerticalTextAlignment="Center" Grid.Column="0"/>
+                                                <Label Text="{Binding Value}"  VerticalTextAlignment="Center" Grid.Column="1"/>
+                                                <Image Source="deleteImage" HeightRequest="30" WidthRequest="30" Aspect="AspectFit" HorizontalOptions="Center" VerticalOptions="Center" Grid.Column="2">
+                                                    <Image.GestureRecognizers>
+                                                        <TapGestureRecognizer
+                                                                    BindingContext="{Binding Source={x:Reference ingredientsList}, Path=BindingContext}"
+                                                                    Command="{Binding DeleteIngredientCommand}" CommandParameter="{Binding Source={x:Reference ingredientItem}, Path=BindingContext}"
+                                                                    NumberOfTapsRequired="1" />
+                                                    </Image.GestureRecognizers>
+                                                </Image>
+                                            </Grid>
+                                            
+                                        </ViewCell>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                            <Button 
+                                Text="Dodaj sastojak"
+                                Command="{Binding AddIngredientCommand}"
+                                BackgroundColor="{StaticResource HeadingColor}"
+                                RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0}"
+				                RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant= -50}"
+                                RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
+                                VerticalOptions="FillAndExpand"
+                                />
+                        </RelativeLayout>
+
+                    </StackLayout>
+                    <!--END STEP 2-->
+
+                    <!--STEP 3-->
+                    <StackLayout IsVisible="{Binding StepThreeContainer}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+
+                        <RelativeLayout>
                             <StackLayout VerticalOptions="FillAndExpand"
                                      RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
 			                         RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}"
@@ -173,10 +229,10 @@
                         </RelativeLayout>
 
                     </StackLayout>
-                    <!--END STEP 2-->
+                    <!--END STEP 3-->
 
-                    <!--STEP 3-->
-                    <StackLayout IsVisible="{Binding StepThreeContainer}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                    <!--STEP 4-->
+                    <StackLayout IsVisible="{Binding StepFourContainer}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
 
                         <RelativeLayout>
                             <ListView ItemsSource="{Binding Photos}"
@@ -263,7 +319,7 @@
                         </RelativeLayout>
 
                     </StackLayout>
-                    <!--END STEP 3-->
+                    <!--END STEP 4-->
                     
                 </StackLayout>
 

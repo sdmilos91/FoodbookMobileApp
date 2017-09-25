@@ -18,11 +18,9 @@ using Xamarin.Forms;
 namespace Foodbook.MobileApp.ViewModels
 {
     class RecipesPageViewModel : BaseViewModel
-    {
-
-        private ResponseRecipeModel mResponseModel;
-        private ObservableCollection<RecipeDataModel> mUnfilteredItems;
+    {        
         private RecipeCommonDataFilterModel FilterModel;
+        private CommonDataSortModel OrderModel;
 
         private ObservableCollection<RecipeDataModel> items;
 
@@ -131,7 +129,6 @@ namespace Foodbook.MobileApp.ViewModels
 
 
         #endregion
-
         
         private GridLength tabContainerHeight;
 
@@ -156,92 +153,17 @@ namespace Foodbook.MobileApp.ViewModels
 
         public Command FilterRecipeCommand { get; }
 
+        public Command SortRecipeCommand { get; }
+
         public RecipesPageViewModel()
         {
-            mResponseModel = new ResponseRecipeModel();
             InitData();
             
             ChangeTabCommand = new Command((x) => ChangeTab(x.ToString()));
             AddRecipeCommand = new Command(() => Addrecipe());
             FilterRecipeCommand = new Command((x) => FilterRecipeAsync(x));
-
-            MessagingCenter.Subscribe<RecipeDetailViewModel, PostRecipeCommentModel>(this, "RATING_UPDATED", (sender, addedComment) =>
-            {
-                var temp = Items;
-                var recipe = temp.Where(x => x.RecipeId == addedComment.RecipeId).FirstOrDefault();
-                recipe.Comments.Add(new Comment
-                {
-                    CommentText = addedComment.CommentText,
-                    InsertDate = addedComment.InsertDate,
-                    Rating = addedComment.Rating,
-                    CookName = addedComment.CookName,
-                    CookPhotoUrl = LocalDataSecureStorage.GetCookPhoto()
-                });
-
-                recipe.Rating = recipe.Comments.Average(x => x.Rating);
-                Items = new ObservableCollection<RecipeDataModel>(temp);
-                OnPropertyChanged("Items");
-                
-            });
-
-            MessagingCenter.Subscribe<RecipeDetailViewModel, long>(this, "RECIPE_DELETED", (sender, recipeId) => {
-
-                RecipeDataModel recipe = Items.FirstOrDefault(x => x.RecipeId == recipeId);
-                Items.Remove(recipe);
-                mUnfilteredItems.Remove(recipe);
-                //if (mResponseModel.AllRecipes.Contains(recipe))
-                //{
-                //    mResponseModel.AllRecipes.Remove(recipe);
-                //}
-
-                //if (mResponseModel.FavouriteRecipes.Contains(recipe))
-                //{
-                //    mResponseModel.FavouriteRecipes.Remove(recipe);
-                //}
-
-                //if (mResponseModel.MyRecipes.Contains(recipe))
-                //{
-                //    mResponseModel.MyRecipes.Remove(recipe);
-                //}
-
-            });
-
-
-            MessagingCenter.Subscribe<RecipeDetailViewModel, RecipeDataModel>(this, "FAVOURITE", (sender, recipe) =>
-            {
-                if (mResponseModel.FavouriteRecipes.Any(x => x.RecipeId == recipe.RecipeId))
-                {
-                    mResponseModel.FavouriteRecipes.Remove(recipe);
-                }
-                else
-                {
-                    mResponseModel.FavouriteRecipes.Add(recipe);
-                }
-
-                //Refresh favourite recipes tab
-                if (mSelectedTab == 2)
-                {
-                    Items = new ObservableCollection<RecipeDataModel>(mResponseModel.FavouriteRecipes);
-                    OnPropertyChanged("Items");
-                }
-            });
-
-            MessagingCenter.Subscribe<RecipeFilterViewModel, RecipeCommonDataFilterModel>(this, "FILTERED", (sender, filterModel) => {
-
-                var filteredItems = mUnfilteredItems.Where(x =>
-                        (!string.IsNullOrEmpty(filterModel.RecipeName) ? x.Name.ToLower().Contains(filterModel.RecipeName.ToLower()) : true) &&
-                        (filterModel.SelectedCategory.HasValue ? x.CategoryId == filterModel.SelectedCategory.Value : true) &&
-                        (filterModel.SelectedCuisine.HasValue ? x.CuisineId == filterModel.SelectedCuisine.Value : true) &&
-                        (filterModel.SelectedCaloricity.HasValue ? x.CaloricityId == filterModel.SelectedCaloricity.Value : true)
-                    );
-
-                Items = new ObservableCollection<RecipeDataModel>(filteredItems);
-                FilterModel = filterModel;
-
-            });
+            SortRecipeCommand = new Command((x) => SortRecipeAsync(x));
         }
-
-
 
         private void ChangeTab(string tab)
         {
@@ -267,37 +189,38 @@ namespace Foodbook.MobileApp.ViewModels
             switch (tab)
             {
                 case "1":
-                    mSelectedTab = 1;
+                    mSelectedTab = RecipesPageTabs.MY_RECIPES;
                     FirstTabIndicatorColor = indicatorColor;
                     FirstTabTextColor = indicatorColor;
                     FirstContainer = true;
-                    Items = new ObservableCollection<RecipeDataModel> (mResponseModel.MyRecipes);
+                    
                     break;
 
                 case "2":
-                    mSelectedTab = 2;
+                    mSelectedTab = RecipesPageTabs.FAVORITE_RECIPES;
                     SecondTabIndicatorColor = indicatorColor;
                     SecondTabTextColor = indicatorColor;
                     SecondContainer = true;
-                    Items = new ObservableCollection<RecipeDataModel>(mResponseModel.FavouriteRecipes);
+
                     break;
 
                 case "3":
-                    mSelectedTab = 3;
+                    mSelectedTab = RecipesPageTabs.ALL_RECIPES;
                     ThirdTabIndicatorColor = indicatorColor;
                     ThirdTabTextColor = indicatorColor;
-                    Items = new ObservableCollection<RecipeDataModel>(mResponseModel.AllRecipes);
+
                     break;
                 default:
-                    mSelectedTab = 1;
+                    mSelectedTab = RecipesPageTabs.MY_RECIPES;
                     FirstTabIndicatorColor = indicatorColor;
                     FirstTabTextColor = indicatorColor;
-                    Items = new ObservableCollection<RecipeDataModel>(mResponseModel.MyRecipes);
+
                     break;
             }
 
-            mUnfilteredItems = Items;
+            Items = new ObservableCollection<RecipeDataModel>(DataMockup.GetRecipesByType(mSelectedTab));
             FilterModel = new RecipeCommonDataFilterModel();
+            OrderModel = new CommonDataSortModel();
         }
 
         private async void InitData()
@@ -315,17 +238,17 @@ namespace Foodbook.MobileApp.ViewModels
             string token = LocalDataSecureStorage.GetToken();
             IsUserAuthenticated = await AccountDataService.IsUserAuthenticated(token);
 
-            mResponseModel = await RecipeDataService.GetRecipes(requestModel);
+            ResponseRecipeModel mResponseModel = await RecipeDataService.GetRecipes(requestModel);
+
+            DataMockup.SaveRecipes(mResponseModel);
 
             if (mResponseModel != null)
                 Items = IsUserAuthenticated ? new ObservableCollection<RecipeDataModel>(mResponseModel.MyRecipes) : new ObservableCollection<RecipeDataModel>(mResponseModel.AllRecipes);
-
-            mUnfilteredItems = Items;
            
             if (IsUserAuthenticated)
             {
                 TabContainerHeight = new GridLength(40);
-                ChangeTab("1");
+                ChangeTab(RecipesPageTabs.MY_RECIPES.ToString());
             }
             else
             {
@@ -344,7 +267,20 @@ namespace Foodbook.MobileApp.ViewModels
         private async void FilterRecipeAsync(object sender)
         {
             Utils.ButtonPress(sender);
-           
+
+            MessagingCenter.Subscribe<RecipeFilterViewModel, RecipeCommonDataFilterModel>(this, "FILTERED", (s, filterModel) => {
+
+                var filteredItems = DataMockup.GetRecipesByType(mSelectedTab).Where(x =>
+                        (!string.IsNullOrEmpty(filterModel.RecipeName) ? x.Name.ToLower().Contains(filterModel.RecipeName.ToLower()) : true) &&
+                        (filterModel.SelectedCategory.HasValue ? x.CategoryId == filterModel.SelectedCategory.Value : true) &&
+                        (filterModel.SelectedCuisine.HasValue ? x.CuisineId == filterModel.SelectedCuisine.Value : true) &&
+                        (filterModel.SelectedCaloricity.HasValue ? x.CaloricityId == filterModel.SelectedCaloricity.Value : true)
+                    );
+
+                Items = new ObservableCollection<RecipeDataModel>(filteredItems);
+                FilterModel = filterModel;
+                MessagingCenter.Unsubscribe<RecipeFilterViewModel, RecipeCommonDataFilterModel>(this, "FILTERED");
+            });
 
             if (FilterModel == null)
             {
@@ -354,6 +290,67 @@ namespace Foodbook.MobileApp.ViewModels
             MasterDetailPage master = App.Current.MainPage as MasterDetailPage;
             await master.Detail.Navigation.PushPopupAsync(new RecipeFilerPopupPage(FilterModel));
             Device.BeginInvokeOnMainThread(() => Dialogs.Hide());
+
+           
+        }
+
+        private async void SortRecipeAsync(object sender)
+        {
+            Utils.ButtonPress(sender);
+
+            MessagingCenter.Subscribe<RecipeSortViewModel, CommonDataSortModel>(this, "SORTED", (s, sortModel) => {
+
+                List<RecipeDataModel> sortedItems = new List<RecipeDataModel>();
+                switch (sortModel.OrderById)
+                {
+                    case RecipeSort.NAME:
+                        if (sortModel.OrderId == RecipeSort.ORDER_ASC)
+                            sortedItems = Items.OrderBy(x => x.Name).ToList();
+                        else
+                            sortedItems = Items.OrderByDescending(x => x.Name).ToList();
+                        break;
+                    case RecipeSort.RATING:
+                        if (sortModel.OrderId == RecipeSort.ORDER_ASC)
+                            sortedItems = Items.OrderBy(x => x.Rating).ToList();
+                        else
+                            sortedItems = Items.OrderByDescending(x => x.Rating).ToList();
+                        break;
+                    case RecipeSort.PREPARATION_TIME:
+                        if (sortModel.OrderId == RecipeSort.ORDER_ASC)
+                            sortedItems = Items.OrderBy(x => x.PreparationTime).ToList();
+                        else
+                            sortedItems = Items.OrderByDescending(x => x.PreparationTime).ToList();
+                        break;
+                    default:
+                        if (sortModel.OrderId == RecipeSort.ORDER_ASC)
+                            sortedItems = Items.OrderBy(x => x.Name).ToList();
+                        else
+                            sortedItems = Items.OrderByDescending(x => x.Name).ToList();
+                        break;
+                }
+
+                Items = new ObservableCollection<RecipeDataModel>(sortedItems);
+                OrderModel = sortModel;
+
+                MessagingCenter.Unsubscribe<RecipeSortViewModel, CommonDataSortModel>(this, "SORTED");
+                
+            });
+
+            if (OrderModel == null)
+            {
+                OrderModel = new CommonDataSortModel();
+            }
+
+            MasterDetailPage master = App.Current.MainPage as MasterDetailPage;
+            await master.Detail.Navigation.PushPopupAsync(new RecipeSortPopupPage(OrderModel));
+            Device.BeginInvokeOnMainThread(() => Dialogs.Hide());
+        }
+
+        public override void OnViewAppearing()
+        {
+            base.OnViewAppearing();
+            Items = new ObservableCollection<RecipeDataModel>(DataMockup.GetRecipesByType(mSelectedTab));
+            OnPropertyChanged("Items");
         }
     }
 }

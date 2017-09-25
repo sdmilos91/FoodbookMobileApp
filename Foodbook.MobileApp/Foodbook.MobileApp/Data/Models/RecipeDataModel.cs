@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Realms;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -31,6 +32,7 @@ namespace Foodbook.MobileApp.Data.Models
         public string ProfilePhotoUrl { get; set; }
         public bool IsMine { get; set; }
         public bool IsFavourite { get; set; }
+        public List<Ingredient> Ingredients { get; set; }
     }
 
     public class Comment
@@ -42,6 +44,12 @@ namespace Foodbook.MobileApp.Data.Models
         public string CookName { get; set; }
         public string CookPhotoUrl { get; set; }
         public DateTime InsertDate { get; set; }
+    }
+
+    public class Ingredient
+    {
+        public string Name { get; set; }
+        public string Value { get; set; }
     }
 
     public class RequestRecipeModel
@@ -95,7 +103,7 @@ namespace Foodbook.MobileApp.Data.Models
         public long? CaloricityId { get; set; }
         public int PreparationTime { get; set; }
 
-
+        public List<Ingredient> Ingredients { get; set; }    
         public List<PhotoModel> Photos { get; set; }
     }
 

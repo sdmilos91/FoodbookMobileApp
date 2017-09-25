@@ -1,5 +1,6 @@
 ﻿using Foodbook.MobileApp.Data.Models;
 using Foodbook.MobileApp.Data.Services;
+using Foodbook.MobileApp.Tools;
 using Realms;
 using Rg.Plugins.Popup.Extensions;
 using System;
@@ -48,49 +49,7 @@ namespace Foodbook.MobileApp.ViewModels
         private async void InitData()
         {
             Device.BeginInvokeOnMainThread(() => Dialogs.Show());
-            RecipeCommonDataModel commonData = new RecipeCommonDataModel();
-
-            var realm = Realm.GetInstance();
-
-            if (realm.All<FoodCategoryModel>().Any() && realm.All<CuisineModel>().Any() && realm.All<CaloricityModel>().Any())
-            {
-                var Categories = new ObservableCollection<FoodCategoryModel>(realm.All<FoodCategoryModel>());
-                var Cuisines = new ObservableCollection<CuisineModel>(realm.All<CuisineModel>());
-                var Caloricities = new ObservableCollection<CaloricityModel>(realm.All<CaloricityModel>());
-
-                commonData = new RecipeCommonDataModel
-                {
-                    Caloricities = Caloricities.ToList(),
-                    Categories = Categories.ToList(),
-                    Cuisines = Cuisines.ToList()
-                };
-            }
-            else
-            {
-                RecipeCommonDataModel tempCommonData = await RecipeDataService.GetRecipeCommonDate();
-
-                realm.Write(() =>
-                {
-
-                    foreach (var item in tempCommonData.Categories)
-                    {
-                        realm.Add(item);
-                    }
-
-                    foreach (var item in tempCommonData.Cuisines)
-                    {
-                        realm.Add(item);
-                    }
-
-                    foreach (var item in tempCommonData.Caloricities)
-                    {
-                        realm.Add(item);
-                    }
-                });
-
-
-                commonData = tempCommonData;
-            }
+            RecipeCommonDataModel commonData = await DataMockup.GetRecipeCommonData();
 
             CommonData = commonData;
             CommonData.Categories.Insert(0, new FoodCategoryModel

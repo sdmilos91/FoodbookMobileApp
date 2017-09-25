@@ -69,6 +69,29 @@ namespace Foodbook.MobileApp.Tools
         public static string LOGGED_IN = "LOGGED_IN";
     }
 
+    public static class RecipesPageTabs
+    {
+        public const int MY_RECIPES = 1;
+        public const int FAVORITE_RECIPES = 2;
+        public const int ALL_RECIPES = 3;        
+    }
+
+    public static class RecipeSort
+    {
+        public const int ORDER_ASC = 0;
+        public const int ORDER_DESC = 1;
+
+        public const int NAME = 0;
+        public const int RATING = 1;
+        public const int PREPARATION_TIME = 2;
+    }
+
+    public static class CooksPageTabs
+    {
+        public const int ALL_COOKS = 1;
+        public const int FAVORITE_COOKS = 2;
+    }
+
     public class MyColors
     {
         public static string PINK = "";
