@@ -32,8 +32,8 @@ namespace Foodbook.Pages
             {
                 Icon = cook.IsFollowed ? "favorited" : "favorite",  
                 Order = ToolbarItemOrder.Primary,
-                Command = viewModel.FavouriteCookCommand
-            };
+                Command = viewModel.FavouriteCookCommand                
+            };            
 
             favourite.CommandParameter = favourite;
 

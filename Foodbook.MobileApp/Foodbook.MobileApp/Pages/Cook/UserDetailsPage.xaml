@@ -155,6 +155,7 @@
                 <ListView 
             ItemsSource="{Binding Recipes}"
             ItemSelected="RecipeSelected"
+            SeparatorColor="{StaticResource ListSeparatorColor}"
             RowHeight="80">
 
                     <!--Custom View Cells-->

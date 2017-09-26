@@ -405,6 +405,11 @@ namespace Foodbook.MobileApp.ViewModels
                 Device.BeginInvokeOnMainThread(() => Dialogs.Show());
                 await CrossMedia.Current.Initialize();
 
+                if (Device.OS == TargetPlatform.iOS)
+                {
+                    Device.BeginInvokeOnMainThread(() => Dialogs.Hide());
+                }
+
                 string photoName = Guid.NewGuid().ToString() + ".jpg";
 
                 MediaFile file = null;

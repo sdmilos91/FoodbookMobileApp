@@ -187,7 +187,8 @@
                     IsEnabled="True"
                     RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
 				    RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}"
-                    CachingStrategy="RecycleElement"                   
+                    CachingStrategy="RecycleElement"   
+                    SeparatorColor="{StaticResource ListSeparatorColor}"
                     RowHeight="80">
 
                     <ListView.ItemTemplate>

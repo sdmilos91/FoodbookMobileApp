@@ -24,7 +24,15 @@ namespace Foodbook.MobileApp.PushNotification
         void IPushNotificationListener.OnRegistered(string Token, DeviceType deviceType)
         {
             LocalDataSecureStorage.SaveNotificationToken(Token);
-            Debug.WriteLine(string.Format("Push Notification - Device Registered - Token : {0}", Token));            
+            Debug.WriteLine(string.Format("Push Notification - Device Registered - Token : {0}", Token));
+
+            if (!string.IsNullOrEmpty(LocalDataSecureStorage.GetToken()))
+            {
+                      
+                CrossNotificationHub.Current.Register(PushNotificationSettings.CONNECTION_STRING, PushNotificationSettings.HUB_NAME, Token, LocalDataSecureStorage.GetEmail());
+                Debug.WriteLine(string.Format("Push Notification - Device Registered - TAG : {0}", LocalDataSecureStorage.GetEmail()));
+                
+            }
         }
         //Fires when device is unregistered
         void IPushNotificationListener.OnUnregistered(DeviceType deviceType)

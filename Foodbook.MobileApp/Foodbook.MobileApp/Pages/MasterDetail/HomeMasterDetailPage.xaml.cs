@@ -4,6 +4,8 @@ using Foodbook.MobileApp.Pages.Cook;
 using Foodbook.MobileApp.Pages.Recipe;
 using Foodbook.MobileApp.Tools;
 using Foodbook.Pages;
+using Plugin.NotificationHub;
+using PushNotification.Plugin;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -62,9 +64,14 @@ namespace Foodbook.MobileApp.Pages
                 }
                 else
                 {
-                    LocalDataSecureStorage.DeleteEmail();
-                    LocalDataSecureStorage.DeleteToken();
+                    LocalDataSecureStorage.ClearAllData();
                     App.Current.MainPage = new HomeMasterDetailPage();
+                    
+                    if (Device.OS == TargetPlatform.Android || Device.OS == TargetPlatform.iOS)
+                    {
+                        CrossPushNotification.Current.Unregister();
+                    }
+                    
                 }
             }
             else

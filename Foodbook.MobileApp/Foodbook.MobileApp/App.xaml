@@ -13,8 +13,10 @@
             <Color x:Key="DarkRed">#b61827</Color>
             <Color x:Key="MidleRed">#ef5350</Color>
             <Color x:Key="LightGreen">#effcea</Color>
-            <Color x:Key="PageBackground">#e1e2e1</Color>
+            <Color x:Key="PageBackground">#ffffff</Color>
             <Color x:Key="LightGray">#eeefee</Color>
+            <Color x:Key="ListSeparatorColor">#EEEEEE</Color>
+            
 
 
             <Style x:Key="EntryTitleLblStyle" TargetType="Label">
