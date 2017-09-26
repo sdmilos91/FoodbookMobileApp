@@ -48,9 +48,10 @@
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
     <MtouchArch>ARMv7, ARM64</MtouchArch>
-    <CodesignKey>iPhone Developer</CodesignKey>
+    <CodesignKey>iPhone Developer: Srdjan Krco (R9G8LFFXR3)</CodesignKey>
     <MtouchDebug>true</MtouchDebug>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
+    <CodesignProvision>e64b75cf-f7ec-4a85-8d5c-9b4b6cc7f115</CodesignProvision>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
     <DebugType>none</DebugType>
@@ -60,8 +61,9 @@
     <WarningLevel>4</WarningLevel>
     <MtouchArch>ARMv7, ARM64</MtouchArch>
     <ConsolePause>false</ConsolePause>
-    <CodesignKey>iPhone Developer</CodesignKey>
+    <CodesignKey>iPhone Developer: Boris Pokric (P5WN3GZTFG)</CodesignKey>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
+    <CodesignProvision>9ec8814e-ed6b-4e43-a54a-07842c0f0f08</CodesignProvision>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Ad-Hoc|iPhone' ">
     <DebugType>none</DebugType>
@@ -93,7 +95,9 @@
     <Compile Include="AppDelegate.cs" />
     <None Include="app.config" />
     <None Include="Entitlements.plist" />
-    <None Include="Info.plist" />
+    <None Include="Info.plist">
+      <SubType>Designer</SubType>
+    </None>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <ITunesArtwork Include="iTunesArtwork" />
     <ITunesArtwork Include="iTunesArtwork@2x" />
@@ -167,17 +171,14 @@
     <Reference Include="Microsoft.Data.Services.Client, Version=5.8.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.Data.Services.Client.5.8.2\lib\netstandard1.1\Microsoft.Data.Services.Client.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.WindowsAzure.Storage, Version=8.2.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\WindowsAzure.Storage.8.2.1\lib\netstandard1.3\Microsoft.WindowsAzure.Storage.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Newtonsoft.Json.10.0.3\lib\netstandard1.3\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="Plugin.Media, Version=2.6.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Xam.Plugin.Media.2.6.2\lib\Xamarin.iOS10\Plugin.Media.dll</HintPath>
+    <Reference Include="Plugin.Media, Version=3.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Xam.Plugin.Media.3.0.1\lib\Xamarin.iOS10\Plugin.Media.dll</HintPath>
     </Reference>
-    <Reference Include="Plugin.Media.Abstractions, Version=2.6.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Xam.Plugin.Media.2.6.2\lib\Xamarin.iOS10\Plugin.Media.Abstractions.dll</HintPath>
+    <Reference Include="Plugin.Media.Abstractions, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Xam.Plugin.Media.3.0.1\lib\Xamarin.iOS10\Plugin.Media.Abstractions.dll</HintPath>
     </Reference>
     <Reference Include="Plugin.NotificationHub, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Xam.Plugin.NotificationHub.1.0.0-rc-1\lib\Xamarin.iOS10\Plugin.NotificationHub.dll</HintPath>
@@ -260,12 +261,6 @@
     <Reference Include="Xamarin.iOS" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Foodbook.MobileApp\Foodbook.MobileApp.csproj">
-      <Project>{1f8cacae-b529-41c8-a56a-1ed3186ba45e}</Project>
-      <Name>Foodbook.MobileApp</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <BundleResource Include="Resources\back_3x.png" />
   </ItemGroup>
   <ItemGroup>
@@ -279,43 +274,69 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="PushNotificationApplicationDelegate.txt" />
-    <AndroidResource Include="Resources\addphoto.png" />
-    <AndroidResource Include="Resources\addPhotoHolder.png" />
-    <AndroidResource Include="Resources\back1.png" />
-    <AndroidResource Include="Resources\calories.png" />
-    <AndroidResource Include="Resources\cancel.png" />
-    <AndroidResource Include="Resources\category1.png" />
-    <AndroidResource Include="Resources\chefIcon.png" />
-    <AndroidResource Include="Resources\close.png" />
-    <AndroidResource Include="Resources\comment.png" />
-    <AndroidResource Include="Resources\cook.png" />
-    <AndroidResource Include="Resources\delete.png" />
-    <AndroidResource Include="Resources\deleteImage.png" />
-    <AndroidResource Include="Resources\earth.png" />
-    <AndroidResource Include="Resources\edit.png" />
-    <AndroidResource Include="Resources\favorite.png" />
-    <AndroidResource Include="Resources\favorited.png" />
-    <AndroidResource Include="Resources\filter.png" />
-    <AndroidResource Include="Resources\follower.png" />
-    <AndroidResource Include="Resources\heart.png" />
+    <BundleResource Include="Resources\addphoto.png" />
+    <BundleResource Include="Resources\addPhotoHolder.png" />
+    <BundleResource Include="Resources\back1.png" />
+    <BundleResource Include="Resources\calories.png" />
+    <BundleResource Include="Resources\cancel.png" />
+    <BundleResource Include="Resources\category1.png" />
+    <BundleResource Include="Resources\chefIcon.png" />
+    <BundleResource Include="Resources\close.png" />
+    <BundleResource Include="Resources\comment.png" />
+    <BundleResource Include="Resources\cook.png" />
+    <BundleResource Include="Resources\deleteImage.png" />
+    <BundleResource Include="Resources\earth.png" />
+    <BundleResource Include="Resources\favorite.png" />
+    <BundleResource Include="Resources\favorited.png" />
+    <BundleResource Include="Resources\filter.png" />
+    <BundleResource Include="Resources\follower.png" />
+    <BundleResource Include="Resources\heart.png" />
     <AndroidResource Include="Resources\icon.png" />
-    <AndroidResource Include="Resources\info.png" />
-    <AndroidResource Include="Resources\loadingImage.png" />
-    <AndroidResource Include="Resources\location.png" />
-    <AndroidResource Include="Resources\loginCover.png" />
-    <AndroidResource Include="Resources\name.png" />
-    <AndroidResource Include="Resources\next.png" />
-    <AndroidResource Include="Resources\plus.png" />
-    <AndroidResource Include="Resources\recipeNumber.png" />
-    <AndroidResource Include="Resources\recipePlaceholder.png" />
-    <AndroidResource Include="Resources\right.png" />
-    <AndroidResource Include="Resources\save.png" />
-    <AndroidResource Include="Resources\sort.png" />
-    <AndroidResource Include="Resources\star.png" />
-    <AndroidResource Include="Resources\starOff.png" />
-    <AndroidResource Include="Resources\time.png" />
-    <AndroidResource Include="Resources\viewImage.png" />
-    <AndroidResource Include="Resources\viewImageWhite.png" />
+    <BundleResource Include="Resources\info.png" />
+    <BundleResource Include="Resources\loadingImage.png" />
+    <BundleResource Include="Resources\location.png" />
+    <BundleResource Include="Resources\loginCover.png" />
+    <BundleResource Include="Resources\name.png" />
+    <BundleResource Include="Resources\next.png" />
+    <BundleResource Include="Resources\plus.png" />
+    <BundleResource Include="Resources\recipeNumber.png" />
+    <BundleResource Include="Resources\recipePlaceholder.png" />
+    <BundleResource Include="Resources\right.png" />
+    <BundleResource Include="Resources\save.png" />
+    <BundleResource Include="Resources\sort.png" />
+    <BundleResource Include="Resources\star.png" />
+    <BundleResource Include="Resources\starOff.png" />
+    <BundleResource Include="Resources\time.png" />
+    <BundleResource Include="Resources\viewImage.png" />
+    <BundleResource Include="Resources\viewImageWhite.png" />
+    <BundleResource Include="Resources\edit.png" />
+    <BundleResource Include="Resources\remove.png" />
+    <BundleResource Include="Resources\delete.png" />
+    <BundleResource Include="Resources\Icon-Small-50x50%402x.png" />
+    <BundleResource Include="Resources\Icon-9%403x.png" />
+    <BundleResource Include="Resources\Icon-20%401x.png" />
+    <BundleResource Include="Resources\Icon-20%402x.png" />
+    <BundleResource Include="Resources\Icon-20%403x.png" />
+    <BundleResource Include="Resources\Icon-29%401x.png" />
+    <BundleResource Include="Resources\Icon-29%402x.png" />
+    <BundleResource Include="Resources\Icon-40%401x.png" />
+    <BundleResource Include="Resources\Icon-40%402x.png" />
+    <BundleResource Include="Resources\Icon-40%403x.png" />
+    <BundleResource Include="Resources\Icon-57%401x.png" />
+    <BundleResource Include="Resources\Icon-57%402x.png" />
+    <BundleResource Include="Resources\Icon-60%401x.png" />
+    <BundleResource Include="Resources\Icon-72%401x.png" />
+    <BundleResource Include="Resources\Icon-72%402x.png" />
+    <BundleResource Include="Resources\Icon-76%401x.png" />
+    <BundleResource Include="Resources\Icon-76%403x.png" />
+    <BundleResource Include="Resources\Icon-83.5%402x.png" />
+    <BundleResource Include="Resources\Icon-Small-50x50%401x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Foodbook.MobileApp\Foodbook.MobileApp.csproj">
+      <Project>{8db07537-58d9-4325-98ff-6eddaca3d55d}</Project>
+      <Name>Foodbook.MobileApp</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Import Project="..\..\packages\Xamarin.Forms.2.3.4.247\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets" Condition="Exists('..\..\packages\Xamarin.Forms.2.3.4.247\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets')" />

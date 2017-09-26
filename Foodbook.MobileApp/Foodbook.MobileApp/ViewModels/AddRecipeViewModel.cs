@@ -378,8 +378,15 @@ namespace Foodbook.MobileApp.ViewModels
             try
             {
                 string action = await App.Current.MainPage.DisplayActionSheet("Dodavanje slike: Izaberite sliku pomoću?", "Otkaži", null, "Kamera", "Galerija");
+
+
                 Device.BeginInvokeOnMainThread(() => Dialogs.Show());
                 await CrossMedia.Current.Initialize();
+
+                if (Device.OS == TargetPlatform.iOS)
+                {
+                    Device.BeginInvokeOnMainThread(() => Dialogs.Hide());
+                }
 
                 string photoName = Guid.NewGuid().ToString() + ".jpg";
 

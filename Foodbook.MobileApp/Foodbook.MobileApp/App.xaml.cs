@@ -18,12 +18,7 @@ namespace Foodbook.MobileApp
         {
             InitializeComponent();
 
-
-            //Trenutno je uradjeno samo za android
-            if (Device.OS == TargetPlatform.Android)
-            {
-                CrossPushNotification.Current.Register();
-            }
+       
             string token = LocalDataSecureStorage.GetToken();
             
 
@@ -40,19 +35,9 @@ namespace Foodbook.MobileApp
             }
             else
             {
-                
-                try
+                if (Device.OS == TargetPlatform.Android || Device.OS == TargetPlatform.iOS)
                 {
-                    Task.Run(() => 
-                    {
-                        CrossNotificationHub.Current.Unregister();
-                        CrossNotificationHub.Current.Register(PushNotificationSettings.CONNECTION_STRING, PushNotificationSettings.HUB_NAME, LocalDataSecureStorage.GetNotificationToken(), LocalDataSecureStorage.GetEmail());
-                    });
-                    
-                }
-                catch (Exception ex)
-                {
-                    throw;
+                    CrossPushNotification.Current.Register();
                 }
                 MainPage = new HomeMasterDetailPage();
             }

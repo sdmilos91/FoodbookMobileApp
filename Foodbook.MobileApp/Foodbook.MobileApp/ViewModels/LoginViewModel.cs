@@ -4,6 +4,7 @@ using Foodbook.MobileApp.Pages;
 using Foodbook.MobileApp.Pages.Authentication;
 using Foodbook.MobileApp.Tools;
 using Plugin.NotificationHub;
+using PushNotification.Plugin;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -72,11 +73,12 @@ namespace Foodbook.MobileApp.ViewModels
                     LocalDataSecureStorage.SaveCookId(result.CookId);
                     LocalDataSecureStorage.SaveCookName(result.CookFullName);
                     LocalDataSecureStorage.SaveCookPhoto(result.PhotoUrl);
-                    Task.Run(() =>
-                        {
-                            CrossNotificationHub.Current.Unregister();
-                            CrossNotificationHub.Current.Register(PushNotificationSettings.CONNECTION_STRING, PushNotificationSettings.HUB_NAME, LocalDataSecureStorage.GetNotificationToken(), LocalDataSecureStorage.GetEmail());
-                        });
+     
+                    if (Device.OS == TargetPlatform.Android || Device.OS == TargetPlatform.iOS)
+                    {
+                        CrossPushNotification.Current.Register();
+                    }
+                        
 
                     App.Current.MainPage = new HomeMasterDetailPage();
                 }

@@ -70,7 +70,8 @@
                 <ListView 
             ItemsSource="{Binding Items}"
             ItemSelected="Handle_ItemTapped"
-            RowHeight="80">
+            SeparatorColor="{StaticResource ListSeparatorColor}"
+            RowHeight="100">
 
                     <!--Custom View Cells-->
 
