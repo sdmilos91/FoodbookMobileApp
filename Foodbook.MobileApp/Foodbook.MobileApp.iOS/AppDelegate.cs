@@ -11,6 +11,7 @@ using PushNotification.Plugin;
 using Foodbook.MobileApp.PushNotification;
 using Foodbook.MobileApp.Tools;
 using PNH = Plugin.NotificationHub;
+using WindowsAzure.Messaging;
 
 namespace Foodbook.MobileApp.iOS
 {
@@ -19,7 +20,9 @@ namespace Foodbook.MobileApp.iOS
     // application events from iOS.
     [Register("AppDelegate")]
     public partial class AppDelegate : global::Xamarin.Forms.Platform.iOS.FormsApplicationDelegate
-    {        
+    {
+
+        private SBNotificationHub Hub { get; set; }
         //
         // This method is invoked when the application has loaded and is ready to run. In this 
         // method you should instantiate the window, load the UI into it and then make the window
@@ -36,11 +39,12 @@ namespace Foodbook.MobileApp.iOS
             ImageService.Instance.Initialize();
             FAB.iOS.FloatingActionButtonRenderer.InitControl();
             CrossPushNotification.Initialize<CrossPushNotificationListener>();
-
+           
             LoadApplication(new App());
-
+       
             return base.FinishedLaunching(app, options);
         }
+
 
         public override void FailedToRegisterForRemoteNotifications(UIApplication application, NSError error)
         {
@@ -51,16 +55,36 @@ namespace Foodbook.MobileApp.iOS
                 ((IPushNotificationHandler)CrossPushNotification.Current).OnErrorReceived(error);
 
             }
+
+
         }
 
-        public override async void RegisteredForRemoteNotifications(UIApplication application, NSData deviceToken)
+        public override void RegisteredForRemoteNotifications(UIApplication application, NSData deviceToken)
         {
-            if (CrossPushNotification.Current is IPushNotificationHandler)
-            {
-     
-                ((IPushNotificationHandler)CrossPushNotification.Current).OnRegisteredSuccess(deviceToken);
 
-            }
+            if (!string.IsNullOrEmpty(LocalDataSecureStorage.GetToken()))
+            {
+                Hub = new SBNotificationHub(PushNotificationSettings.CONNECTION_STRING, PushNotificationSettings.HUB_NAME);
+
+                // Unregister any previous instances using the device token
+                Hub.UnregisterAllAsync(deviceToken, (error) =>
+                {
+                    if (error != null)
+                    {
+                    // Error unregistering
+                    return;
+                    }
+                    string[] tags = new string[] { LocalDataSecureStorage.GetEmail() };
+                // Register this device with the notification hub
+                Hub.RegisterNativeAsync(deviceToken, new NSSet(tags), (registerError) =>
+                {
+                    if (registerError != null)
+                    {
+                        // Error registering
+                    }
+                });
+            });
+        }
 
         }
 

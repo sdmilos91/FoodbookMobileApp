@@ -9,6 +9,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace Foodbook.MobileApp.PushNotification
 {
@@ -28,8 +29,15 @@ namespace Foodbook.MobileApp.PushNotification
 
             if (!string.IsNullOrEmpty(LocalDataSecureStorage.GetToken()))
             {
-                      
-                CrossNotificationHub.Current.Register(PushNotificationSettings.CONNECTION_STRING, PushNotificationSettings.HUB_NAME, Token, LocalDataSecureStorage.GetEmail());
+                if (Device.OS != TargetPlatform.iOS)
+                {
+                    CrossNotificationHub.Current.Register(PushNotificationSettings.CONNECTION_STRING, PushNotificationSettings.HUB_NAME, Token, LocalDataSecureStorage.GetEmail());
+                }
+                else
+                {
+                    //Plugin za iOS nije dobro radio registraciju pa sam morao da je eksplicitno iniciram i da se registrujem na Azure Notification hub 
+                    DependencyService.Get<iOSPushNotificationInterface>().Init();
+                }
                 Debug.WriteLine(string.Format("Push Notification - Device Registered - TAG : {0}", LocalDataSecureStorage.GetEmail()));
                 
             }
