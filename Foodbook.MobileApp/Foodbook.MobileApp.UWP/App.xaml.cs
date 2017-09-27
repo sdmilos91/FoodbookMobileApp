@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Plugin.SecureStorage;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -29,7 +30,8 @@ namespace Foodbook.MobileApp.UWP
         public App()
         {
             this.InitializeComponent();
-            this.Suspending += OnSuspending;
+            this.Suspending += OnSuspending;            
+            
         }
 
         /// <summary>
@@ -59,6 +61,7 @@ namespace Foodbook.MobileApp.UWP
                 rootFrame.NavigationFailed += OnNavigationFailed;
 
                 Xamarin.Forms.Forms.Init(e);
+                WinSecureStorageBase.StoragePassword = "FoodbookPass";
 
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
                 {
