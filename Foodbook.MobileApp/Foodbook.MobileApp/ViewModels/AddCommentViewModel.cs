@@ -79,7 +79,7 @@ namespace Foodbook.MobileApp.ViewModels
 
             if (!isInvalidForm)
             {
-                Device.BeginInvokeOnMainThread(() => Dialogs.Show());
+                ShowDialog();
 
                 if (!cookComment)
                 {
@@ -145,7 +145,7 @@ namespace Foodbook.MobileApp.ViewModels
                         MessagingCenter.Send(this, "COOK_COMMENT_ADDED");
                     }
                 }
-                Device.BeginInvokeOnMainThread(() => Dialogs.Hide());
+                HideDialog();
                 
             }
         }

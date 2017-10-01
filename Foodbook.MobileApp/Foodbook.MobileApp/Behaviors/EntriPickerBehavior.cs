@@ -75,6 +75,8 @@ namespace Foodbook.MobileApp.Behaviors
             Device.BeginInvokeOnMainThread(() =>
             {
                 mEntry.Unfocus();
+                if(RelatedPicker.IsFocused)
+                    RelatedPicker.Unfocus();
                 RelatedPicker.Focus();
             });
         }

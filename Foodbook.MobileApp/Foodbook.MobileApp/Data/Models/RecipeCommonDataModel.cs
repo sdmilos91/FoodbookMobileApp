@@ -10,11 +10,20 @@ namespace Foodbook.MobileApp.Data.Models
 {
     public class RecipeCommonDataModel
     {
+        public RecipeCommonDataModel()
+        {
+            Categories = new List<FoodCategoryModel>();
+            Cuisines = new List<CuisineModel>();
+            Caloricities = new List<CaloricityModel>();
+        }
+
         public List<FoodCategoryModel> Categories { get; set; }
         public List<CuisineModel> Cuisines { get; set; }
         public List<CaloricityModel> Caloricities { get; set; }
 
     }
+
+
 
     public class FoodCategoryModel : RealmObject
     {

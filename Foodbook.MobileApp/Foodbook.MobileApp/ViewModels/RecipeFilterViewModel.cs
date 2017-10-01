@@ -48,7 +48,7 @@ namespace Foodbook.MobileApp.ViewModels
 
         private async void InitData()
         {
-            Device.BeginInvokeOnMainThread(() => Dialogs.Show());
+            
             RecipeCommonDataModel commonData = await DataMockup.GetRecipeCommonData();
 
             CommonData = commonData;
@@ -78,6 +78,7 @@ namespace Foodbook.MobileApp.ViewModels
             CategoryName = CommonData.Categories.ElementAt(SelectedCategoryIndex).CategoryName;
             CuisineName = CommonData.Cuisines.ElementAt(SelectedCuisineIndex).CuisineName;
             CaloryName = CommonData.Caloricities.ElementAt(SelectedCaloricityIndex).Name;
+            
         }
 
         private async void Cancel()

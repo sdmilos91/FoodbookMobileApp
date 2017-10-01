@@ -98,9 +98,9 @@ namespace Foodbook.MobileApp.ViewModels
 
             if (isFormValid && Utils.IsEmailValid(RegisterModel.Email))
             {
-                Device.BeginInvokeOnMainThread(() => Dialogs.Show());
+                ShowDialog();
                 bool res = await CookDataService.EditCook(registerModel, mCook.CookId, LocalDataSecureStorage.GetToken());
-                Device.BeginInvokeOnMainThread(() => Dialogs.Hide());
+                HideDialog();
 
                 MasterDetailPage masterPage = App.Current.MainPage as MasterDetailPage;
                 if (res)
@@ -136,7 +136,7 @@ namespace Foodbook.MobileApp.ViewModels
             {
                 
                 string action = await App.Current.MainPage.DisplayActionSheet("Dodavanje slike: Izaberite sliku pomoću?", "Otkaži", null, "Kamera", "Galerija");
-                Device.BeginInvokeOnMainThread(() => Dialogs.Show());
+                ShowDialog();
                 await CrossMedia.Current.Initialize();
 
                 string photoName = Guid.NewGuid().ToString() + ".jpg";
@@ -147,7 +147,7 @@ namespace Foodbook.MobileApp.ViewModels
                     if (!CrossMedia.Current.IsCameraAvailable || !CrossMedia.Current.IsTakePhotoSupported)
                     {
                         await App.Current.MainPage.DisplayAlert("No Camera", ":( No camera available.", "OK");
-                        Device.BeginInvokeOnMainThread(() => Dialogs.Hide());
+                        HideDialog();
                         return;
                     }
 
@@ -166,7 +166,7 @@ namespace Foodbook.MobileApp.ViewModels
                     if (!CrossMedia.Current.IsPickPhotoSupported)
                     {
                         await App.Current.MainPage.DisplayAlert("Info", "Ne možete izabrati sliku.", "U redu");
-                        Device.BeginInvokeOnMainThread(() => Dialogs.Hide());
+                        HideDialog();
                         return;
                     }
 
@@ -182,7 +182,7 @@ namespace Foodbook.MobileApp.ViewModels
 
                 if (file == null)
                 {
-                    Device.BeginInvokeOnMainThread(() => Dialogs.Hide());
+                    HideDialog();
                     return;
                 }
 
@@ -200,14 +200,14 @@ namespace Foodbook.MobileApp.ViewModels
                 OnPropertyChanged("RegisterModel");
                 PhotoPicked = true;
 
-                Device.BeginInvokeOnMainThread(() => Dialogs.Hide());
+                HideDialog();
                 file.Dispose();
                 
             }
             catch (Exception ex)
             {
 
-                Device.BeginInvokeOnMainThread(() => Dialogs.Hide());
+                HideDialog();
             }
         }
 

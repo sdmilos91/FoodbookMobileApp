@@ -106,7 +106,11 @@ namespace Foodbook.MobileApp.Tools
             RecipeCommonDataModel mCommonData = new RecipeCommonDataModel();
 
             var realm = Realm.GetInstance();
-            if (realm.All<FoodCategoryModel>().Any() && realm.All<CuisineModel>().Any() && realm.All<CaloricityModel>().Any())
+            var isCategoryFull = realm.All<FoodCategoryModel>().Any();
+            var isCuisineFull = realm.All<CuisineModel>().Any();
+            var isCaloricityFull = realm.All<CaloricityModel>().Any();
+
+            if (isCategoryFull && isCuisineFull && isCaloricityFull)
             {
                 var categories = new ObservableCollection<FoodCategoryModel>(realm.All<FoodCategoryModel>());
                 var cuisines = new ObservableCollection<CuisineModel>(realm.All<CuisineModel>());

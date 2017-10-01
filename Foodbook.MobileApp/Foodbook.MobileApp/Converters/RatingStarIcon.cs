@@ -16,8 +16,8 @@ namespace Foodbook.MobileApp.Converters
             int starNumber = Int32.Parse(parameter.ToString());
 
             if (rating >= starNumber)
-                return "star";
-            return "starOff";
+                return "star.png";
+            return "starOff.png";
         }
 
 

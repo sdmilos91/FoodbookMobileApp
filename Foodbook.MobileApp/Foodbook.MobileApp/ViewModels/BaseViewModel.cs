@@ -14,12 +14,7 @@ namespace Foodbook.MobileApp.ViewModels
     {
 
         protected BaseViewModel()
-        {
-            Device.BeginInvokeOnMainThread(() =>
-            {
-                this.Dialogs = UserDialogs.Instance.Loading("Loading");
-                this.Dialogs.Hide();
-            });
+        {   
         }
 
 
@@ -32,6 +27,27 @@ namespace Foodbook.MobileApp.ViewModels
             set { SetProperty(ref isBusy, value); }
         }
 
+        protected void ShowDialog()
+        {
+            //Device.BeginInvokeOnMainThread(() =>
+            //{               
+                if(this.Dialogs == null)
+                     this.Dialogs = UserDialogs.Instance.Loading("Loading");
+                this.Dialogs.Show();
+            //});
+        }
+
+        protected void HideDialog()
+        {
+            // Device.BeginInvokeOnMainThread(() =>
+            //{
+            if (this.Dialogs == null)
+                this.Dialogs = UserDialogs.Instance.Loading("Loading");
+            this.Dialogs.Hide();
+
+            //});
+        }
+
         public virtual void OnViewDisappearing()
         {
 
@@ -41,5 +57,6 @@ namespace Foodbook.MobileApp.ViewModels
         {
 
         }
+
     }
 }

@@ -12,8 +12,23 @@ namespace Foodbook.MobileApp.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            int rating = (int)value;
+            if (value == null)
+                return false;
+
+
+            int rating = 0;
             int starNumber = Int32.Parse(parameter.ToString());
+
+            if (value.GetType() == typeof(double))
+            {
+                double doubleVal = (double)value;
+                rating = (int)doubleVal;
+            }
+            else if (value.GetType() == typeof(int))
+            {
+                rating = (int)value;
+            }
+           
 
             if (rating >= starNumber)
                 return true;

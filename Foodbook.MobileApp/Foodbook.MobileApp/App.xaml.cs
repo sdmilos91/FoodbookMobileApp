@@ -19,8 +19,7 @@ namespace Foodbook.MobileApp
             InitializeComponent();
 
        
-            string token = LocalDataSecureStorage.GetToken();
-            
+            string token = LocalDataSecureStorage.GetToken();            
 
             if (string.IsNullOrEmpty(token))
             {

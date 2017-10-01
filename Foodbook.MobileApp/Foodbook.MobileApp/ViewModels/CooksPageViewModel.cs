@@ -206,7 +206,7 @@ namespace Foodbook.MobileApp.ViewModels
         {
 
 
-            Device.BeginInvokeOnMainThread(() => Dialogs.Show());
+           // Device.BeginInvokeOnMainThread(() => Dialogs.Show());
 
             RequestRecipeModel requestModel = new RequestRecipeModel
             {
@@ -226,7 +226,7 @@ namespace Foodbook.MobileApp.ViewModels
             
             TabContainerHeight = IsUserAuthenticated ? new GridLength(40) : new GridLength(0);
 
-            Device.BeginInvokeOnMainThread(() => Dialogs.Hide());
+            //Device.BeginInvokeOnMainThread(() => Dialogs.Hide());
 
             ChangeTab("1");
         }
@@ -246,7 +246,7 @@ namespace Foodbook.MobileApp.ViewModels
 
             MasterDetailPage master = App.Current.MainPage as MasterDetailPage;
             await master.Detail.Navigation.PushPopupAsync(new CookFilterPopupPage(mCookNameFilter));
-            Device.BeginInvokeOnMainThread(() => Dialogs.Hide());
+            HideDialog();
         }
 
         private async void SortRecipeAsync(object sender)
@@ -292,9 +292,14 @@ namespace Foodbook.MobileApp.ViewModels
 
             MasterDetailPage master = App.Current.MainPage as MasterDetailPage;
             await master.Detail.Navigation.PushPopupAsync(new CookSortPopupPage(OrderModel));
-            Device.BeginInvokeOnMainThread(() => Dialogs.Hide());
+            HideDialog();
         }
 
-
+        public override void OnViewAppearing()
+        {
+            base.OnViewAppearing();
+            Items = new ObservableCollection<ResponseCookModel>(DataMockup.GetCooksByType(mSelectedTab));
+            OnPropertyChanged("Items");
+        }
     }
 }

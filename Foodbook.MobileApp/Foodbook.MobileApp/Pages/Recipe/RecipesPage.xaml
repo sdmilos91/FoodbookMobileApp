@@ -4,6 +4,7 @@
              x:Class="Foodbook.MobileApp.Pages.Recipe.RecipesPage"
               xmlns:fab="clr-namespace:FAB.Forms;assembly=FAB.Forms"
              xmlns:localConverters="clr-namespace:Foodbook.MobileApp.Converters;assembly=Foodbook.MobileApp"
+             xmlns:customViews="clr-namespace:Foodbook.MobileApp.CustomViews;assembly=Foodbook.MobileApp"
              xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              BackgroundColor="{StaticResource PageBackground}"
              Title="Foodbook">
@@ -112,12 +113,12 @@
 
                                     <Label Text="{Binding Name}" FontSize="Small" Grid.Column="1" Grid.Row="0" TextColor="Black"/>
                                     <StackLayout HorizontalOptions="StartAndExpand" Grid.Column="1" Grid.Row="1" Orientation="Horizontal">
-                                        <Image Source="category1" WidthRequest="16" HeightRequest="16" />
+                                        <Image Source="category1.png" WidthRequest="16" HeightRequest="16" />
                                         <Label Text="{Binding CategoryName}"  TextColor="Gray" />
                                     </StackLayout>
 
                                     <StackLayout HorizontalOptions="StartAndExpand" Grid.Column="1" Grid.Row="2" Orientation="Horizontal">
-                                        <Image Source="earth" WidthRequest="16" HeightRequest="16" />
+                                        <Image Source="earth.png" WidthRequest="16" HeightRequest="16" />
                                         <Label Text="{Binding CuisineName}"  TextColor="Gray" />
                                     </StackLayout>
                                 </Grid>
@@ -127,15 +128,43 @@
 
                 </ListView>
             </StackLayout>
-            <fab:FloatingActionButton
-                    IsVisible="{Binding IsUserAuthenticated}"
-				    Source="plus.png"
-				    Size="Normal"				     
-				    RippleColor="Gray"
-                    Command="{Binding AddRecipeCommand}"
-                    NormalColor="{StaticResource HeadingColor}"                   
-				    RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-80}"
-				    RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-100}" />
+            <OnPlatform x:TypeArguments="View">
+                <OnPlatform.Android>
+                    <fab:FloatingActionButton
+                        IsVisible="{Binding IsUserAuthenticated}"
+				        Source="plus.png"
+				        Size="Normal"				     
+				        RippleColor="Gray"
+                        Command="{Binding AddRecipeCommand}"
+                        NormalColor="{StaticResource HeadingColor}"                   
+				        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-80}"
+				        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-100}" />
+                </OnPlatform.Android>
+                <OnPlatform.iOS>
+                    <fab:FloatingActionButton
+                        IsVisible="{Binding IsUserAuthenticated}"
+				        Source="plus.png"
+				        Size="Normal"				     
+				        RippleColor="Gray"
+                        Command="{Binding AddRecipeCommand}"
+                        NormalColor="{StaticResource HeadingColor}"                   
+				        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-80}"
+				        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-100}" />
+                </OnPlatform.iOS>
+                <OnPlatform.WinPhone>
+                    <Button
+                        IsVisible="{Binding IsUserAuthenticated}"
+                        HeightRequest="70"
+                        WidthRequest="70"
+                        BorderRadius="50"
+				        Image="plus.png"				        
+                        Command="{Binding AddRecipeCommand}"
+                        BackgroundColor="{StaticResource HeadingColor}"                   
+				        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-80}"
+				        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-100}" />
+                </OnPlatform.WinPhone>
+            </OnPlatform>
+            
         </RelativeLayout>
 
 
@@ -145,7 +174,7 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <Image Source="filter" Grid.Column="0" Aspect="AspectFit" x:Name="filterBtn">
+            <Image Source="filter.png" Grid.Column="0" Aspect="AspectFit" x:Name="filterBtn" HorizontalOptions="Center">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer
                             Command="{Binding FilterRecipeCommand}" CommandParameter="{x:Reference filterBtn}"
@@ -153,7 +182,7 @@
                 </Image.GestureRecognizers>
 
             </Image>
-            <Image Source="sort" Grid.Column="1" Aspect="AspectFit" x:Name="backBtn">
+            <Image Source="sort.png" Grid.Column="1" Aspect="AspectFit" x:Name="backBtn"  HorizontalOptions="Center">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer
                             Command="{Binding SortRecipeCommand}" CommandParameter="{x:Reference backBtn}"

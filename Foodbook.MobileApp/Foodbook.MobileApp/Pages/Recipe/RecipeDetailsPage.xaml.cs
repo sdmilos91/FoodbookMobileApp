@@ -39,7 +39,7 @@ namespace Foodbook.MobileApp.Pages.Recipe
 
             ToolbarItem edit = new ToolbarItem
             {
-                Icon = "edit",
+                Icon = "edit.png",
                 Order = ToolbarItemOrder.Primary,
                 Command = viewModel.EditRecipeCommand
             };
@@ -48,7 +48,7 @@ namespace Foodbook.MobileApp.Pages.Recipe
 
             ToolbarItem delete = new ToolbarItem
             {
-                Icon = "delete",
+                Icon = "delete.png",
                 Order = ToolbarItemOrder.Primary,
                 Command = viewModel.DeleteRecipeCommand
             };

@@ -62,9 +62,9 @@ namespace Foodbook.MobileApp.ViewModels
 
             if (isFormValid)
             {
-                Device.BeginInvokeOnMainThread(() => Dialogs.Show());
+                ShowDialog();
                 LoginResponseModel result = await AccountDataService.LoginUser(Username, Password);
-                Device.BeginInvokeOnMainThread(() => Dialogs.Hide());
+                HideDialog();
 
                 if (result.IsSuccess)
                 {

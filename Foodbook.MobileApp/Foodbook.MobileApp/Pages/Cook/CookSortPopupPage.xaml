@@ -34,12 +34,20 @@
                 </Grid.RowDefinitions>
 
                 <Label Text="Redosled: " Grid.Row="0" Style="{StaticResource EntryTitleLblStyle}"/>
-                <Picker x:Name="orderPicker" ItemsSource="{Binding OrderModel.OrderItems}" ItemDisplayBinding="{Binding Name}" SelectedIndex="{Binding SelectedOrderIndex}" IsVisible="False"/>
+                <Picker x:Name="orderPicker" ItemsSource="{Binding OrderModel.OrderItems}" ItemDisplayBinding="{Binding Name}" SelectedIndex="{Binding SelectedOrderIndex}" Grid.Row="1">
+                  <Picker.IsVisible>
+                    <OnPlatform x:TypeArguments="x:Boolean" Android="False" iOS="False" WinPhone="True"/>
+                  </Picker.IsVisible>
+                </Picker>
                 <renderers:CustomEntry Text="{Binding OrderName}" EntryType="PICKER" Placeholder="Redosled" HorizontalTextAlignment="Start" Grid.Row="1">
 
                     <Entry.Behaviors>
                         <behaviors:EntriPickerBehavior  RelatedPicker="{x:Reference orderPicker}" />
                     </Entry.Behaviors>
+
+                  <Entry.IsVisible>
+                    <OnPlatform x:TypeArguments="x:Boolean" Android="True" iOS="True" WinPhone="False"/>
+                  </Entry.IsVisible>
 
                 </renderers:CustomEntry>
             </Grid>
@@ -52,12 +60,20 @@
                 </Grid.RowDefinitions>
 
                 <Label Text="Redosled po:" Grid.Row="0" Style="{StaticResource EntryTitleLblStyle}"/>
-                <Picker x:Name="orderByPicker" ItemsSource="{Binding OrderModel.OrderByItems}" ItemDisplayBinding="{Binding Name}" SelectedIndex="{Binding SelectedOrderByIndex}"  IsVisible="False"/>
+                <Picker x:Name="orderByPicker" ItemsSource="{Binding OrderModel.OrderByItems}" ItemDisplayBinding="{Binding Name}" SelectedIndex="{Binding SelectedOrderByIndex}" Grid.Row="1">
+                  <Picker.IsVisible>
+                    <OnPlatform x:TypeArguments="x:Boolean" Android="False" iOS="False" WinPhone="True"/>
+                  </Picker.IsVisible>
+                </Picker>
                 <renderers:CustomEntry Text="{Binding OrderByName}" EntryType="PICKER" Placeholder="Kuhinja" HorizontalTextAlignment="Start" Grid.Row="1" >
 
                     <Entry.Behaviors>
                         <behaviors:EntriPickerBehavior  RelatedPicker="{x:Reference orderByPicker}" />
                     </Entry.Behaviors>
+
+                  <Entry.IsVisible>
+                    <OnPlatform x:TypeArguments="x:Boolean" Android="True" iOS="True" WinPhone="False"/>
+                  </Entry.IsVisible>
 
                 </renderers:CustomEntry>
             </Grid>

@@ -27,7 +27,7 @@ namespace Foodbook.Pages
         public UserDetailsPage(ResponseCookModel cook, bool userProfile = false)
 		{
 			InitializeComponent ();
-            UserDetailsViewModel viewModel = new UserDetailsViewModel(cook);
+            UserDetailsViewModel viewModel = new UserDetailsViewModel(cook, userProfile);
             ToolbarItem favourite = new ToolbarItem
             {
                 Icon = cook.IsFollowed ? "favorited" : "favorite",  
@@ -40,7 +40,7 @@ namespace Foodbook.Pages
 
             ToolbarItem edit = new ToolbarItem
             {
-                Icon = "edit",
+                Icon = "edit.png",
                 Order = ToolbarItemOrder.Primary
             };
 

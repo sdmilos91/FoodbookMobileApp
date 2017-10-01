@@ -158,7 +158,7 @@
                                     RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0, Constant=0}"
 				                    RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-45}">
 
-                            <Image Source="viewImageWhite" x:Name="viewImageBtn" Aspect="AspectFill" VerticalOptions="Center" HorizontalOptions="Center" WidthRequest="30" HeightRequest="30" >
+                            <Image Source="viewImageWhite.png" x:Name="viewImageBtn" Aspect="AspectFill" VerticalOptions="Center" HorizontalOptions="Center" WidthRequest="30" HeightRequest="30" >
                                 <Image.GestureRecognizers>
                                     <TapGestureRecognizer
                                         Command="{Binding ViewImageCommand}" CommandParameter="{x:Reference viewImageBtn}"
@@ -175,7 +175,7 @@
                                     RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-40}"
 				                    RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-45}">
 
-                            <Image Source="delete" x:Name="removeImageBtn" Aspect="AspectFill" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="30"  HeightRequest="30">
+                            <Image Source="delete.png" x:Name="removeImageBtn" Aspect="AspectFill" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="30"  HeightRequest="30">
 
                                 <Image.GestureRecognizers>
                                     <TapGestureRecognizer

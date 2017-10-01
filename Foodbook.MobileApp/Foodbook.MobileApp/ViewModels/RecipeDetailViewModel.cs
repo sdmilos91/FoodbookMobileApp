@@ -298,9 +298,9 @@ namespace Foodbook.MobileApp.ViewModels
             bool response = await App.Current.MainPage.DisplayAlert("Obaveštenje", "Da li želite da uklonite recept?", "Da", "Ne");
             if (response)
             {
-                Device.BeginInvokeOnMainThread(() => Dialogs.Show());
+                ShowDialog();
                 bool result = await RecipeDataService.DeleteRecipe(mRecipeId, LocalDataSecureStorage.GetToken());
-                Device.BeginInvokeOnMainThread(() => Dialogs.Hide());
+                HideDialog();
                 string message = result ? "Recept je uspešno uklonjen." : "Greška prilikom uklanjanja recept.";
                 await App.Current.MainPage.DisplayAlert("Obaveštenje", message, "U redu");
 
@@ -325,9 +325,9 @@ namespace Foodbook.MobileApp.ViewModels
         private async void FavouriteRecipe(object sender, RecipeDataModel recipe)
         {
             var favouriteItem = sender as ToolbarItem;
-            Device.BeginInvokeOnMainThread(() => Dialogs.Show());
+            ShowDialog();
             bool result = await RecipeDataService.FavouriteRecept(recipe.RecipeId, LocalDataSecureStorage.GetToken());
-            Device.BeginInvokeOnMainThread(() => Dialogs.Hide());
+            HideDialog();
             if (result)
             {
                 DataMockup.AddOrRemoveFavoutiteRecipe(recipe);

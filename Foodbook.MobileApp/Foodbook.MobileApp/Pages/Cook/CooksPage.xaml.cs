@@ -22,12 +22,14 @@ namespace Foodbook.MobileApp.Pages.Cook
     {
         public ObservableCollection<RecipeDataModel> Items { get; set; }
         public string RecipePhoto { get; set; }
+        private CooksPageViewModel mViewModel;
 
         public CooksPage()
         {
             InitializeComponent();
 
-            BindingContext = new CooksPageViewModel();
+            mViewModel = new CooksPageViewModel();
+            BindingContext = mViewModel;
         }
 
 
@@ -42,6 +44,18 @@ namespace Foodbook.MobileApp.Pages.Cook
 
             //Deselect Item
             ((ListView)sender).SelectedItem = null;
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            mViewModel.OnViewAppearing();
+        }
+
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+            mViewModel.OnViewDisappearing();
         }
     }
 }

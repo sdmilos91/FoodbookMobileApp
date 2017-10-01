@@ -1,8 +1,10 @@
-﻿using Plugin.SecureStorage;
+﻿using FFImageLoading;
+using Plugin.SecureStorage;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
@@ -60,8 +62,18 @@ namespace Foodbook.MobileApp.UWP
 
                 rootFrame.NavigationFailed += OnNavigationFailed;
 
-                Xamarin.Forms.Forms.Init(e);
                 WinSecureStorageBase.StoragePassword = "FoodbookPass";
+
+                FFImageLoading.Forms.WinUWP.CachedImageRenderer.Init();
+
+                ImageService.Instance.Initialize();
+
+                List<Assembly> assembliesToInclude = new List<Assembly>();
+                assembliesToInclude.Add(typeof(FFImageLoading.Forms.WinUWP.CachedImageRenderer).GetTypeInfo().Assembly);
+
+                
+
+                Xamarin.Forms.Forms.Init(e);
 
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
                 {

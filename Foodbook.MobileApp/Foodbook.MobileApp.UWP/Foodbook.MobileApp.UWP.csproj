@@ -18,6 +18,10 @@
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <PackageCertificateKeyFile>Foodbook.MobileApp.UWP_TemporaryKey.pfx</PackageCertificateKeyFile>
+    <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
+    <AppxBundle>Always</AppxBundle>
+    <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
+    <PackageCertificateThumbprint>EF335C253BAF25DF942F61CA4A151D9AC0864ABC</PackageCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
     <DebugSymbols>true</DebugSymbols>
@@ -108,6 +112,45 @@
     <None Include="Foodbook.MobileApp.UWP_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="addphoto.png" />
+    <Content Include="addPhotoHolder.png" />
+    <Content Include="Assets\StoreLogo.png" />
+    <Content Include="back.png" />
+    <Content Include="calories.png" />
+    <Content Include="back1.png" />
+    <Content Include="cancel.png" />
+    <Content Include="category1.png" />
+    <Content Include="chefIcon.png" />
+    <Content Include="close.png" />
+    <Content Include="comment.png" />
+    <Content Include="cook.png" />
+    <Content Include="delete.png" />
+    <Content Include="deleteImage.png" />
+    <Content Include="earth.png" />
+    <Content Include="edit.png" />
+    <Content Include="favorite.png" />
+    <Content Include="favorited.png" />
+    <Content Include="filter.png" />
+    <Content Include="follower.png" />
+    <Content Include="heart.png" />
+    <Content Include="info.png" />
+    <Content Include="loadingImage.png" />
+    <Content Include="location.png" />
+    <Content Include="loginCover.png" />
+    <Content Include="name.png" />
+    <Content Include="next.png" />
+    <Content Include="plus.png" />
+    <Content Include="recipeNumber.png" />
+    <Content Include="recipePlaceholder.png" />
+    <Content Include="remove.png" />
+    <Content Include="right.png" />
+    <Content Include="save.png" />
+    <Content Include="sort.png" />
+    <Content Include="star.png" />
+    <Content Include="starOff.png" />
+    <Content Include="time.png" />
+    <Content Include="viewImage.png" />
+    <Content Include="viewImageWhite.png" />
     <Content Include="FodyWeavers.xml" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-100.png" />
@@ -135,7 +178,7 @@
     <Content Include="Assets\Square44x44Logo.targetsize-32_altform-unplated.png" />
     <Content Include="Assets\Square44x44Logo.targetsize-48_altform-unplated.png" />
     <Content Include="Assets\Square44x44Logo.targetsize-256_altform-unplated.png" />
-    <Content Include="Assets\StoreLogo.png" />
+    <Content Include="StoreLogo.png" />
     <Content Include="Assets\Wide310x150Logo.scale-100.png" />
     <Content Include="Assets\Wide310x150Logo.scale-125.png" />
     <Content Include="Assets\Wide310x150Logo.scale-150.png" />

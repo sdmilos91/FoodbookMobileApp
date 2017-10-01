@@ -22,7 +22,7 @@
             <RowDefinition Height="10"/>
           </Grid.RowDefinitions>
 
-                    <Image Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" Grid.RowSpan="3" Aspect="AspectFill" Source="loginCover"/>
+                    <Image Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" Grid.RowSpan="3" Aspect="AspectFill" Source="loginCover.png"/>
 
                     <Label
               Grid.Column="1"

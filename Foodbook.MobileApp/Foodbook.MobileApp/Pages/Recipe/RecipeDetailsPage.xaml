@@ -30,7 +30,7 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <RelativeLayout  Grid.Row="0" Grid.RowSpan="2">
+            <RelativeLayout  Grid.Row="0" Grid.RowSpan="2" IsVisible="{Binding FirstContainer}">
                 <ffimageloading:CachedImage x:Name="coverImg" Source="{Binding PhotoUrl}"                                        
                                         DownsampleToViewSize="True"
                                         DownsampleWidth ="400"
@@ -42,7 +42,7 @@
                         <TapGestureRecognizer Command="{Binding ViewImageCommand}"/>
                     </Image.GestureRecognizers>
                 </ffimageloading:CachedImage>
-                <Image Source="viewImage" WidthRequest="48" HeightRequest="48"
+                <Image Source="viewImage.png" WidthRequest="48" HeightRequest="48" 
                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-55}"
 				        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0, Constant=10}"
                        />
@@ -54,7 +54,7 @@
                 <StackLayout Spacing="0" Padding="5">
 
                     <StackLayout HorizontalOptions="StartAndExpand" Orientation="Horizontal" Margin="5,0,0,0">
-                        <Image Source="cook" WidthRequest="24" HeightRequest="24" />
+                        <Image Source="cook.png" WidthRequest="24" HeightRequest="24" />
                         <Label Text="{Binding CookName}"  TextColor="Gray" FontSize="25"  />
                     </StackLayout>
                 </StackLayout>
@@ -105,7 +105,7 @@
 
                     <StackLayout Spacing="0">
                         <StackLayout HorizontalOptions="StartAndExpand" Orientation="Horizontal">
-                            <Image Source="category1" WidthRequest="16" HeightRequest="16" />
+                            <Image Source="category1.png" WidthRequest="16" HeightRequest="16" />
                             <Label Text="Kategorija: "  TextColor="Gray" FontSize="Small" FontAttributes="Bold"/>
                         </StackLayout>
                         <Label Text="{Binding CategoryName}"  TextColor="Gray" FontSize="Small" Margin="29,0,0,0"/>
@@ -113,7 +113,7 @@
 
                     <StackLayout Spacing="0">
                         <StackLayout HorizontalOptions="StartAndExpand" Orientation="Horizontal">
-                            <Image Source="earth" WidthRequest="16" HeightRequest="16" />
+                            <Image Source="earth.png" WidthRequest="16" HeightRequest="16" />
                             <Label Text="Kuhinja: "  TextColor="Gray" FontSize="Small" FontAttributes="Bold"/>
                         </StackLayout>
                         <Label Text="{Binding CuisineName}"  TextColor="Gray" FontSize="Small" Margin="29,0,0,0"/>
@@ -121,7 +121,7 @@
 
                     <StackLayout Spacing="0">
                         <StackLayout HorizontalOptions="StartAndExpand" Orientation="Horizontal">
-                            <Image Source="time" WidthRequest="16" HeightRequest="16" />
+                            <Image Source="time.png" WidthRequest="16" HeightRequest="16" />
                             <Label Text="Vreme pripreme (min): "  TextColor="Gray" FontSize="Small" FontAttributes="Bold"/>
                         </StackLayout>
                         <Label Text="{Binding PreparationTime, Converter={StaticResource preparationTimeCnvt} }"  TextColor="Gray" FontSize="Small" Margin="29,0,0,0"/>
@@ -129,7 +129,7 @@
 
                     <StackLayout Spacing="0">
                         <StackLayout HorizontalOptions="StartAndExpand" Orientation="Horizontal">
-                            <Image Source="calories" WidthRequest="16" HeightRequest="16" />
+                            <Image Source="calories.png" WidthRequest="16" HeightRequest="16" />
                             <Label Text="Kaloricnost: "  TextColor="Gray" FontSize="Small" FontAttributes="Bold"/>
                         </StackLayout>
                         <Label Text="{Binding CaloricityName}"  TextColor="Gray" FontSize="Small" Margin="29,0,0,0"/>
@@ -138,7 +138,7 @@
             </ScrollView>
             <!--PRIPREMA-->
             <ScrollView IsVisible="{Binding SecondContainer}" Grid.Row="4" Grid.RowSpan="3" Padding="10">
-                <Grid>
+                <Grid Padding="10">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="30"/>
                         <RowDefinition Height="{Binding IngradientsContainer}"/>
@@ -189,7 +189,7 @@
 				    RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}"
                     CachingStrategy="RecycleElement"   
                     SeparatorColor="{StaticResource ListSeparatorColor}"
-                    RowHeight="80">
+                    RowHeight="100">
 
                     <ListView.ItemTemplate>
                         <DataTemplate>
@@ -203,7 +203,7 @@
                                         <RowDefinition Height="20" />
                                         <RowDefinition Height="14" />
                                         <RowDefinition Height="*" />
-                                        <RowDefinition Height="14" />
+                                        <RowDefinition Height="20" />
                                     </Grid.RowDefinitions>
 
                                     <ffimageloading:CachedImage 
@@ -217,15 +217,15 @@
 
                                     <Label Text="{Binding CookName}"  TextColor="Gray" FontSize="Small" FontAttributes="Bold" Grid.Column="1" Grid.Row="0"/>
                                     <StackLayout HorizontalOptions="EndAndExpand" Grid.Column="1" Grid.Row="0" Orientation="Horizontal">
-                                        <Image Source="star" WidthRequest="15" HeightRequest="15" 
+                                        <Image Source="star.png" WidthRequest="15" HeightRequest="15" 
                                                IsVisible="{Binding Rating, Converter={StaticResource rtngStarVisibility}, ConverterParameter=1}"/>
-                                        <Image Source="star" WidthRequest="15" HeightRequest="15" 
+                                        <Image Source="star.png" WidthRequest="15" HeightRequest="15" 
                                                IsVisible="{Binding Rating, Converter={StaticResource rtngStarVisibility}, ConverterParameter=2}"/>
-                                        <Image Source="star" WidthRequest="15" HeightRequest="15" 
+                                        <Image Source="star.png" WidthRequest="15" HeightRequest="15" 
                                                IsVisible="{Binding Rating, Converter={StaticResource rtngStarVisibility}, ConverterParameter=3}"/>
-                                        <Image Source="star" WidthRequest="15" HeightRequest="15" 
+                                        <Image Source="star.png" WidthRequest="15" HeightRequest="15" 
                                                IsVisible="{Binding Rating, Converter={StaticResource rtngStarVisibility}, ConverterParameter=4}"/>
-                                        <Image Source="star" WidthRequest="15" HeightRequest="15" 
+                                        <Image Source="star.png" WidthRequest="15" HeightRequest="15" 
                                                IsVisible="{Binding Rating, Converter={StaticResource rtngStarVisibility}, ConverterParameter=5}"/>
                                     </StackLayout>
                                     <StackLayout Orientation="Horizontal" VerticalOptions="FillAndExpand" Grid.Column="1" Grid.Row="1"></StackLayout>
@@ -238,16 +238,45 @@
                     </ListView.ItemTemplate>
                 </ListView>
 
+                <OnPlatform x:TypeArguments="View">
+                    <OnPlatform.Android>
+                        <fab:FloatingActionButton
+				            Source="comment.png"
+				            Size="Normal"		
+                            IsVisible="{Binding AddCommentEnabled}"
+				            RippleColor="Gray"
+                            NormalColor="{StaticResource HeadingColor}"
+                            Command="{Binding AddCommentCommand}"
+				            RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-90}"
+				            RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-90}" />
+                    </OnPlatform.Android>
+                    <OnPlatform.iOS>
+                        <fab:FloatingActionButton
+				            Source="comment.png"
+				            Size="Normal"		
+                            IsVisible="{Binding AddCommentEnabled}"
+				            RippleColor="Gray"
+                            NormalColor="{StaticResource HeadingColor}"
+                            Command="{Binding AddCommentCommand}"
+				            RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-90}"
+				            RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-90}" />
+                    </OnPlatform.iOS>
+                    <OnPlatform.WinPhone>
+                        <Button
+                        IsVisible="{Binding AddCommentEnabled}"
+                        HeightRequest="70"
+                        WidthRequest="70"
+                        BorderRadius="50"
+				        Image="comment.png"				        
+                        Command="{Binding AddCommentCommand}"
+                        BackgroundColor="{StaticResource HeadingColor}"                   
+				        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-90}"
+				        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-90}" />
+                    </OnPlatform.WinPhone>
+                </OnPlatform>
 
-                <fab:FloatingActionButton
-				    Source="comment.png"
-				    Size="Normal"		
-                    IsVisible="{Binding AddCommentEnabled}"
-				    RippleColor="Gray"
-                    NormalColor="{StaticResource HeadingColor}"
-                    Command="{Binding AddCommentCommand}"
-				    RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-90}"
-				    RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-90}" />
+
+               
             </RelativeLayout>
 
 

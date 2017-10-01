@@ -14,7 +14,7 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <Image Aspect="AspectFill" Grid.Row="0" Source="loginCover"/>
+            <Image Aspect="AspectFill" Grid.Row="0" Source="loginCover.png"/>
             <StackLayout Grid.Row="1" Grid.RowSpan="2" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Padding="30">
 
                 <renderers:CustomEntry Placeholder="Email" Keyboard="Email" Text="{Binding Username}" HorizontalOptions="FillAndExpand" VerticalOptions="Center">

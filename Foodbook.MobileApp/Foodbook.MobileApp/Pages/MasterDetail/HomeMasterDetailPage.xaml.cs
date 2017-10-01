@@ -19,7 +19,8 @@ namespace Foodbook.MobileApp.Pages
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class HomeMasterDetailPage : MasterDetailPage
-    {
+    {        
+
         public HomeMasterDetailPage()
         {
             InitializeComponent();
@@ -32,6 +33,7 @@ namespace Foodbook.MobileApp.Pages
             //Title color
             Detail.SetValue(NavigationPage.BarTextColorProperty, Color.White);
         }
+
 
         private async void ListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {

@@ -41,6 +41,8 @@ namespace Foodbook.MobileApp.ViewModels
             set { SetProperty(ref rating, value); }
         }
 
+        public bool AddCommentEnabled { get; set; }
+
         public Command SwitchTabCommand { get; }
         public Command ViewImageCommand { get; }
         public Command EditCookCommand { get; }
@@ -159,12 +161,13 @@ namespace Foodbook.MobileApp.ViewModels
 
         #endregion
 
-        public UserDetailsViewModel(ResponseCookModel cook)
+        public UserDetailsViewModel(ResponseCookModel cook, bool userProfile = false)
         {
             Cook = cook;
             Recipes = new ObservableCollection<RecipeDataModel>(cook.Recipes);
             Comments = new ObservableCollection<CookCommentModel>(cook.Comments);
             ImageContainerHeight = new GridLength(1, GridUnitType.Star);
+            AddCommentEnabled = !userProfile;
             SwitchTabCommand = new Command((x) => SwitchTab(x.ToString()));
             ViewImageCommand = new Command(() => ViewImage(cook.PhotoUrl));
             FavouriteCookCommand = new Command((x) => FavouriteCook(x, cook));
@@ -247,9 +250,9 @@ namespace Foodbook.MobileApp.ViewModels
         private async void FavouriteCook(object sender, ResponseCookModel cook)
         {
             var favouriteItem = sender as ToolbarItem;
-            Device.BeginInvokeOnMainThread(() => Dialogs.Show());
+            ShowDialog();
             bool result = await CookDataService.FavouriteCook(cook.CookId, LocalDataSecureStorage.GetToken());
-            Device.BeginInvokeOnMainThread(() => Dialogs.Hide());
+            HideDialog();
             if (result)
             {
                 DataMockup.AddOrRemoveFavoutiteCook(cook);

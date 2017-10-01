@@ -1,11 +1,17 @@
 ﻿{
   "dependencies": {
+    "Acr.UserDialogs": "6.5.1",
+    "FAB.Forms": "2.2.0-pre1",
     "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.2",
+    "Newtonsoft.Json": "10.0.3",
     "Realm": "1.5.0",
+    "Realm.Database": "1.5.0",
+    "Realm.DataBinding": "1.1.0",
     "Rg.Plugins.Popup": "1.1.0-pre2",
     "sameerIOTApps.Plugin.SecureStorage": "1.2.2",
     "Xam.Plugin.PushNotification": "1.2.4",
-    "Xamarin.Forms": "2.3.4.224"
+    "Xamarin.FFImageLoading.Forms": "2.2.10-pre-413",
+    "Xamarin.Forms": "2.4.0.282"
   },
   "frameworks": {
     "uap10.0": {}

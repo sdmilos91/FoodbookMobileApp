@@ -125,7 +125,7 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <Image Source="filter" Grid.Column="0" Aspect="AspectFit" x:Name="filterBtn">
+            <Image Source="filter.png" Grid.Column="0" Aspect="AspectFit" x:Name="filterBtn" HorizontalOptions="Center">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer
                             Command="{Binding FilterRecipeCommand}" CommandParameter="{x:Reference filterBtn}"
@@ -133,7 +133,7 @@
                 </Image.GestureRecognizers>
 
             </Image>
-            <Image Source="sort" Grid.Column="1" Aspect="AspectFit" x:Name="backBtn">
+            <Image Source="sort.png" Grid.Column="1" Aspect="AspectFit" x:Name="backBtn" HorizontalOptions="Center">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer
                             Command="{Binding SortRecipeCommand}" CommandParameter="{x:Reference backBtn}"

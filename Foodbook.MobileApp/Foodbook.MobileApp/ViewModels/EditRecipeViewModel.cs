@@ -287,8 +287,8 @@ namespace Foodbook.MobileApp.ViewModels
             DataModel = new PostRecipeModel();
             Photos = new ObservableCollection<PhotoModel>(recipe.Photos);
 
-            BackBtnIcon = "cancel";
-            NextBtnIcon = "next";
+            BackBtnIcon = "cancel.png";
+            NextBtnIcon = "next.png";
 
             //Init Wizard
             StepOneContainer = true;
@@ -341,11 +341,11 @@ namespace Foodbook.MobileApp.ViewModels
                 photo.IsDeleted = true;
                 DataModel.Photos.Add(photo);
             }
-            Device.BeginInvokeOnMainThread(() => Dialogs.Show());
+            ShowDialog();
 
             bool result = await RecipeDataService.EditRecipe(DataModel, mRecipe.RecipeId, LocalDataSecureStorage.GetToken());
 
-            Device.BeginInvokeOnMainThread(() => Dialogs.Hide());
+            HideDialog();
 
             if (result)
             {
@@ -364,7 +364,7 @@ namespace Foodbook.MobileApp.ViewModels
         {
 
 
-            Device.BeginInvokeOnMainThread(() => Dialogs.Show());
+            ShowDialog();
 
             mCommonData = await DataMockup.GetRecipeCommonData();
             Categories = new ObservableCollection<FoodCategoryModel>(mCommonData.Categories);
@@ -384,7 +384,7 @@ namespace Foodbook.MobileApp.ViewModels
             CuisineName = mCommonData.Cuisines.ElementAt(SelectedCuisine)?.CuisineName;
             CaloryName = mCommonData.Caloricities.ElementAt(SelectedCaloricity)?.Name;
 
-            Device.BeginInvokeOnMainThread(() => Dialogs.Hide());
+            HideDialog();
 
         }
 
@@ -402,12 +402,12 @@ namespace Foodbook.MobileApp.ViewModels
             try
             {
                 string action = await App.Current.MainPage.DisplayActionSheet("Dodavanje slike: Izaberite sliku pomoću?", "Otkaži", null, "Kamera", "Galerija");
-                Device.BeginInvokeOnMainThread(() => Dialogs.Show());
+                ShowDialog();
                 await CrossMedia.Current.Initialize();
 
                 if (Device.OS == TargetPlatform.iOS)
                 {
-                    Device.BeginInvokeOnMainThread(() => Dialogs.Hide());
+                    HideDialog();
                 }
 
                 string photoName = Guid.NewGuid().ToString() + ".jpg";
@@ -418,7 +418,7 @@ namespace Foodbook.MobileApp.ViewModels
                     if (!CrossMedia.Current.IsCameraAvailable || !CrossMedia.Current.IsTakePhotoSupported)
                     {
                         await App.Current.MainPage.DisplayAlert("No Camera", ":( No camera available.", "OK");
-                        Device.BeginInvokeOnMainThread(() => Dialogs.Hide());
+                        HideDialog();
                         return;
                     }
 
@@ -437,7 +437,7 @@ namespace Foodbook.MobileApp.ViewModels
                     if (!CrossMedia.Current.IsPickPhotoSupported)
                     {
                         await App.Current.MainPage.DisplayAlert("Info", "Ne možete izabrati sliku.", "U redu");
-                        Device.BeginInvokeOnMainThread(() => Dialogs.Hide());
+                        HideDialog();
                         return;
                     }
 
@@ -451,7 +451,7 @@ namespace Foodbook.MobileApp.ViewModels
 
                 if (file == null)
                 {
-                    Device.BeginInvokeOnMainThread(() => Dialogs.Hide());
+                    HideDialog();
                     return;
                 }
 
@@ -465,12 +465,12 @@ namespace Foodbook.MobileApp.ViewModels
                     
                 });
                 Photos = new ObservableCollection<PhotoModel>(temp);
-                Device.BeginInvokeOnMainThread(() => Dialogs.Hide());
+                HideDialog();
                 file.Dispose();
             }
             catch (Exception ex)
             {
-                Device.BeginInvokeOnMainThread(() => Dialogs.Hide());
+                HideDialog();
             }
         }
 
@@ -590,8 +590,8 @@ namespace Foodbook.MobileApp.ViewModels
 
             if (mPageNumber == 3)
             {
-                NextBtnIcon = "save";
-                BackBtnIcon = "back1";
+                NextBtnIcon = "save.png";
+                BackBtnIcon = "back1.png";
                 StepFourContainer = true;
                 SecondStepIndicatorColor = Color.FromHex(MyColors.GREEN);
                 SecondStepIndicatorTextColor = Color.White;
@@ -605,8 +605,8 @@ namespace Foodbook.MobileApp.ViewModels
             }
             else if (mPageNumber == 2)
             {
-                NextBtnIcon = "next";
-                BackBtnIcon = "back1";
+                NextBtnIcon = "next.png";
+                BackBtnIcon = "back1.png";
                 StepThreeContainer = true;
                 SecondStepIndicatorColor = Color.FromHex(MyColors.GREEN);
                 SecondStepIndicatorTextColor = Color.White;
@@ -618,8 +618,8 @@ namespace Foodbook.MobileApp.ViewModels
             }
             else if (mPageNumber == 1)
             {
-                NextBtnIcon = "next";
-                BackBtnIcon = "back1";
+                NextBtnIcon = "next.png";
+                BackBtnIcon = "back1.png";
                 StepTwoContainer = true;
                 SecondStepIndicatorColor = Color.FromHex(MyColors.GREEN);
                 SecondStepIndicatorTextColor = Color.White;
@@ -628,8 +628,8 @@ namespace Foodbook.MobileApp.ViewModels
             }
             else if (mPageNumber == 0)
             {
-                NextBtnIcon = "next";
-                BackBtnIcon = "cancel";
+                NextBtnIcon = "next.png";
+                BackBtnIcon = "cancel.png";
                 StepOneContainer = true;
             }
         }
