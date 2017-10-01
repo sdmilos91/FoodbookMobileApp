@@ -1,7 +1,7 @@
 ﻿{
   "dependencies": {
     "Acr.UserDialogs": "6.5.1",
-    "CarouselView.FormsPlugin": "4.4.2",
+    "CarouselView.FormsPlugin": "4.4.3",
     "FAB.Forms": "2.2.0-pre1",
     "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.2",
     "Newtonsoft.Json": "10.0.3",
