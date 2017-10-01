@@ -6256,8 +6256,8 @@ namespace Foodbook.MobileApp.Droid
 			// aapt resource value: 0x7f0200dd
 			public const int next = 2130837725;
 			
-			// aapt resource value: 0x7f0200eb
-			public const int notification_template_icon_bg = 2130837739;
+			// aapt resource value: 0x7f0200ec
+			public const int notification_template_icon_bg = 2130837740;
 			
 			// aapt resource value: 0x7f0200de
 			public const int plus = 2130837726;
@@ -6269,34 +6269,37 @@ namespace Foodbook.MobileApp.Droid
 			public const int recipePlaceholder = 2130837728;
 			
 			// aapt resource value: 0x7f0200e1
-			public const int right = 2130837729;
+			public const int remove = 2130837729;
 			
 			// aapt resource value: 0x7f0200e2
-			public const int roundedbg = 2130837730;
+			public const int right = 2130837730;
 			
 			// aapt resource value: 0x7f0200e3
-			public const int roundedbgdark = 2130837731;
+			public const int roundedbg = 2130837731;
 			
 			// aapt resource value: 0x7f0200e4
-			public const int save = 2130837732;
+			public const int roundedbgdark = 2130837732;
 			
 			// aapt resource value: 0x7f0200e5
-			public const int sort = 2130837733;
+			public const int save = 2130837733;
 			
 			// aapt resource value: 0x7f0200e6
-			public const int star = 2130837734;
+			public const int sort = 2130837734;
 			
 			// aapt resource value: 0x7f0200e7
-			public const int starOff = 2130837735;
+			public const int star = 2130837735;
 			
 			// aapt resource value: 0x7f0200e8
-			public const int time = 2130837736;
+			public const int starOff = 2130837736;
 			
 			// aapt resource value: 0x7f0200e9
-			public const int viewImage = 2130837737;
+			public const int time = 2130837737;
 			
 			// aapt resource value: 0x7f0200ea
-			public const int viewImageWhite = 2130837738;
+			public const int viewImage = 2130837738;
+			
+			// aapt resource value: 0x7f0200eb
+			public const int viewImageWhite = 2130837739;
 			
 			static Drawable()
 			{

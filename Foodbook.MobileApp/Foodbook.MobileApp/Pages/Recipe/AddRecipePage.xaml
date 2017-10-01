@@ -176,7 +176,7 @@
                     <!--END STEP 1-->
 
                     <!--STEP 2-->
-                    <StackLayout IsVisible="{Binding StepTwoContainer}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                    <StackLayout IsVisible="{Binding StepTwoContainer}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Spacing="0">
 
                         <RelativeLayout>
                             <ListView ItemsSource="{Binding Ingredients}"
@@ -184,23 +184,21 @@
                                 RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
 			                    RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-50}"
                                 IsEnabled="False"
+                                ItemSelected="ingredientsList_ItemSelected"
                                 HeightRequest="130">
-                                <ListView.IsEnabled>
-                                    <OnPlatform x:TypeArguments="x:Boolean" Android="False" iOS="False" WinPhone="True"/>
-                                </ListView.IsEnabled>
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
                                     <ViewCell>
 
-                                        <Grid x:Name="ingredientItem" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" HeightRequest="100" Padding="5">
+                                        <Grid x:Name="ingredientItem" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" HeightRequest="100" Padding="10">
 
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="*"/>
                                                 <ColumnDefinition Width="*"/>
                                                 <ColumnDefinition Width="40"/>
                                             </Grid.ColumnDefinitions>
-                                                <Label Text="{Binding Name}" FontAttributes="Bold" VerticalTextAlignment="Center" Grid.Column="0"/>
-                                                <Label Text="{Binding Value}"  VerticalTextAlignment="Center" Grid.Column="1"/>
+                                                <Label Text="{Binding Name}" FontSize="Small" FontAttributes="Bold" VerticalTextAlignment="Center" Grid.Column="0"/>
+                                                <Label Text="{Binding Value}"  FontSize="Small" VerticalTextAlignment="Center" Grid.Column="1"/>
                                                 <Image Source="remove.png" HeightRequest="30" WidthRequest="30" Aspect="AspectFit" HorizontalOptions="Center" VerticalOptions="Center" Grid.Column="2">
                                                     <Image.GestureRecognizers>
                                                         <TapGestureRecognizer
@@ -219,6 +217,7 @@
                                 Text="Dodaj sastojak"
                                 Command="{Binding AddIngredientCommand}"
                                 BackgroundColor="{StaticResource HeadingColor}"
+                                TextColor="White"
                                 RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0}"
 				                RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant= -50}"
                                 RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"

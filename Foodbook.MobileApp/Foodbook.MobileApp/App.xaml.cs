@@ -1,6 +1,8 @@
 ﻿using Foodbook.MobileApp.Data.Services;
 using Foodbook.MobileApp.Pages;
+using Foodbook.MobileApp.Pages.Shared;
 using Foodbook.MobileApp.Tools;
+using Plugin.Connectivity;
 using Plugin.NotificationHub;
 using PushNotification.Plugin;
 using System;
@@ -19,31 +21,47 @@ namespace Foodbook.MobileApp
             InitializeComponent();
 
        
-            string token = LocalDataSecureStorage.GetToken();            
-
-            if (string.IsNullOrEmpty(token))
+            string token = LocalDataSecureStorage.GetToken();
+            CrossConnectivity.Current.ConnectivityChanged += (sender, args) =>
             {
-                MainPage = new NavigationPage(new LoginPage());
-                //Background color
-                MainPage.SetValue(NavigationPage.BarBackgroundColorProperty, Color.FromHex(MyColors.DARK_RED));
+                if (!args.IsConnected)
+                {
+                    Application.Current.MainPage = new NavigationPage(new NoInternetPage());
+                }
+            };
 
-                //Title color
-                MainPage.SetValue(NavigationPage.BarTextColorProperty, Color.White);
-
-                LocalDataSecureStorage.ClearAllData();
+            //Ako uredja nije povezan na internet prikazi NoInternet ekran
+            if (!CrossConnectivity.Current.IsConnected)
+            {
+                Application.Current.MainPage = new NavigationPage(new NoInternetPage());
             }
             else
             {
-                if (Device.OS == TargetPlatform.Android || Device.OS == TargetPlatform.iOS)
+                if (string.IsNullOrEmpty(token))
                 {
-                    CrossPushNotification.Current.Register();
+                    MainPage = new NavigationPage(new LoginPage());
+                    //Background color
+                    MainPage.SetValue(NavigationPage.BarBackgroundColorProperty, Color.FromHex(MyColors.DARK_RED));
+
+                    //Title color
+                    MainPage.SetValue(NavigationPage.BarTextColorProperty, Color.White);
+
+                    LocalDataSecureStorage.ClearAllData();
                 }
-                MainPage = new HomeMasterDetailPage();
+                else
+                {
+                    if (Device.OS == TargetPlatform.Android || Device.OS == TargetPlatform.iOS)
+                    {
+                        CrossPushNotification.Current.Register();
+                    }
+                    MainPage = new HomeMasterDetailPage();
+                }
             }
         }
 
         protected override async void OnStart()
-        {
+        {            
+
             // Handle when your app starts
             string token = LocalDataSecureStorage.GetToken();
             bool isAuth = await AccountDataService.IsUserAuthenticated(token);

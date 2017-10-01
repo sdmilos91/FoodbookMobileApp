@@ -55,7 +55,7 @@
 
                     <StackLayout HorizontalOptions="StartAndExpand" Orientation="Horizontal" Margin="5,0,0,0">
                         <Image Source="cook.png" WidthRequest="24" HeightRequest="24" />
-                        <Label Text="{Binding Cook.FullName}"  TextColor="Gray" FontSize="25" />
+                        <Label x:Name="cookNameLbl" Text="{Binding Cook.FullName}"  TextColor="Gray" FontSize="25" />
                     </StackLayout>
                     
                 </StackLayout>

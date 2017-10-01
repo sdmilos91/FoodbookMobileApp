@@ -28,7 +28,7 @@ namespace Foodbook.MobileApp.Pages.Recipe
 
             ToolbarItem favourite = new ToolbarItem
             {
-                Icon = recipe.IsFavourite ? "favorited" : "favorite",
+                Icon = recipe.IsFavourite ? "favorited.png" : "favorite.png",
                 Order = ToolbarItemOrder.Primary,
                 Command = viewModel.FavouriteRecipeCommand,               
             };

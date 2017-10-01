@@ -6,6 +6,7 @@
              xmlns:controls="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions"
              xmlns:localConverters="clr-namespace:Foodbook.MobileApp.Converters;assembly=Foodbook.MobileApp"
              xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:carousel="clr-namespace:CarouselView.FormsPlugin.Abstractions;assembly=CarouselView.FormsPlugin.Abstractions"
              BackgroundColor="{StaticResource PageBackground}"
              Title="{Binding Name}"
              >
@@ -31,21 +32,29 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <RelativeLayout  Grid.Row="0" Grid.RowSpan="2" IsVisible="{Binding FirstContainer}">
-                <ffimageloading:CachedImage x:Name="coverImg" Source="{Binding PhotoUrl}"                                        
+                <carousel:CarouselViewControl Orientation="Horizontal" InterPageSpacing="10" Position="{Binding CurrentPhototIndex}" ItemsSource="{Binding Photos}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"  IsSwipingEnabled="True" CurrentPageIndicatorTintColor="{StaticResource HeadingColor}" IndicatorsShape="Circle" ShowArrows="True" ShowIndicators="True" IndicatorsTintColor="White"
+                     RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
+				                         RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}"
+                                              >
+                    <carousel:CarouselViewControl.ItemTemplate>
+                        <DataTemplate>
+                            <ffimageloading:CachedImage x:Name="coverImg" Source="{Binding Url}"                                        
                                         DownsampleToViewSize="True"
                                         DownsampleWidth ="400"
-                                        Aspect="AspectFill"
-                                         RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
-				                         RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}"
+                                        Aspect="AspectFill"                                         
                                        >
-                    <Image.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding ViewImageCommand}"/>
-                    </Image.GestureRecognizers>
-                </ffimageloading:CachedImage>
+                            </ffimageloading:CachedImage>
+                        </DataTemplate>
+                    </carousel:CarouselViewControl.ItemTemplate>
+                </carousel:CarouselViewControl>
                 <Image Source="viewImage.png" WidthRequest="48" HeightRequest="48" 
                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-55}"
 				        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0, Constant=10}"
-                       />
+                       >
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ViewImageCommand}"/>
+                    </Image.GestureRecognizers>
+                </Image>
             </RelativeLayout>
             <StackLayout
                     BackgroundColor="{StaticResource LightGreen}"
@@ -55,7 +64,13 @@
 
                     <StackLayout HorizontalOptions="StartAndExpand" Orientation="Horizontal" Margin="5,0,0,0">
                         <Image Source="cook.png" WidthRequest="24" HeightRequest="24" />
-                        <Label Text="{Binding CookName}"  TextColor="Gray" FontSize="25"  />
+                        <Label x:Name="cookNameLbl" Text="{Binding CookName}"  TextColor="Gray" FontSize="25" >
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    Command="{Binding ViewCookProfileCommand}" CommandParameter="{x:Reference cookNameLbl}"
+                                    NumberOfTapsRequired="1" />
+                            </Label.GestureRecognizers>
+                        </Label>
                     </StackLayout>
                 </StackLayout>
             </StackLayout>

@@ -12,7 +12,7 @@ namespace Foodbook.MobileApp.Data.Services
     public class AccountDataService
     {
         public static async Task<LoginResponseModel> LoginUser(string username, string password)
-        { 
+        {            
             string url = ApiUrls.GET_USER_TOKEN;
 
             LoginResponseModel model = new LoginResponseModel();

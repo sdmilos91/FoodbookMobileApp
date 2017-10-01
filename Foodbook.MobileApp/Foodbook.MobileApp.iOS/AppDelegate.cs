@@ -39,7 +39,8 @@ namespace Foodbook.MobileApp.iOS
             ImageService.Instance.Initialize();
             FAB.iOS.FloatingActionButtonRenderer.InitControl();
             CrossPushNotification.Initialize<CrossPushNotificationListener>();
-           
+            CarouselViewRenderer.Init();
+
             LoadApplication(new App());
        
             return base.FinishedLaunching(app, options);

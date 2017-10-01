@@ -30,7 +30,7 @@ namespace Foodbook.Pages
             UserDetailsViewModel viewModel = new UserDetailsViewModel(cook, userProfile);
             ToolbarItem favourite = new ToolbarItem
             {
-                Icon = cook.IsFollowed ? "favorited" : "favorite",  
+                Icon = cook.IsFollowed ? "favorited.png" : "favorite.png",  
                 Order = ToolbarItemOrder.Primary,
                 Command = viewModel.FavouriteCookCommand                
             };            

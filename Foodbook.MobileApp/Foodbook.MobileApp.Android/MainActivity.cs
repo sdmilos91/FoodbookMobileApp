@@ -38,6 +38,7 @@ namespace Foodbook.MobileApp.Droid
             CarouselViewRenderer.Init();
             UserDialogs.Init(this);
             SecureStorageImplementation.StoragePassword = "FoodbookPass";
+            CarouselViewRenderer.Init();
             LoadApplication(new App());
         }
 

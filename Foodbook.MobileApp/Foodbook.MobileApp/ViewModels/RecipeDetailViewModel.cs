@@ -19,6 +19,7 @@ namespace Foodbook.MobileApp.ViewModels
     class RecipeDetailViewModel : BaseViewModel
     {
         private long mRecipeId;
+        private long mCookId;
         public string CookName { get; set; }
         public string Name { get; set; }
         public string CuisineName { get; set; }
@@ -33,6 +34,7 @@ namespace Foodbook.MobileApp.ViewModels
         public bool IsFavourite { get; set; }
         public bool AddCommentEnabled { get; set; }
         public List<Ingredient> Ingredients { get; set; }
+        public List<PhotoModel> Photos { get; set; }
         public int IngradientsContainer { get; set; }
 
         private double? rating;
@@ -58,6 +60,16 @@ namespace Foodbook.MobileApp.ViewModels
             get { return imageContainerHeight; }
             set { imageContainerHeight = value; OnPropertyChanged(); }
         }
+
+        private int currentPhototIndex;
+
+        public int CurrentPhototIndex
+        {
+            get { return currentPhototIndex; }
+            set { currentPhototIndex = value; OnPropertyChanged(); }
+        }
+
+        
 
         #region TAB
 
@@ -168,10 +180,12 @@ namespace Foodbook.MobileApp.ViewModels
         public Command DeleteRecipeCommand { get;}
         public Command EditRecipeCommand { get; }
         public Command FavouriteRecipeCommand { get; }
+        public Command ViewCookProfileCommand { get; }
 
         public RecipeDetailViewModel(RecipeDataModel recipe)
         {
             mRecipeId = recipe.RecipeId;
+            mCookId = recipe.CookId;
             CookName = recipe.CookName;
             Name = recipe.Name;
             CuisineName = recipe.CuisineName;
@@ -189,6 +203,7 @@ namespace Foodbook.MobileApp.ViewModels
             AddCommentEnabled = !recipe.IsMine && !string.IsNullOrEmpty(LocalDataSecureStorage.GetToken());
             Ingredients = recipe.Ingredients;
             IngradientsContainer = Ingredients.Count() * 40;
+            Photos = recipe.Photos;
 
             AddCommentCommand = new Command(() => AddComment());
             ViewImageCommand = new Command(() => ViewImage());
@@ -197,6 +212,7 @@ namespace Foodbook.MobileApp.ViewModels
             DeleteRecipeCommand = new Command(() => DeleteRecipe());
             EditRecipeCommand = new Command(() => EditRecipe(recipe));
             FavouriteRecipeCommand = new Command((x) => FavouriteRecipe(x, recipe));
+            ViewCookProfileCommand = new Command((x) => ViewCookProfile(x));
             SwitchTab("1");
 
           
@@ -290,7 +306,7 @@ namespace Foodbook.MobileApp.ViewModels
         private void ViewImage()
         {
             MasterDetailPage masterPage = App.Current.MainPage as MasterDetailPage;
-            masterPage.Detail.Navigation.PushModalAsync(new ImageViewPage(PhotoUrl));
+            masterPage.Detail.Navigation.PushModalAsync(new ImageViewPage(Photos.ElementAt(currentPhototIndex).Url));
         }
 
         private async void DeleteRecipe()
@@ -335,6 +351,21 @@ namespace Foodbook.MobileApp.ViewModels
                 favouriteItem.Icon = recipe.IsFavourite ? "favorited" : "favorite";
                 MessagingCenter.Send(this, "FAVOURITE");               
             }
+        }
+
+        private async void ViewCookProfile(object sender)
+        {
+            Helpers.Utils.ButtonPress(sender);
+            ShowDialog();
+            List<ResponseCookModel> cooks = await CookDataService.GetCooks();
+            HideDialog();
+            ResponseCookModel cook = cooks.FirstOrDefault(x => x.CookId == mCookId);
+            if (cook != null)
+            {
+                MasterDetailPage masterPage = App.Current.MainPage as MasterDetailPage;
+                await masterPage.Detail.Navigation.PushAsync(new UserDetailsPage(cook));
+            }
+
         }
     }
 }

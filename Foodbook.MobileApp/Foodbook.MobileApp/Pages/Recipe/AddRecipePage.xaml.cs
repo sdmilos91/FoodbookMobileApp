@@ -24,5 +24,10 @@ namespace Foodbook.MobileApp.Pages.Recipe
             AddRecipeViewModel viewModel = new AddRecipeViewModel();
             BindingContext = viewModel;
 		}
+
+        private void ingredientsList_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            ((ListView)sender).SelectedItem = null;
+        }
     }
 }

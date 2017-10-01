@@ -1,6 +1,7 @@
 ﻿{
   "dependencies": {
     "Acr.UserDialogs": "6.5.1",
+    "CarouselView.FormsPlugin": "4.4.2",
     "FAB.Forms": "2.2.0-pre1",
     "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.2",
     "Newtonsoft.Json": "10.0.3",
@@ -9,6 +10,9 @@
     "Realm.DataBinding": "1.1.0",
     "Rg.Plugins.Popup": "1.1.0-pre2",
     "sameerIOTApps.Plugin.SecureStorage": "1.2.2",
+    "WindowsAzure.Storage": "8.2.1",
+    "Xam.Plugin.Connectivity": "3.0.3",
+    "Xam.Plugin.Media": "3.0.1",
     "Xam.Plugin.PushNotification": "1.2.4",
     "Xamarin.FFImageLoading.Forms": "2.2.10-pre-413",
     "Xamarin.Forms": "2.4.0.282"
