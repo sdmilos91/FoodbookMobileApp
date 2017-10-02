@@ -31,18 +31,18 @@ namespace Foodbook.MobileApp.Droid.Renderers
             {               
                 mEntry = (CustomEntry)e.NewElement;
                 EditText textField = (EditText)Control;
-                textField.SetPadding(50, 20, 50, 20);
+                textField.SetPadding(50, 15, 50, 15);
 
                 mNormal = new Android.Graphics.Drawables.GradientDrawable();
                 mNormal.SetColor(Android.Graphics.Color.ParseColor("#FFFFFF")); // Changes this drawbale to use a single color instead of a gradient
                 mNormal.SetCornerRadius(mEntry.MyRadius.Value);
 
-                mNormal.SetStroke(4, Android.Graphics.Color.Gray);
+                mNormal.SetStroke(2, Android.Graphics.Color.Gray);
 
                 mFocused = new Android.Graphics.Drawables.GradientDrawable();
                 mFocused.SetColor(Android.Graphics.Color.ParseColor("#FFFFFF")); // Changes this drawbale to use a single color instead of a gradient
                 mFocused.SetCornerRadius(mEntry.MyRadius.Value);
-                mFocused.SetStroke(4, Android.Graphics.Color.DarkGray);
+                mFocused.SetStroke(2, Android.Graphics.Color.DarkGray);
 
                 var sld = new StateListDrawable();
                 sld.AddState(new int[] { Android.Resource.Attribute.StateFocused }, mFocused);

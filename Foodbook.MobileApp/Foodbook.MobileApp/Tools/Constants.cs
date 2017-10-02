@@ -97,8 +97,8 @@ namespace Foodbook.MobileApp.Tools
         public static string PINK = "";
         public static string DARK_RED = "#b61827";
         public static string MIDDLE_RED = "#ef5350";
-        public static string GREEN = "#4BB04F";
-        public static string LIGHT_GREEN = "#effcea";
+        public static string GREEN = "#C2C2C2";
+        public static string LIGHT_GREEN = "#F5F5F5";
         public static string YELLOW = "#FFD54F";
     }
 

@@ -6,23 +6,24 @@
 
         <ResourceDictionary>
             <Color x:Key="PageBackgroundColor">Yellow</Color>
-            <Color x:Key="HeadingColor">#4BB04F</Color>
+            <Color x:Key="HeadingColor">#C2C2C2</Color>
             <Color x:Key="PinkColor">#EF5350</Color>
             <Color x:Key="YellowColor">#FFD54F</Color>
             <Color x:Key="NormalTextColor">Blue</Color>
             <Color x:Key="DarkRed">#b61827</Color>
             <Color x:Key="MidleRed">#ef5350</Color>
-            <Color x:Key="LightGreen">#effcea</Color>
+            <Color x:Key="LightGreen">#F5F5F5</Color>
             <Color x:Key="PageBackground">#ffffff</Color>
             <Color x:Key="LightGray">#eeefee</Color>
+            <Color x:Key="InputTextColor">#808080</Color>
             <Color x:Key="ListSeparatorColor">#EEEEEE</Color>
-            
+
 
 
             <Style x:Key="EntryTitleLblStyle" TargetType="Label">
-                <Setter Property="FontAttributes" Value="Bold" />
-                <Setter Property="FontSize" Value="Medium"/>
+                <Setter Property="FontSize" Value="Small"/>
                 <Setter Property="HorizontalTextAlignment" Value="Start"/>
+                <Setter Property="TextColor" Value="Black"/>
                 <Setter Property="VerticalOptions" Value="Center"/>
             </Style>
         </ResourceDictionary>

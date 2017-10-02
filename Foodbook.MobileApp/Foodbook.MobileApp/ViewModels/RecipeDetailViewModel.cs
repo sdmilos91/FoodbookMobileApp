@@ -204,6 +204,13 @@ namespace Foodbook.MobileApp.ViewModels
             Ingredients = recipe.Ingredients;
             IngradientsContainer = Ingredients.Count() * 40;
             Photos = recipe.Photos;
+            if (!Photos.Any())
+            {
+                Photos.Add(new PhotoModel
+                {
+                    Url = recipe.ProfilePhotoUrl
+                });
+            }
 
             AddCommentCommand = new Command(() => AddComment());
             ViewImageCommand = new Command(() => ViewImage());
@@ -250,7 +257,7 @@ namespace Foodbook.MobileApp.ViewModels
         private void SwitchTab(string tab)
         {
             Color mainColor = Color.FromHex(MyColors.LIGHT_GREEN);
-            Color indicatorColor = Color.FromHex(MyColors.GREEN);
+            Color indicatorColor = Color.FromHex(MyColors.DARK_RED);
 
             FirstTabColor = mainColor;
             FirstTabIndicatorColor = mainColor;
@@ -274,27 +281,27 @@ namespace Foodbook.MobileApp.ViewModels
                 case "1":
 
                     FirstTabIndicatorColor = indicatorColor;
-                    FirstTabTextColor = indicatorColor;
+                    //FirstTabTextColor = indicatorColor;
                     FirstContainer = true;
                     ImageContainerHeight = new GridLength(1, GridUnitType.Star);
                     break;
 
                 case "2":
                     SecondTabIndicatorColor = indicatorColor;
-                    SecondTabTextColor = indicatorColor;
+                    //SecondTabTextColor = indicatorColor;
                     SecondContainer = true;
                     ImageContainerHeight = new GridLength(0, GridUnitType.Star);
                     break;
 
                 case "3":
                     ThirdTabIndicatorColor = indicatorColor;
-                    ThirdTabTextColor = indicatorColor;
+                    //ThirdTabTextColor = indicatorColor;
                     ThirdContainer = true;
                     ImageContainerHeight = new GridLength(0, GridUnitType.Star);
                     break;
                 default:
                     FirstTabIndicatorColor = indicatorColor;
-                    FirstTabTextColor = indicatorColor;
+                    //FirstTabTextColor = indicatorColor;
                     FirstContainer = true;
                     ImageContainerHeight = new GridLength(1, GridUnitType.Star);
                     break;

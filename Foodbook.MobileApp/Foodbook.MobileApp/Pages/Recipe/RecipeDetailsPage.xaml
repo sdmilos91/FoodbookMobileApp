@@ -27,6 +27,7 @@
                 <RowDefinition Height="{Binding ImageContainerHeight}"/>
                 <RowDefinition Height="{Binding ImageContainerHeight}"/>
                 <RowDefinition Height="50"/>
+                <RowDefinition Height="1"/>
                 <RowDefinition Height="40"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
@@ -64,7 +65,7 @@
 
                     <StackLayout HorizontalOptions="StartAndExpand" Orientation="Horizontal" Margin="5,0,0,0">
                         <Image Source="cook.png" WidthRequest="24" HeightRequest="24" />
-                        <Label x:Name="cookNameLbl" Text="{Binding CookName}"  TextColor="Gray" FontSize="25" >
+                        <Label x:Name="cookNameLbl" Text="{Binding CookName}"  TextColor="Gray" FontSize="20" HorizontalOptions="End">
                             <Label.GestureRecognizers>
                                 <TapGestureRecognizer
                                     Command="{Binding ViewCookProfileCommand}" CommandParameter="{x:Reference cookNameLbl}"
@@ -74,7 +75,8 @@
                     </StackLayout>
                 </StackLayout>
             </StackLayout>
-            <Grid Grid.Row="3" ColumnSpacing="0" RowSpacing="0">
+            <BoxView BackgroundColor="White" Grid.Row="3"/>
+            <Grid Grid.Row="4" ColumnSpacing="0" RowSpacing="0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
@@ -115,7 +117,7 @@
             </Grid>
 
             <!--DETALJI-->
-            <ScrollView IsVisible="{Binding FirstContainer}" Grid.Row="4" Grid.RowSpan="3">
+            <ScrollView IsVisible="{Binding FirstContainer}" Grid.Row="5" Grid.RowSpan="3">
                 <StackLayout Padding="10" Spacing="5">
 
                     <StackLayout Spacing="0">
@@ -152,7 +154,7 @@
                 </StackLayout>
             </ScrollView>
             <!--PRIPREMA-->
-            <ScrollView IsVisible="{Binding SecondContainer}" Grid.Row="4" Grid.RowSpan="3" Padding="10">
+            <ScrollView IsVisible="{Binding SecondContainer}" Grid.Row="5" Grid.RowSpan="3" Padding="10">
                 <Grid Padding="10">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="30"/>
@@ -197,19 +199,19 @@
             </ScrollView>
 
             <!--KOMENTARI-->
-            <RelativeLayout IsVisible="{Binding ThirdContainer}"  Grid.Row="4" Grid.RowSpan="3" >
+            <RelativeLayout IsVisible="{Binding ThirdContainer}"  Grid.Row="5" Grid.RowSpan="3" >
                 <ListView ItemsSource="{Binding Comments}"
                     IsEnabled="True"
                     RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
 				    RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}"
-                    CachingStrategy="RecycleElement"   
+                    CachingStrategy="RecycleElement"
                     SeparatorColor="{StaticResource ListSeparatorColor}"
                     RowHeight="100">
 
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
-                                <Grid Padding="5" RowSpacing="0" BackgroundColor="{StaticResource LightGray}">
+                                <Grid Padding="5" RowSpacing="0">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="32" />
                                         <ColumnDefinition Width="*" />
