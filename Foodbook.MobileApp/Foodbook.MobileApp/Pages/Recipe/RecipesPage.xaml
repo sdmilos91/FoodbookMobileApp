@@ -80,7 +80,7 @@
                         <DataTemplate>
                             <ViewCell>
 
-                                <Grid  ColumnSpacing="5" VerticalOptions="FillAndExpand" RowSpacing="5" Padding="5">
+                                <Grid  ColumnSpacing="5" VerticalOptions="FillAndExpand" RowSpacing="1" Padding="5">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="80" />
                                         <ColumnDefinition Width="*" />
@@ -111,15 +111,15 @@
                                        />
                                     </RelativeLayout>
 
-                                    <Label Text="{Binding Name}" FontSize="Small" Grid.Column="1" Grid.Row="0" TextColor="Black"/>
+                                    <Label Text="{Binding Name}" Style="{StaticResource EntryTitleLblStyle}" Grid.Column="1" Grid.Row="0" />
                                     <StackLayout HorizontalOptions="StartAndExpand" Grid.Column="1" Grid.Row="1" Orientation="Horizontal">
-                                        <Image Source="category1.png" WidthRequest="16" HeightRequest="16" />
-                                        <Label Text="{Binding CategoryName}"  TextColor="Gray" />
+                                        <Image Source="category1.png" WidthRequest="20" HeightRequest="20" VerticalOptions="Center"/>
+                                        <Label Text="{Binding CategoryName}"  TextColor="{StaticResource InputTextColor}" VerticalOptions="Center"/>
                                     </StackLayout>
 
                                     <StackLayout HorizontalOptions="StartAndExpand" Grid.Column="1" Grid.Row="2" Orientation="Horizontal">
-                                        <Image Source="earth.png" WidthRequest="16" HeightRequest="16" />
-                                        <Label Text="{Binding CuisineName}"  TextColor="Gray" />
+                                        <Image Source="earth.png" WidthRequest="20" HeightRequest="20" VerticalOptions="Center"/>
+                                        <Label Text="{Binding CuisineName}"  TextColor="{StaticResource InputTextColor}" VerticalOptions="Center"/>
                                     </StackLayout>
                                 </Grid>
                             </ViewCell>

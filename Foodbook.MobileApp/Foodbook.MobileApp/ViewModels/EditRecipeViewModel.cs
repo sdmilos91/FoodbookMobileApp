@@ -591,7 +591,7 @@ namespace Foodbook.MobileApp.ViewModels
             if (mPageNumber == 3)
             {
                 NextBtnIcon = "save.png";
-                BackBtnIcon = "back1.png";
+                BackBtnIcon = "back.png";
                 StepFourContainer = true;
                 SecondStepIndicatorColor = Color.FromHex(MyColors.GREEN);
                 SecondStepIndicatorTextColor = Color.White;
@@ -606,7 +606,7 @@ namespace Foodbook.MobileApp.ViewModels
             else if (mPageNumber == 2)
             {
                 NextBtnIcon = "next.png";
-                BackBtnIcon = "back1.png";
+                BackBtnIcon = "back.png";
                 StepThreeContainer = true;
                 SecondStepIndicatorColor = Color.FromHex(MyColors.GREEN);
                 SecondStepIndicatorTextColor = Color.White;
@@ -619,7 +619,7 @@ namespace Foodbook.MobileApp.ViewModels
             else if (mPageNumber == 1)
             {
                 NextBtnIcon = "next.png";
-                BackBtnIcon = "back1.png";
+                BackBtnIcon = "back.png";
                 StepTwoContainer = true;
                 SecondStepIndicatorColor = Color.FromHex(MyColors.GREEN);
                 SecondStepIndicatorTextColor = Color.White;

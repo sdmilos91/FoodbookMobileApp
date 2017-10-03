@@ -134,11 +134,13 @@
     <Content Include="follower.png" />
     <Content Include="heart.png" />
     <Content Include="info.png" />
+    <Content Include="Ingredient.png" />
     <Content Include="loadingImage.png" />
     <Content Include="location.png" />
     <Content Include="loginCover.png" />
     <Content Include="name.png" />
     <Content Include="next.png" />
+    <Content Include="pencil.png" />
     <Content Include="plus.png" />
     <Content Include="recipeNumber.png" />
     <Content Include="recipePlaceholder.png" />

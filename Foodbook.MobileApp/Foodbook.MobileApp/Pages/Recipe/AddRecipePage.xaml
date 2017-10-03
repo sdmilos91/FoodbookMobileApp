@@ -18,36 +18,36 @@
 
             <Grid Grid.Row="0" RowSpacing="0" ColumnSpacing="0" Padding="30, 10, 30, 0" BackgroundColor="{StaticResource LightGreen}">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="40" />
+                    <ColumnDefinition Width="34" />
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="40" />
+                    <ColumnDefinition Width="34" />
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="40" />
+                    <ColumnDefinition Width="34" />
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="40" />
+                    <ColumnDefinition Width="34" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="19" />
+                    <RowDefinition Height="16" />
                     <RowDefinition Height="2" />
-                    <RowDefinition Height="19" />
+                    <RowDefinition Height="16" />
                 </Grid.RowDefinitions>
 
-                <Frame Grid.Column="0" Grid.Row="0" Grid.RowSpan="3"  BackgroundColor="{StaticResource HeadingColor}" CornerRadius="16" Padding="0">
+                <Frame Grid.Column="0" Grid.Row="0" Grid.RowSpan="3"  BackgroundColor="{StaticResource DarkRed}" CornerRadius="13" Padding="0">
                     <Label Text="1" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" TextColor="White" ></Label>
                 </Frame>
                 <BoxView BackgroundColor="{Binding SecondStepLineColor}" Grid.Column="1" Grid.Row="1"></BoxView>
 
-                <Frame Grid.Column="2" Grid.Row="0" Grid.RowSpan="3"  BackgroundColor="{Binding SecondStepIndicatorColor}" CornerRadius="16" Padding="0">
+                <Frame Grid.Column="2" Grid.Row="0" Grid.RowSpan="3"  BackgroundColor="{Binding SecondStepIndicatorColor}" CornerRadius="13" Padding="0">
                     <Label Text="2" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" TextColor="{Binding SecondStepIndicatorTextColor}" ></Label>
                 </Frame>
                 <BoxView x:Name="thirdPageLine" BackgroundColor="{Binding ThirdStepLineColor}" Grid.Column="3" Grid.Row="1"></BoxView>
 
-                <Frame Grid.Column="4" Grid.Row="0" Grid.RowSpan="3" BackgroundColor="{Binding ThirdStepIndicatorColor}" CornerRadius="16" Padding="0">
+                <Frame Grid.Column="4" Grid.Row="0" Grid.RowSpan="3" BackgroundColor="{Binding ThirdStepIndicatorColor}" CornerRadius="13" Padding="0">
                     <Label x:Name="thirdPageIndicator" Text="3" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" TextColor="{Binding ThirdStepIndicatorTextColor}" ></Label>
                 </Frame>
                 <BoxView x:Name="fourthPageLine" BackgroundColor="{Binding FourthStepLineColor}" Grid.Column="5" Grid.Row="1"></BoxView>
 
-                <Frame Grid.Column="6" Grid.Row="0" Grid.RowSpan="3" BackgroundColor="{Binding FourthStepIndicatorColor}" CornerRadius="16" Padding="0">
+                <Frame Grid.Column="6" Grid.Row="0" Grid.RowSpan="3" BackgroundColor="{Binding FourthStepIndicatorColor}" CornerRadius="13" Padding="0">
                     <Label x:Name="fourthPageIndicator" Text="4" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" TextColor="{Binding FourthStepIndicatorTextColor}"></Label>
                 </Frame>
             </Grid>
@@ -66,7 +66,7 @@
 			                         RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}"
                                      >
                                 <StackLayout Margin="0,30,0,30">
-                                    <Grid RowSpacing="0" Padding="20, 0, 20, 0">
+                                    <Grid RowSpacing="4" Padding="20, 0, 20, 0">
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="Auto" />
                                             <RowDefinition Height="Auto" />
@@ -74,16 +74,16 @@
                                         </Grid.RowDefinitions>
 
                                         <Label Text="Naziv: *"  Grid.Row="0" Style="{StaticResource EntryTitleLblStyle}"/>
-                                        <renderers:CustomEntry Text="{Binding RecipeName}" Placeholder="Naziv" HorizontalTextAlignment="Start" Grid.Row="1" TextColor="{StaticResource InputTextColor}">
+                                        <renderers:CustomEntry Text="{Binding RecipeName}" HorizontalTextAlignment="Start" Grid.Row="1" TextColor="{StaticResource InputTextColor}" FontSize="Small">
                                             <Entry.Behaviors>
-                                                <behaviors:RequiredValidatorBehavior x:Name="nameBehavior"  mLbl="{x:Reference nameValidationLbl}" />
+                                                <behaviors:RequiredValidatorBehavior x:Name="nameBehavior"  mLbl="{x:Reference nameValidationLbl}" EntryName="Naziv" />
                                             </Entry.Behaviors>
                                         </renderers:CustomEntry>
                                         <Label x:Name="nameValidationLbl" IsVisible="False" Text="Naziv: *" Grid.Row="2" FontSize="Small" TextColor="Red"/>
 
                                     </Grid>
 
-                                    <Grid RowSpacing="0" Padding="20, 0, 20, 0">
+                                    <Grid RowSpacing="4" Padding="20, 0, 20, 0">
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="Auto" />
                                             <RowDefinition Height="Auto" />
@@ -96,10 +96,10 @@
                                                 <OnPlatform x:TypeArguments="x:Boolean" Android="False" iOS="False" WinPhone="True"/>
                                             </Picker.IsVisible>
                                         </Picker>
-                                        <renderers:CustomEntry Text="{Binding CategoryName}" EntryType="PICKER" Placeholder="Kategorija" HorizontalTextAlignment="Start" Grid.Row="1"  TextColor="{StaticResource InputTextColor}">
+                                        <renderers:CustomEntry Text="{Binding CategoryName}" EntryType="PICKER" HorizontalTextAlignment="Start" Grid.Row="1"  TextColor="{StaticResource InputTextColor}" FontSize="Small">
 
                                             <Entry.Behaviors>
-                                                <behaviors:EntriPickerBehavior  RelatedPicker="{x:Reference categoryPicker}" PickerType="CATEGORY"/>
+                                                <behaviors:EntriPickerBehavior  RelatedPicker="{x:Reference categoryPicker}" PickerType="CATEGORY" />
                                             </Entry.Behaviors>
 
                                             <Entry.IsVisible>
@@ -109,7 +109,7 @@
                                         </renderers:CustomEntry>
                                     </Grid>
 
-                                    <Grid RowSpacing="0" Padding="20, 0, 20, 0">
+                                    <Grid RowSpacing="4" Padding="20, 0, 20, 0">
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="Auto" />
                                             <RowDefinition Height="Auto" />
@@ -122,7 +122,7 @@
                                                 <OnPlatform x:TypeArguments="x:Boolean" Android="False" iOS="False" WinPhone="True"/>
                                             </Picker.IsVisible>
                                         </Picker>
-                                        <renderers:CustomEntry Text="{Binding CuisineName}" EntryType="PICKER" Placeholder="Kuhinja" HorizontalTextAlignment="Start" TextColor="{StaticResource InputTextColor}" Grid.Row="1" >
+                                        <renderers:CustomEntry Text="{Binding CuisineName}" EntryType="PICKER" HorizontalTextAlignment="Start" TextColor="{StaticResource InputTextColor}" Grid.Row="1" FontSize="Small" >
 
                                             <Entry.Behaviors>
                                                 <behaviors:EntriPickerBehavior  RelatedPicker="{x:Reference cuisinePicker}" PickerType="CUISINE"/>
@@ -135,7 +135,7 @@
                                         </renderers:CustomEntry>
                                     </Grid>
 
-                                    <Grid RowSpacing="0" Padding="20, 0, 20, 0">
+                                    <Grid RowSpacing="4" Padding="20, 0, 20, 0">
 
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="Auto" />
@@ -144,16 +144,16 @@
                                         </Grid.RowDefinitions>
 
                                         <Label Text="Vreme pripreme (min): *" Grid.Row="0" Style="{StaticResource EntryTitleLblStyle}"/>
-                                        <renderers:CustomEntry Text="{Binding PreparationTime}" Placeholder="Vreme pripreme" Keyboard="Numeric" HorizontalTextAlignment="Start" TextColor="{StaticResource InputTextColor}" Grid.Row="1" >
+                                        <renderers:CustomEntry Text="{Binding PreparationTime}" Keyboard="Numeric" HorizontalTextAlignment="Start" TextColor="{StaticResource InputTextColor}" Grid.Row="1" FontSize="Small" >
                                             <Entry.Behaviors>
-                                                <behaviors:RequiredValidatorBehavior x:Name="preparationTimeBehavior"  mLbl="{x:Reference preparationValidationLbl}" />
+                                                <behaviors:RequiredValidatorBehavior x:Name="preparationTimeBehavior"  mLbl="{x:Reference preparationValidationLbl}" EntryName="Vreme pripreme"/>
                                             </Entry.Behaviors>
                                         </renderers:CustomEntry>
                                         <Label x:Name="preparationValidationLbl" IsVisible="False" Text="Naziv: *" Grid.Row="2" FontSize="Small" TextColor="Red"/>
 
                                     </Grid>
 
-                                    <Grid RowSpacing="0" Padding="20, 0, 20, 0">
+                                    <Grid RowSpacing="4" Padding="20, 0, 20, 0">
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="Auto" />
                                             <RowDefinition Height="Auto" />
@@ -166,7 +166,7 @@
                                                 <OnPlatform x:TypeArguments="x:Boolean" Android="False" iOS="False" WinPhone="True"/>
                                             </Picker.IsVisible>
                                         </Picker>
-                                        <renderers:CustomEntry Text="{Binding CaloryName}" EntryType="PICKER" Placeholder="Kaloričnost" HorizontalTextAlignment="Start" TextColor="{StaticResource InputTextColor}" Grid.Row="1" >
+                                        <renderers:CustomEntry Text="{Binding CaloryName}" EntryType="PICKER" HorizontalTextAlignment="Start" TextColor="{StaticResource InputTextColor}" Grid.Row="1"  FontSize="Small">
 
                                             <Entry.Behaviors>
                                                 <behaviors:EntriPickerBehavior  RelatedPicker="{x:Reference caloryPicker}" PickerType="CALORY"/>
@@ -194,23 +194,22 @@
                                 x:Name="ingredientsList"
                                 RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
 			                    RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-50}"
-                                IsEnabled="False"
                                 ItemSelected="ingredientsList_ItemSelected"
-                                HeightRequest="130">
+                                RowHeight="60">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
                                     <ViewCell>
 
-                                        <Grid x:Name="ingredientItem" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" HeightRequest="100" Padding="10">
+                                        <Grid x:Name="ingredientItem" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" HeightRequest="100" Padding="20" BackgroundColor="#FFFFFE">
 
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="*"/>
                                                 <ColumnDefinition Width="*"/>
                                                 <ColumnDefinition Width="40"/>
                                             </Grid.ColumnDefinitions>
-                                                <Label Text="{Binding Name}" FontSize="Small" FontAttributes="Bold" VerticalTextAlignment="Center" Grid.Column="0"/>
-                                                <Label Text="{Binding Value}"  FontSize="Small" VerticalTextAlignment="Center" Grid.Column="1"/>
-                                                <Image Source="remove.png" HeightRequest="30" WidthRequest="30" Aspect="AspectFit" HorizontalOptions="Center" VerticalOptions="Center" Grid.Column="2">
+                                                <Label Text="{Binding Name}" FontSize="Small" VerticalTextAlignment="Center" Grid.Column="0" TextColor="{StaticResource PrimaryTextColor}"/>
+                                                <Label Text="{Binding Value}"  FontSize="Small" VerticalTextAlignment="Center" Grid.Column="1" TextColor="{StaticResource InputTextColor}"/>
+                                                <Image Source="remove.png" HeightRequest="20" WidthRequest="20" Aspect="AspectFit" HorizontalOptions="Center" VerticalOptions="Center" Grid.Column="2">
                                                     <Image.GestureRecognizers>
                                                         <TapGestureRecognizer
                                                                     BindingContext="{Binding Source={x:Reference ingredientsList}, Path=BindingContext}"
@@ -224,16 +223,21 @@
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
                             </ListView>
-                            <Button 
-                                Text="Dodaj sastojak"
-                                Command="{Binding AddIngredientCommand}"
-                                BackgroundColor="{StaticResource HeadingColor}"
-                                TextColor="White"
+                            <StackLayout
+                                BackgroundColor="{StaticResource LightGreen}"
                                 RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0}"
 				                RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant= -50}"
-                                RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
+                                RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}">
+                                <Button                                 
+                                Text="Dodaj sastojak"
+                                Image="Ingredient.png"
+                                HorizontalOptions="CenterAndExpand"
+                                Command="{Binding AddIngredientCommand}"
+                                BackgroundColor="{StaticResource LightGreen}"
+                                TextColor="{StaticResource PrimaryTextColor}"                               
                                 VerticalOptions="FillAndExpand"
                                 />
+                            </StackLayout>
                         </RelativeLayout>
 
                     </StackLayout>
@@ -247,16 +251,16 @@
                                      RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
 			                         RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}"
                                      >
-                                <Grid RowSpacing="0" Padding="30">
+                                <Grid RowSpacing="4" Padding="30">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="30" />
                                         <RowDefinition Height="*" />
                                         <RowDefinition Height="40" />
                                     </Grid.RowDefinitions>
                                     <Label Text="Priprema recepta: *" Style="{StaticResource EntryTitleLblStyle}" Grid.Row="0"/>
-                                    <renderers:CustomEntry Text="{Binding RecipeText}" EntryType="MULTILINE" HeightRequest="300" VerticalOptions="FillAndExpand" TextColor="{StaticResource InputTextColor}" Grid.Row="1" >
+                                    <renderers:CustomEntry Text="{Binding RecipeText}" EntryType="MULTILINE" HeightRequest="300" VerticalOptions="FillAndExpand" TextColor="{StaticResource InputTextColor}" Grid.Row="1" FontSize="Small">
                                         <Entry.Behaviors>
-                                            <behaviors:RequiredValidatorBehavior x:Name="recipeTextValidator"   mLbl="{x:Reference recipeTextValidationLbl}" />
+                                            <behaviors:RequiredValidatorBehavior x:Name="recipeTextValidator" mLbl="{x:Reference recipeTextValidationLbl}" EntryName="Priprema recepta"/>
                                         </Entry.Behaviors>
                                     </renderers:CustomEntry>
                                     <Label x:Name="recipeTextValidationLbl" IsVisible="False" Grid.Row="2" FontSize="Small" TextColor="Red"/>
@@ -343,13 +347,13 @@
                                 RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
                                 VerticalOptions="FillAndExpand"
                                 >
-                                <Image x:Name="addImageBtn" Source="addphoto.png" HeightRequest="40" WidthRequest="48" HorizontalOptions="Center">
-                                    <Image.GestureRecognizers>
-                                        <TapGestureRecognizer
-                            Command="{Binding AddImageCommand}" CommandParameter="{x:Reference addImageBtn}"
-                            NumberOfTapsRequired="1" />
-                                    </Image.GestureRecognizers>
-                                </Image>
+                                <Button 
+                                    Text="Dodaj sliku"
+                                    Image="addphoto.png"
+                                    Command="{Binding AddImageCommand}"
+                                    BackgroundColor="{StaticResource LightGreen}"
+                                    TextColor="{StaticResource PrimaryTextColor}"
+                                    VerticalOptions="CenterAndExpand"/>
 
                             </StackLayout>
                         </RelativeLayout>
