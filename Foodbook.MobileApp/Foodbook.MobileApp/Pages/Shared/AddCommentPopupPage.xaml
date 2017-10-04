@@ -30,9 +30,9 @@
   </pages:PopupPage.Resources>
 
   <ScrollView>
-    <StackLayout HorizontalOptions="FillAndExpand" Margin="10" Padding="10" VerticalOptions="CenterAndExpand" BackgroundColor="White">
+    <StackLayout HorizontalOptions="FillAndExpand" Margin="10" Padding="30, 10, 30, 10" VerticalOptions="CenterAndExpand" BackgroundColor="White">
 
-      <Grid RowSpacing="0" Padding="20, 0, 20, 0">
+      <Grid RowSpacing="4">
         <Grid.ColumnDefinitions>
           <ColumnDefinition Width="16" />
           <ColumnDefinition Width="*"/>
@@ -92,23 +92,23 @@
 
       </Grid>
 
-      <Grid RowSpacing="0" Padding="20, 0, 20, 0">
+      <Grid RowSpacing="4">
         <Grid.RowDefinitions>
           <RowDefinition Height="30" />
           <RowDefinition Height="*" />
           <RowDefinition Height="40" />
         </Grid.RowDefinitions>
         <Label Text="Komentar: *" Style="{StaticResource EntryTitleLblStyle}" Grid.Row="0"/>
-        <renderers:CustomEntry Text="{Binding CommentText}" EntryType="MULTILINE" VerticalOptions="FillAndExpand" Grid.Row="1" HeightRequest="250">
+                <renderers:CustomEntry Text="{Binding CommentText}" EntryType="MULTILINE" VerticalOptions="FillAndExpand" Grid.Row="1" HeightRequest="250" Style="{StaticResource EntryValueStyle}">
           <Entry.Behaviors>
-            <behaviors:RequiredValidatorBehavior x:Name="recipeTextValidator"   mLbl="{x:Reference recipeTextValidationLbl}" />
+            <behaviors:RequiredValidatorBehavior x:Name="recipeTextValidator" mLbl="{x:Reference recipeTextValidationLbl}" EntryName="Komentar"/>
           </Entry.Behaviors>
         </renderers:CustomEntry>
         <Label x:Name="recipeTextValidationLbl" IsVisible="False" Grid.Row="2" FontSize="Micro" TextColor="Red"/>
       </Grid>
       <StackLayout Orientation="Horizontal">
-        <Button BackgroundColor="{StaticResource HeadingColor}" TextColor="White" Text="Dodaj" HorizontalOptions="FillAndExpand" Command="{Binding AddCommentCommand}"/>
-        <Button BackgroundColor="{StaticResource DarkRed}" TextColor="White" Text="Otkaži" HorizontalOptions="FillAndExpand" Command="{Binding CancelCommand}"/>
+        <Button Style="{StaticResource PositiveButtonStyle}" Text="Dodaj" HorizontalOptions="FillAndExpand" Command="{Binding AddCommentCommand}"/>
+        <Button Style="{StaticResource NegativeButtonStyle}" Text="Otkaži" HorizontalOptions="FillAndExpand" Command="{Binding CancelCommand}"/>
       </StackLayout>
     </StackLayout>
 

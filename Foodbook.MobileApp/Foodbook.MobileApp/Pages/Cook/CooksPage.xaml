@@ -84,7 +84,7 @@
                                         <ffimageloading:CachedImage Source="{Binding PhotoUrl}"
                                         DownsampleToViewSize="True"
                                         Aspect="AspectFill"
-                                        LoadingPlaceholder="addphoto" 
+                                        LoadingPlaceholder="placeholder.png" 
                                         HeightRequest="80"
                                         WidthRequest="80"
                                         RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent,Property=X, Factor=0, Constant = 0}" 
@@ -100,14 +100,11 @@
                                        />
                                     </RelativeLayout>
 
-                                    <Label Text="{Binding FullName}" FontSize="Small" Grid.Column="1" Grid.Row="0" TextColor="Black"/>
+                                    <Label Text="{Binding FullName}" Style="{StaticResource EntryTitleLblStyle}" Grid.Column="1" Grid.Row="0" />
 
                                     <StackLayout HorizontalOptions="StartAndExpand" Grid.Column="1" Grid.Row="1" Orientation="Horizontal">
-                                        <Label Text="Broj recepta: "  TextColor="Gray" />
-                                    </StackLayout>
-
-                                    <StackLayout HorizontalOptions="StartAndExpand" Grid.Column="1" Grid.Row="2" Orientation="Horizontal">
-                                        <Label Text="{Binding NumberOfRecipes}"  TextColor="Gray" />
+                                        <Label Text="Broj recepta: "  Style="{StaticResource EntryTitleLblStyle}" />
+                                        <Label Text="{Binding NumberOfRecipes}"  Style="{StaticResource EntryValueStyle}" />
                                     </StackLayout>
                                 </Grid>
                             </ViewCell>

@@ -23,24 +23,24 @@
     </pages:PopupPage.Animation>
 
     <ScrollView>
-        <StackLayout HorizontalOptions="FillAndExpand" Margin="10" Padding="10" VerticalOptions="CenterAndExpand" BackgroundColor="White">
+        <StackLayout HorizontalOptions="FillAndExpand" Margin="30, 10, 30, 10" Padding="10" VerticalOptions="CenterAndExpand" BackgroundColor="White">
 
-            <Grid RowSpacing="0" Padding="20, 0, 20, 0">
+            <Grid RowSpacing="4">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="20" />
                 </Grid.RowDefinitions>
                 <Label Text="Ime kuvara: *" Style="{StaticResource EntryTitleLblStyle}" Grid.Row="0"/>
-                <renderers:CustomEntry Text="{Binding CookName}" VerticalOptions="FillAndExpand" Grid.Row="1">
+                <renderers:CustomEntry Text="{Binding CookName}" VerticalOptions="FillAndExpand" Grid.Row="1" Style="{StaticResource EntryValueStyle}">
                 </renderers:CustomEntry>
             </Grid>
 
             
 
             <StackLayout Orientation="Horizontal">
-                <Button BackgroundColor="{StaticResource HeadingColor}" TextColor="White" Text="Filtriraj" HorizontalOptions="FillAndExpand" Command="{Binding FilterCommand}"/>
-                <Button BackgroundColor="{StaticResource DarkRed}" TextColor="White" Text="Otkaži" HorizontalOptions="FillAndExpand" Command="{Binding CancelCommand}"/>
+                <Button Style="{StaticResource PositiveButtonStyle}" Text="Filtriraj" HorizontalOptions="FillAndExpand" Command="{Binding FilterCommand}"/>
+                <Button Style="{StaticResource NegativeButtonStyle}" Text="Otkaži" HorizontalOptions="FillAndExpand" Command="{Binding CancelCommand}"/>
             </StackLayout>
         </StackLayout>
 

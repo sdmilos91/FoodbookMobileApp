@@ -141,6 +141,7 @@
     <Content Include="name.png" />
     <Content Include="next.png" />
     <Content Include="pencil.png" />
+    <Content Include="placeholder.png" />
     <Content Include="plus.png" />
     <Content Include="recipeNumber.png" />
     <Content Include="recipePlaceholder.png" />

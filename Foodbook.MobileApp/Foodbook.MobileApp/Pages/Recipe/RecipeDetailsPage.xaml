@@ -201,7 +201,7 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
-                    <Label Text="Sastojci: " HorizontalOptions="StartAndExpand" HorizontalTextAlignment="Start" Grid.Row="0" FontSize="17" TextColor="{StaticResource DarkRed}"/>
+                    <Label Text="Sastojci: " HorizontalOptions="StartAndExpand" HorizontalTextAlignment="Start" Grid.Row="0" FontSize="17" Style="{StaticResource EntryTitleLblStyle}"/>
 
                     <ListView 
                     Grid.Row="1"
@@ -213,15 +213,15 @@
                         <DataTemplate>
                             <ViewCell>
                                 <StackLayout Orientation="Horizontal">
-                                    <Label Text="{Binding Name}" FontAttributes="Bold" VerticalTextAlignment="Center"/>
-                                    <Label Text="{Binding Value}" VerticalTextAlignment="Center"/>
+                                        <Label Text="{Binding Name}" Style="{StaticResource EntryTitleLblStyle}" VerticalTextAlignment="Center"/>
+                                        <Label Text="{Binding Value}" Style="{StaticResource EntryValueStyle}" VerticalTextAlignment="Center"/>
                                 </StackLayout>
                             </ViewCell>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
 
-                    <Label Text="Način pripreme: " HorizontalOptions="StartAndExpand" HorizontalTextAlignment="Start" Grid.Row="2" FontSize="17" TextColor="{StaticResource DarkRed}"/>    
+                    <Label Text="Način pripreme: " HorizontalOptions="StartAndExpand" HorizontalTextAlignment="Start" Grid.Row="2" FontSize="17" Style="{StaticResource EntryTitleLblStyle}"/>    
                     
                     <Label 
                     Grid.Row="3"
@@ -230,8 +230,7 @@
                     HorizontalOptions="FillAndExpand"
                     VerticalTextAlignment="Start"
                     HorizontalTextAlignment="Start"
-                    FontSize="Small"
-                    TextColor="Black"/>
+                    Style="{StaticResource EntryValueStyle}"/>
 
                 </Grid>
             </ScrollView>
@@ -242,35 +241,35 @@
                     RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
 				    RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}"
                     CachingStrategy="RecycleElement"
-                    IsEnabled="False"
+                    IsEnabled="True"
                     SeparatorColor="{StaticResource ListSeparatorColor}"
                     RowHeight="100">
 
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
-                                <Grid Padding="5" RowSpacing="0">
+                                <Grid Padding="5" RowSpacing="0" BackgroundColor="#FFFFFE">
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="32" />
+                                        <ColumnDefinition Width="22" />
                                         <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="20" />
+                                        <RowDefinition Height="22" />
                                         <RowDefinition Height="14" />
                                         <RowDefinition Height="*" />
                                         <RowDefinition Height="20" />
                                     </Grid.RowDefinitions>
 
                                     <ffimageloading:CachedImage 
-                                        Grid.Column="0" Grid.Row="0" Grid.RowSpan="2"
+                                        Grid.Column="0" Grid.Row="0"
                                         Source="{Binding CookPhotoUrl}"
                                         DownsampleToViewSize="True"
                                         DownsampleWidth="300"
                                         Aspect="AspectFill"                                      
-                                        LoadingPlaceholder="loadingImage"
+                                        LoadingPlaceholder="placeholder.png"
                                         ErrorPlaceholder="chefIcon"></ffimageloading:CachedImage>
 
-                                    <Label Text="{Binding CookName}"  TextColor="Gray" FontSize="Small" FontAttributes="Bold" Grid.Column="1" Grid.Row="0"/>
+                                    <Label Text="{Binding CookName}" Style="{StaticResource EntryTitleLblStyle}" Grid.Column="1" Grid.Row="0"/>
                                     <StackLayout HorizontalOptions="EndAndExpand" Grid.Column="1" Grid.Row="0" Orientation="Horizontal">
                                         <Image Source="star.png" WidthRequest="15" HeightRequest="15" 
                                                IsVisible="{Binding Rating, Converter={StaticResource rtngStarVisibility}, ConverterParameter=1}"/>
@@ -284,8 +283,8 @@
                                                IsVisible="{Binding Rating, Converter={StaticResource rtngStarVisibility}, ConverterParameter=5}"/>
                                     </StackLayout>
                                     <StackLayout Orientation="Horizontal" VerticalOptions="FillAndExpand" Grid.Column="1" Grid.Row="1"></StackLayout>
-                                    <Label Text="{Binding CommentText}"  TextColor="Gray" FontSize="Micro"  Grid.Column="1" Grid.Row="2"/>
-                                    <Label Text="{Binding InsertDate}"  TextColor="Gray" FontSize="Micro"  Grid.Column="1" Grid.Row="3" HorizontalOptions="End"/>
+                                    <Label Text="{Binding CommentText}" TextColor="{StaticResource InputTextColor}" FontSize="Small"  Grid.Column="1" Grid.Row="2"/>
+                                    <Label Text="{Binding InsertDate}" TextColor="{StaticResource InputTextColor}" FontSize="Micro"  Grid.Column="1" Grid.Row="3" HorizontalOptions="End"/>
 
                                 </Grid>
                             </ViewCell>
@@ -300,7 +299,7 @@
 				            Size="Normal"		
                             IsVisible="{Binding AddCommentEnabled}"
 				            RippleColor="Gray"
-                            NormalColor="{StaticResource HeadingColor}"
+                            NormalColor="{StaticResource DarkRed}"
                             Command="{Binding AddCommentCommand}"
 				            RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-90}"
 				            RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-90}" />
@@ -311,7 +310,7 @@
 				            Size="Normal"		
                             IsVisible="{Binding AddCommentEnabled}"
 				            RippleColor="Gray"
-                            NormalColor="{StaticResource HeadingColor}"
+                            NormalColor="{StaticResource DarkRed}"
                             Command="{Binding AddCommentCommand}"
 				            RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-90}"
 				            RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-90}" />
@@ -324,7 +323,7 @@
                         BorderRadius="50"
 				        Image="comment.png"				        
                         Command="{Binding AddCommentCommand}"
-                        BackgroundColor="{StaticResource HeadingColor}"                   
+                        BackgroundColor="{StaticResource DarkRed}"                   
 				        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-90}"
 				        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-90}" />
                     </OnPlatform.WinPhone>

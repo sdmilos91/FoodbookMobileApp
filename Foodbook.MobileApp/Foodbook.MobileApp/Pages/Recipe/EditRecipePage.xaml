@@ -32,22 +32,22 @@
                     <RowDefinition Height="16" />
                 </Grid.RowDefinitions>
 
-                <Frame Grid.Column="0" Grid.Row="0" Grid.RowSpan="3"  BackgroundColor="{StaticResource HeadingColor}" CornerRadius="13" Padding="0">
+                <Frame Grid.Column="0" Grid.Row="0" Grid.RowSpan="3"  BackgroundColor="{StaticResource DarkRed}" CornerRadius="14" Padding="0">
                     <Label Text="1" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" TextColor="White" ></Label>
                 </Frame>
                 <BoxView BackgroundColor="{Binding SecondStepLineColor}" Grid.Column="1" Grid.Row="1"></BoxView>
 
-                <Frame Grid.Column="2" Grid.Row="0" Grid.RowSpan="3"  BackgroundColor="{Binding SecondStepIndicatorColor}" CornerRadius="13" Padding="0">
+                <Frame Grid.Column="2" Grid.Row="0" Grid.RowSpan="3"  BackgroundColor="{Binding SecondStepIndicatorColor}" CornerRadius="14" Padding="0">
                     <Label Text="2" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" TextColor="{Binding SecondStepIndicatorTextColor}" ></Label>
                 </Frame>
                 <BoxView x:Name="thirdPageLine" BackgroundColor="{Binding ThirdStepLineColor}" Grid.Column="3" Grid.Row="1"></BoxView>
 
-                <Frame Grid.Column="4" Grid.Row="0" Grid.RowSpan="3" BackgroundColor="{Binding ThirdStepIndicatorColor}" CornerRadius="13" Padding="0">
+                <Frame Grid.Column="4" Grid.Row="0" Grid.RowSpan="3" BackgroundColor="{Binding ThirdStepIndicatorColor}" CornerRadius="14" Padding="0">
                     <Label x:Name="thirdPageIndicator" Text="3" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" TextColor="{Binding ThirdStepIndicatorTextColor}" ></Label>
                 </Frame>
                 <BoxView x:Name="fourthPageLine" BackgroundColor="{Binding FourthStepLineColor}" Grid.Column="5" Grid.Row="1"></BoxView>
 
-                <Frame Grid.Column="6" Grid.Row="0" Grid.RowSpan="3" BackgroundColor="{Binding FourthStepIndicatorColor}" CornerRadius="13" Padding="0">
+                <Frame Grid.Column="6" Grid.Row="0" Grid.RowSpan="3" BackgroundColor="{Binding FourthStepIndicatorColor}" CornerRadius="14" Padding="0">
                     <Label x:Name="fourthPageIndicator" Text="4" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" TextColor="{Binding FourthStepIndicatorTextColor}"></Label>
                 </Frame>
             </Grid>
@@ -74,7 +74,7 @@
                                         </Grid.RowDefinitions>
 
                                         <Label Text="Naziv: *"  Grid.Row="0" Style="{StaticResource EntryTitleLblStyle}"/>
-                                        <renderers:CustomEntry Text="{Binding RecipeName}" HorizontalTextAlignment="Start" Grid.Row="1" TextColor="{StaticResource InputTextColor}" FontSize="Small">
+                                        <renderers:CustomEntry Text="{Binding RecipeName}" Grid.Row="1" Style="{StaticResource EntryValueStyle}">
                                             <Entry.Behaviors>
                                                 <behaviors:RequiredValidatorBehavior x:Name="nameBehavior"  mLbl="{x:Reference nameValidationLbl}" EntryName="Naziv" />
                                             </Entry.Behaviors>
@@ -96,7 +96,7 @@
                                                 <OnPlatform x:TypeArguments="x:Boolean" Android="False" iOS="False" WinPhone="True"/>
                                             </Picker.IsVisible>
                                         </Picker>
-                                        <renderers:CustomEntry Text="{Binding CategoryName}" EntryType="PICKER" HorizontalTextAlignment="Start" Grid.Row="1"  TextColor="{StaticResource InputTextColor}" FontSize="Small">
+                                        <renderers:CustomEntry Text="{Binding CategoryName}" EntryType="PICKER" Grid.Row="1"  Style="{StaticResource EntryValueStyle}">
 
                                             <Entry.Behaviors>
                                                 <behaviors:EntriPickerBehavior  RelatedPicker="{x:Reference categoryPicker}" PickerType="CATEGORY" />
@@ -122,7 +122,7 @@
                                                 <OnPlatform x:TypeArguments="x:Boolean" Android="False" iOS="False" WinPhone="True"/>
                                             </Picker.IsVisible>
                                         </Picker>
-                                        <renderers:CustomEntry Text="{Binding CuisineName}" EntryType="PICKER" HorizontalTextAlignment="Start" TextColor="{StaticResource InputTextColor}" Grid.Row="1" FontSize="Small" >
+                                        <renderers:CustomEntry Text="{Binding CuisineName}" EntryType="PICKER" Style="{StaticResource EntryValueStyle}">
 
                                             <Entry.Behaviors>
                                                 <behaviors:EntriPickerBehavior  RelatedPicker="{x:Reference cuisinePicker}" PickerType="CUISINE"/>
@@ -144,7 +144,7 @@
                                         </Grid.RowDefinitions>
 
                                         <Label Text="Vreme pripreme (min): *" Grid.Row="0" Style="{StaticResource EntryTitleLblStyle}"/>
-                                        <renderers:CustomEntry Text="{Binding PreparationTime}" Keyboard="Numeric" HorizontalTextAlignment="Start" TextColor="{StaticResource InputTextColor}" Grid.Row="1" FontSize="Small" >
+                                        <renderers:CustomEntry Text="{Binding PreparationTime}" Keyboard="Numeric" Grid.Row="1" Style="{StaticResource EntryValueStyle}">
                                             <Entry.Behaviors>
                                                 <behaviors:RequiredValidatorBehavior x:Name="preparationTimeBehavior"  mLbl="{x:Reference preparationValidationLbl}" EntryName="Vreme pripreme"/>
                                             </Entry.Behaviors>
@@ -166,7 +166,7 @@
                                                 <OnPlatform x:TypeArguments="x:Boolean" Android="False" iOS="False" WinPhone="True"/>
                                             </Picker.IsVisible>
                                         </Picker>
-                                        <renderers:CustomEntry Text="{Binding CaloryName}" EntryType="PICKER" HorizontalTextAlignment="Start" TextColor="{StaticResource InputTextColor}" Grid.Row="1"  FontSize="Small">
+                                        <renderers:CustomEntry Text="{Binding CaloryName}" EntryType="PICKER" Grid.Row="1" Style="{StaticResource EntryValueStyle}">
 
                                             <Entry.Behaviors>
                                                 <behaviors:EntriPickerBehavior  RelatedPicker="{x:Reference caloryPicker}" PickerType="CALORY"/>
@@ -228,7 +228,7 @@
                                 RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0}"
 				                RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant= -50}"
                                 RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}">
-                            <Button                                 
+                                <Button                                 
                                 Text="Dodaj sastojak"
                                 Image="Ingredient.png"
                                 HorizontalOptions="CenterAndExpand"
@@ -258,7 +258,7 @@
                                         <RowDefinition Height="40" />
                                     </Grid.RowDefinitions>
                                     <Label Text="Priprema recepta: *" Style="{StaticResource EntryTitleLblStyle}" Grid.Row="0"/>
-                                    <renderers:CustomEntry Text="{Binding RecipeText}" EntryType="MULTILINE" HeightRequest="300" VerticalOptions="FillAndExpand" TextColor="{StaticResource InputTextColor}" Grid.Row="1" FontSize="Small">
+                                    <renderers:CustomEntry Text="{Binding RecipeText}" EntryType="MULTILINE" HeightRequest="300" VerticalOptions="FillAndExpand" Grid.Row="1" Style="{StaticResource EntryValueStyle}">
                                         <Entry.Behaviors>
                                             <behaviors:RequiredValidatorBehavior x:Name="recipeTextValidator" mLbl="{x:Reference recipeTextValidationLbl}" EntryName="Priprema recepta"/>
                                         </Entry.Behaviors>
@@ -290,7 +290,7 @@
                                                     <ffimageloading:CachedImage Aspect="AspectFill"          
                                         DownsampleWidth="300"
 			                            DownsampleToViewSize="True"
-                                        LoadingPlaceholder="addphoto"                                                                                                                     
+                                        LoadingPlaceholder="placeholder.png"                                                                                                                     
 			                            Source = "{Binding Url}"
                                         RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
 				                        RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}"
@@ -315,7 +315,6 @@
 
                                                     </StackLayout>
                                                     <StackLayout
-                                                        Opacity="0.7"
                                                         Padding="5"
                                                         BackgroundColor="Gray"
                                                         RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-40}"
@@ -349,12 +348,11 @@
                                 >
                                 <Button 
                                     Text="Dodaj sliku"
-                                    HorizontalOptions="CenterAndExpand"
                                     Image="addphoto.png"
                                     Command="{Binding AddImageCommand}"
                                     BackgroundColor="{StaticResource LightGreen}"
                                     TextColor="{StaticResource PrimaryTextColor}"
-                                    VerticalOptions="FillAndExpand"/>
+                                    VerticalOptions="CenterAndExpand"/>
 
                             </StackLayout>
                         </RelativeLayout>

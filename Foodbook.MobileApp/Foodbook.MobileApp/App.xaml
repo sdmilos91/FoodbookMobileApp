@@ -27,6 +27,26 @@
                 <Setter Property="TextColor" Value="#212121"/>
                 <Setter Property="VerticalOptions" Value="Center"/>
             </Style>
+            <Style x:Key="EntryValueStyle" TargetType="Entry">
+                <Setter Property="FontSize" Value="Small"/>
+                <Setter Property="HorizontalTextAlignment" Value="Start"/>
+                <Setter Property="TextColor" Value="#757575"/>
+                <Setter Property="VerticalOptions" Value="Center"/>
+            </Style>
+
+            <Style x:Key="PositiveButtonStyle" TargetType="Button">
+                <Setter Property="FontSize" Value="Small"/>
+                <Setter Property="BackgroundColor" Value="#b61827"/>
+                <Setter Property="TextColor" Value="#FFF"/>
+                <Setter Property="HeightRequest" Value="40"/>
+            </Style>
+
+            <Style x:Key="NegativeButtonStyle" TargetType="Button">
+                <Setter Property="FontSize" Value="Small"/>
+                <Setter Property="BackgroundColor" Value="#C2C2C2"/>
+                <Setter Property="TextColor" Value="#FFF"/>
+                <Setter Property="HeightRequest" Value="40"/>
+            </Style>
         </ResourceDictionary>
 
     </Application.Resources>

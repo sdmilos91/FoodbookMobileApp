@@ -159,15 +159,16 @@ namespace Foodbook.MobileApp.ViewModels
         private void ChangeTab(string tab)
         {
             Color mainColor = Color.FromHex(MyColors.LIGHT_GREEN);
-            Color indicatorColor = Color.FromHex(MyColors.GREEN);
+            Color indicatorColor = Color.FromHex(MyColors.DARK_RED);
+            Color textColor = Color.FromHex(MyColors.TEXT_PRIMARY);
 
             FirstTabColor = mainColor;
             FirstTabIndicatorColor = mainColor;
-            FirstTabTextColor = Color.Gray;
+            FirstTabTextColor = textColor;
 
             SecondTabColor = mainColor;
             SecondTabIndicatorColor = mainColor;
-            SecondTabTextColor = Color.Gray;
+            SecondTabTextColor = textColor;
 
             FirstContainer = false;
             SecondContainer = false;
@@ -178,7 +179,7 @@ namespace Foodbook.MobileApp.ViewModels
                 case "1":
                     mSelectedTab = CooksPageTabs.ALL_COOKS;
                     FirstTabIndicatorColor = indicatorColor;
-                    FirstTabTextColor = indicatorColor;
+                    //FirstTabTextColor = indicatorColor;
                     FirstContainer = true;
                    
                     break;
@@ -186,7 +187,7 @@ namespace Foodbook.MobileApp.ViewModels
                 case "2":
                     mSelectedTab = CooksPageTabs.FAVORITE_COOKS;
                     SecondTabIndicatorColor = indicatorColor;
-                    SecondTabTextColor = indicatorColor;
+                    //SecondTabTextColor = indicatorColor;
                     SecondContainer = true;
  
                     break;
@@ -194,7 +195,7 @@ namespace Foodbook.MobileApp.ViewModels
                 default:
                     mSelectedTab = CooksPageTabs.ALL_COOKS;
                     FirstTabIndicatorColor = indicatorColor;
-                    FirstTabTextColor = indicatorColor;
+                    //FirstTabTextColor = indicatorColor;
 
                     break;
             }
