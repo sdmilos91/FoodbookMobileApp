@@ -17,23 +17,41 @@
             <Image Aspect="AspectFill" Grid.Row="0" Source="loginCover.png"/>
             <StackLayout Grid.Row="1" Grid.RowSpan="2" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Padding="30">
 
-                <renderers:CustomEntry Placeholder="Email" Keyboard="Email" Text="{Binding Username}" HorizontalOptions="FillAndExpand" VerticalOptions="Center">
+                <renderers:CustomEntry Placeholder="Email adresa" Keyboard="Email" Text="{Binding Username}" HorizontalOptions="FillAndExpand" VerticalOptions="Center" TextColor="{StaticResource InputTextColor}" FontSize="Small">
                     <Entry.Behaviors>
-                        <behaviors:RequiredValidatorBehavior  mLbl="{x:Reference usernameValidationLbl}" />
+                        <behaviors:RequiredValidatorBehavior  mLbl="{x:Reference usernameValidationLbl}" EntryName="Email adresa"/>
                     </Entry.Behaviors>
                 </renderers:CustomEntry>
                 <Label x:Name="usernameValidationLbl" IsVisible="False"  Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" FontSize="Small" TextColor="Red"/>
-               
-                <renderers:CustomEntry Placeholder="Password" IsPassword="True" Text="{Binding Password}" HorizontalOptions="FillAndExpand" VerticalOptions="Center">
+
+                <renderers:CustomEntry Placeholder="Lozinka" IsPassword="True" Text="{Binding Password}" HorizontalOptions="FillAndExpand" VerticalOptions="Center" TextColor="{StaticResource InputTextColor}" FontSize="Small">
                     <Entry.Behaviors>
-                        <behaviors:RequiredValidatorBehavior  mLbl="{x:Reference passwordValidationLbl}" />
+                        <behaviors:RequiredValidatorBehavior  mLbl="{x:Reference passwordValidationLbl}" EntryName="Lozinka"/>
                     </Entry.Behaviors>
                 </renderers:CustomEntry>
                 <Label x:Name="passwordValidationLbl" IsVisible="False"  Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" FontSize="Small" TextColor="Red"/>
-                
-                <Button Command="{Binding LoginCommand}" Margin="0,30,0,0" Text="Prijavite se" HorizontalOptions="FillAndExpand" BackgroundColor="{StaticResource HeadingColor}" TextColor="White"/>
-                <Button Command="{Binding RegisterCommand}"  Text="Registrujte se" HorizontalOptions="FillAndExpand" BackgroundColor="{StaticResource DarkRed}" TextColor="White" />
-                <Button Command="{Binding SkipCommand}" Text="Nastavite kao gost" HorizontalOptions="FillAndExpand" BackgroundColor="{StaticResource DarkRed}" TextColor="White" />
+
+                <Button Command="{Binding LoginCommand}" Margin="0,30,0,0" Text="Prijavite se" HorizontalOptions="FillAndExpand" Style="{StaticResource PossitiveButtonStyle}"/>
+                <StackLayout Padding="0" HorizontalOptions="Center" Margin="0,40,0,0">
+                    <Label Style="{StaticResource EntryTitleLblStyle}" Text="Nemate nalog? Registrujte se" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding RegisterCommand}" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <BoxView BackgroundColor="{StaticResource PrimaryTextColor}" HeightRequest="1" Margin="0,-4,0,0" />
+                </StackLayout>
+
+                <StackLayout Padding="0" HorizontalOptions="Center" Margin="0,10,0,0">
+                    <Label Style="{StaticResource EntryTitleLblStyle}" Text="Nastavite kao gost" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SkipCommand}" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <BoxView BackgroundColor="{StaticResource PrimaryTextColor}" HeightRequest="1" Margin="0,-4,0,0" />
+                </StackLayout>
+
+                <!--<Button Command="{Binding RegisterCommand}"  Text="Registrujte se" HorizontalOptions="FillAndExpand" BackgroundColor="{StaticResource DarkRed}" TextColor="White" />-->
+                <!--<Button Command="{Binding SkipCommand}" Text="Nastavite kao gost" HorizontalOptions="FillAndExpand" BackgroundColor="{StaticResource DarkRed}" TextColor="White" />-->
 
 
 

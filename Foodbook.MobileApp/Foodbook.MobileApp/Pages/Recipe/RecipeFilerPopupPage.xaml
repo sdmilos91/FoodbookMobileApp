@@ -32,7 +32,7 @@
                     <RowDefinition Height="20" />
                 </Grid.RowDefinitions>
                 <Label Text="Naziv: *" Style="{StaticResource EntryTitleLblStyle}" Grid.Row="0"/>
-                <renderers:CustomEntry Text="{Binding FilterModel.RecipeName}" VerticalOptions="FillAndExpand" Grid.Row="1">
+                <renderers:CustomEntry Text="{Binding FilterModel.RecipeName}" VerticalOptions="FillAndExpand" Grid.Row="1" TextColor="{StaticResource InputTextColor}" FontSize="Small">
                 </renderers:CustomEntry>
             </Grid>
 
@@ -49,7 +49,7 @@
                         <OnPlatform x:TypeArguments="x:Boolean" Android="False" iOS="False" WinPhone="True"/>
                     </Picker.IsVisible>
                 </Picker>
-                <renderers:CustomEntry Text="{Binding CategoryName}" EntryType="PICKER" Placeholder="Kategorija" HorizontalTextAlignment="Start" Grid.Row="1">
+                <renderers:CustomEntry Text="{Binding CategoryName}" EntryType="PICKER" Placeholder="Kategorija" HorizontalTextAlignment="Start" Grid.Row="1" TextColor="{StaticResource InputTextColor}" FontSize="Small">
 
                     <Entry.Behaviors>
                         <behaviors:EntriPickerBehavior  RelatedPicker="{x:Reference categoryPicker}" PickerType="CATEGORY"/>
@@ -75,7 +75,7 @@
                         <OnPlatform x:TypeArguments="x:Boolean" Android="False" iOS="False" WinPhone="True"/>
                     </Picker.IsVisible>
                 </Picker>
-                <renderers:CustomEntry Text="{Binding CuisineName}" EntryType="PICKER" Placeholder="Kuhinja" HorizontalTextAlignment="Start" Grid.Row="1" >
+                <renderers:CustomEntry Text="{Binding CuisineName}" EntryType="PICKER" Placeholder="Kuhinja" HorizontalTextAlignment="Start" Grid.Row="1" TextColor="{StaticResource InputTextColor}" FontSize="Small">
 
                     <Entry.Behaviors>
                         <behaviors:EntriPickerBehavior  RelatedPicker="{x:Reference cuisinePicker}" PickerType="CUISINE"/>
@@ -101,7 +101,7 @@
                         <OnPlatform x:TypeArguments="x:Boolean" Android="False" iOS="False" WinPhone="True"/>
                     </Picker.IsVisible>
                 </Picker>
-                <renderers:CustomEntry Text="{Binding CaloryName}" EntryType="PICKER" Placeholder="Kaloričnost" HorizontalTextAlignment="Start" Grid.Row="1" >
+                <renderers:CustomEntry Text="{Binding CaloryName}" EntryType="PICKER" Placeholder="Kaloričnost" HorizontalTextAlignment="Start" Grid.Row="1" TextColor="{StaticResource InputTextColor}" FontSize="Small">
 
                     <Entry.Behaviors>
                         <behaviors:EntriPickerBehavior  RelatedPicker="{x:Reference caloryPicker}" PickerType="CALORY"/>
@@ -115,8 +115,8 @@
             </Grid>
 
             <StackLayout Orientation="Horizontal">
-                <Button BackgroundColor="{StaticResource HeadingColor}" TextColor="White" Text="Filtriraj" HorizontalOptions="FillAndExpand" Command="{Binding FilterCommand}"/>
-                <Button BackgroundColor="{StaticResource DarkRed}" TextColor="White" Text="Otkaži" HorizontalOptions="FillAndExpand" Command="{Binding CancelCommand}"/>
+                <Button Text="Filtriraj" HorizontalOptions="FillAndExpand" Command="{Binding FilterCommand}" Style="{StaticResource PossitiveButtonStyle}"/>
+                <Button Text="Otkaži" HorizontalOptions="FillAndExpand" Command="{Binding CancelCommand}" Style="{StaticResource NegativeButtonStyle}"/>
             </StackLayout>
         </StackLayout>
 

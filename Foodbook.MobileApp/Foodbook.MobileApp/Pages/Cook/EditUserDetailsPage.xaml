@@ -8,7 +8,7 @@
              Title="Ažuriranje korisnika"
              x:Class="Foodbook.MobileApp.Pages.Cook.EditUserDetailsPage">
     <ContentPage.Content>
-        <ScrollView Grid.Row="1" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+        <ScrollView Grid.Row="1" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Margin="0,0,0,20">
             <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
 
 
@@ -21,9 +21,9 @@
                     </Grid.RowDefinitions>
 
                     <Label Text="Ime: *" Grid.Row="0" Style="{StaticResource EntryTitleLblStyle}"/>
-                    <renderers:CustomEntry Text="{Binding RegisterModel.FirstName}" Placeholder="Ime" HorizontalTextAlignment="Start" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2">
+                    <renderers:CustomEntry Text="{Binding RegisterModel.FirstName}" HorizontalTextAlignment="Start" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" TextColor="{StaticResource InputTextColor}" FontSize="Small">
                         <Entry.Behaviors>
-                            <behaviors:RequiredValidatorBehavior  mLbl="{x:Reference firstNameValidationLbl}" />
+                            <behaviors:RequiredValidatorBehavior  mLbl="{x:Reference firstNameValidationLbl}" EntryName="Ime"/>
                         </Entry.Behaviors>
                     </renderers:CustomEntry>
                     <Label x:Name="firstNameValidationLbl" IsVisible="False"  Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" FontSize="Small" TextColor="Red"/>
@@ -39,9 +39,9 @@
                     </Grid.RowDefinitions>
 
                     <Label Text="Prezime: *" Grid.Row="0" Style="{StaticResource EntryTitleLblStyle}"/>
-                    <renderers:CustomEntry Text="{Binding RegisterModel.LastName}" Placeholder="Prezime" HorizontalTextAlignment="Start" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2">
+                    <renderers:CustomEntry Text="{Binding RegisterModel.LastName}" HorizontalTextAlignment="Start" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" TextColor="{StaticResource InputTextColor}" FontSize="Small">
                         <Entry.Behaviors>
-                            <behaviors:RequiredValidatorBehavior  mLbl="{x:Reference lastNameValidationLbl}" />
+                            <behaviors:RequiredValidatorBehavior  mLbl="{x:Reference lastNameValidationLbl}" EntryName="Prezime"/>
                         </Entry.Behaviors>
                     </renderers:CustomEntry>
                     <Label x:Name="lastNameValidationLbl" IsVisible="False"  Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" FontSize="Small" TextColor="Red"/>
@@ -57,7 +57,7 @@
                     </Grid.RowDefinitions>
 
                     <Label Text="Email adresa: *" Grid.Row="0" Style="{StaticResource EntryTitleLblStyle}"/>
-                    <renderers:CustomEntry Text="{Binding RegisterModel.Email}" IsEnabled="False"  Placeholder="Email adresa" HorizontalTextAlignment="Start" Keyboard="Email" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2">
+                    <renderers:CustomEntry Text="{Binding RegisterModel.Email}" IsEnabled="False"  Placeholder="Email adresa" HorizontalTextAlignment="Start" Keyboard="Email" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" TextColor="{StaticResource InputTextColor}" FontSize="Small">
                     </renderers:CustomEntry>
 
                 </Grid>
@@ -71,9 +71,9 @@
                     </Grid.RowDefinitions>
 
                     <Label Text="O kuvaru: *" Grid.Row="0" Style="{StaticResource EntryTitleLblStyle}"/>
-                    <renderers:CustomEntry EntryType="MULTILINE"  Text="{Binding RegisterModel.Biography}" HeightRequest="100"  Placeholder="O kuvaru" HorizontalTextAlignment="Start" Grid.Row="1" Grid.ColumnSpan="2">
+                    <renderers:CustomEntry EntryType="MULTILINE"  Text="{Binding RegisterModel.Biography}" HeightRequest="100"  HorizontalTextAlignment="Start" Grid.Row="1" Grid.ColumnSpan="2" TextColor="{StaticResource InputTextColor}" FontSize="Small">
                         <Entry.Behaviors>
-                            <behaviors:RequiredValidatorBehavior  mLbl="{x:Reference biographyValidationLbl}" />
+                            <behaviors:RequiredValidatorBehavior  mLbl="{x:Reference biographyValidationLbl}" EntryName="O kuvaru"/>
                         </Entry.Behaviors>
                     </renderers:CustomEntry>
                     <Label x:Name="biographyValidationLbl" IsVisible="False"  Grid.Row="2" FontSize="Small" TextColor="Red"/>
@@ -113,7 +113,7 @@
                                     RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0, Constant=0}"
 				                    RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-45}">
 
-                            <Image Source="viewImageWhite.png" x:Name="viewImageBtn" Aspect="AspectFill" VerticalOptions="Center" HorizontalOptions="Center" WidthRequest="30" HeightRequest="30" >
+                            <Image Source="viewImage.png" x:Name="viewImageBtn" Aspect="AspectFill" VerticalOptions="Center" HorizontalOptions="Center" WidthRequest="30" HeightRequest="30" >
                                 <Image.GestureRecognizers>
                                     <TapGestureRecognizer
                                         Command="{Binding ViewImageCommand}" CommandParameter="{x:Reference viewImageBtn}"
@@ -144,7 +144,7 @@
                     </RelativeLayout>
                 </Grid>
 
-                <Button Command="{Binding EditCommand}" BackgroundColor="{StaticResource HeadingColor}" TextColor="White" Text="Ažuriraj" Margin="20, 0, 20, 0"/>
+                <Button Command="{Binding EditCommand}" Text="Ažuriraj" Margin="20, 0, 20, 0" Style="{StaticResource PossitiveButtonStyle}"/>
 
 
             </StackLayout>

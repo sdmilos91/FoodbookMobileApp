@@ -9,7 +9,7 @@
              Title="Registracija"
              >
     <ContentPage.Content>
-        <ScrollView Grid.Row="1" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+        <ScrollView Grid.Row="1" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Margin="0,0,0,20">
             <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
 
 
@@ -22,9 +22,9 @@
                     </Grid.RowDefinitions>
 
                     <Label Text="Ime: *" Grid.Row="0" Style="{StaticResource EntryTitleLblStyle}"/>
-                    <renderers:CustomEntry Text="{Binding RegisterModel.FirstName}" Placeholder="Ime" HorizontalTextAlignment="Start" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2">
+                    <renderers:CustomEntry Text="{Binding RegisterModel.FirstName}" HorizontalTextAlignment="Start" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" TextColor="{StaticResource InputTextColor}" FontSize="Small">
                         <Entry.Behaviors>
-                            <behaviors:RequiredValidatorBehavior  mLbl="{x:Reference firstNameValidationLbl}" />
+                            <behaviors:RequiredValidatorBehavior  mLbl="{x:Reference firstNameValidationLbl}" EntryName="Ime"/>
                         </Entry.Behaviors>
                     </renderers:CustomEntry>
                     <Label x:Name="firstNameValidationLbl" IsVisible="False"  Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" FontSize="Small" TextColor="Red"/>
@@ -40,9 +40,9 @@
                     </Grid.RowDefinitions>
                     
                     <Label Text="Prezime: *" Grid.Row="0" Style="{StaticResource EntryTitleLblStyle}"/>
-                    <renderers:CustomEntry Text="{Binding RegisterModel.LastName}" Placeholder="Prezime" HorizontalTextAlignment="Start" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2">
+                    <renderers:CustomEntry Text="{Binding RegisterModel.LastName}" HorizontalTextAlignment="Start" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" TextColor="{StaticResource InputTextColor}" FontSize="Small">
                         <Entry.Behaviors>
-                            <behaviors:RequiredValidatorBehavior  mLbl="{x:Reference lastNameValidationLbl}" />
+                            <behaviors:RequiredValidatorBehavior  mLbl="{x:Reference lastNameValidationLbl}"  EntryName="Prezime"/>
                         </Entry.Behaviors>
                     </renderers:CustomEntry>
                     <Label x:Name="lastNameValidationLbl" IsVisible="False"  Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" FontSize="Small" TextColor="Red"/>
@@ -58,9 +58,9 @@
                     </Grid.RowDefinitions>
 
                     <Label Text="Email adresa: *" Grid.Row="0" Style="{StaticResource EntryTitleLblStyle}"/>
-                    <renderers:CustomEntry Text="{Binding RegisterModel.Email}" Placeholder="Email adresa" HorizontalTextAlignment="Start" Keyboard="Email" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2">
+                    <renderers:CustomEntry Text="{Binding RegisterModel.Email}" HorizontalTextAlignment="Start" Keyboard="Email" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" TextColor="{StaticResource InputTextColor}" FontSize="Small">
                         <Entry.Behaviors>
-                            <behaviors:RequiredValidatorBehavior  mLbl="{x:Reference emailValidationLbl}" />
+                            <behaviors:RequiredValidatorBehavior  mLbl="{x:Reference emailValidationLbl}"  EntryName="Email adresa"/>
                             <behaviors:EmailValidatorBehavior  mLbl="{x:Reference emailValidationLbl}" />
                         </Entry.Behaviors>
                     </renderers:CustomEntry>
@@ -78,10 +78,10 @@
                     </Grid.RowDefinitions>
                     
                     <Label Text="Lozinka: *" Grid.Row="0" Style="{StaticResource EntryTitleLblStyle}"/>
-                    <renderers:CustomEntry Text="{Binding RegisterModel.Password}" x:Name="passwordEntry" IsPassword="True" Placeholder="Lozinka" HorizontalTextAlignment="Start" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2">
+                    <renderers:CustomEntry Text="{Binding RegisterModel.Password}" x:Name="passwordEntry" IsPassword="True" HorizontalTextAlignment="Start" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" TextColor="{StaticResource InputTextColor}" FontSize="Small">
                         <Entry.Behaviors>
-                            <behaviors:RequiredValidatorBehavior  mLbl="{x:Reference passwordValidationLbl}" />
-                            <behaviors:RequiredValidatorBehavior  mLbl="{x:Reference passwordValidationLbl}" />
+                            <behaviors:RequiredValidatorBehavior  mLbl="{x:Reference passwordValidationLbl}"  EntryName="Lozinka"/>
+                            <behaviors:PasswordValidatorBehavior  mLbl="{x:Reference passwordValidationLbl}" />
                         </Entry.Behaviors>
                     </renderers:CustomEntry>
                     <Label x:Name="passwordValidationLbl" IsVisible="False"  Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" FontSize="Small" TextColor="Red"/>
@@ -97,9 +97,9 @@
                     </Grid.RowDefinitions>
                     
                     <Label Text="Potvrda lozinke: *" Grid.Row="0" Style="{StaticResource EntryTitleLblStyle}"/>
-                    <renderers:CustomEntry IsPassword="True" Text="{Binding RegisterModel.ConfirmPassword}" Placeholder="Potvrda lozinke" HorizontalTextAlignment="Start" Grid.Row="1" Grid.ColumnSpan="2">
+                    <renderers:CustomEntry IsPassword="True" Text="{Binding RegisterModel.ConfirmPassword}" HorizontalTextAlignment="Start" Grid.Row="1" Grid.ColumnSpan="2" TextColor="{StaticResource InputTextColor}" FontSize="Small">
                         <Entry.Behaviors>
-                            <behaviors:RequiredValidatorBehavior  mLbl="{x:Reference confirmPassValidationLbl}" />
+                            <behaviors:RequiredValidatorBehavior  mLbl="{x:Reference confirmPassValidationLbl}"  EntryName="Potvrda lozinke"/>
                             <behaviors:ConfirmPasswordValidatorBehavior  mLbl="{x:Reference confirmPassValidationLbl}" PasswordEntry="{x:Reference passwordEntry}"/>
                         </Entry.Behaviors>
                     </renderers:CustomEntry>
@@ -116,9 +116,9 @@
                     </Grid.RowDefinitions>
                     
                     <Label Text="O kuvaru: *" Grid.Row="0" Style="{StaticResource EntryTitleLblStyle}"/>
-                    <renderers:CustomEntry EntryType="MULTILINE"  Text="{Binding RegisterModel.Biography}" HeightRequest="100"  Placeholder="O kuvaru" HorizontalTextAlignment="Start" Grid.Row="1" Grid.ColumnSpan="2">
+                    <renderers:CustomEntry EntryType="MULTILINE"  Text="{Binding RegisterModel.Biography}" HeightRequest="100" HorizontalTextAlignment="Start" Grid.Row="1" Grid.ColumnSpan="2" TextColor="{StaticResource InputTextColor}" FontSize="Small">
                         <Entry.Behaviors>
-                            <behaviors:RequiredValidatorBehavior  mLbl="{x:Reference biographyValidationLbl}" />
+                            <behaviors:RequiredValidatorBehavior  mLbl="{x:Reference biographyValidationLbl}"  EntryName="O kuvaru"/>
                         </Entry.Behaviors>
                     </renderers:CustomEntry>
                     <Label x:Name="biographyValidationLbl" IsVisible="False"  Grid.Row="2" FontSize="Small" TextColor="Red"/>
@@ -190,7 +190,7 @@
                     </RelativeLayout>
                 </Grid>
 
-                <Button Command="{Binding RegisterCommand}" BackgroundColor="{StaticResource HeadingColor}" TextColor="White" Text="Registuj se" Margin="20, 0, 20, 0"/>
+                <Button Command="{Binding RegisterCommand}" Text="Registruj se"  Margin="20, 0, 20, 0"  Style="{StaticResource PossitiveButtonStyle}"/>
 
 
             </StackLayout>

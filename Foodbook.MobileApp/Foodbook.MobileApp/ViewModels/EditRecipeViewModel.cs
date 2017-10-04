@@ -291,21 +291,7 @@ namespace Foodbook.MobileApp.ViewModels
             NextBtnIcon = "next.png";
 
             //Init Wizard
-            StepOneContainer = true;
-            StepTwoContainer = false;
-            StepThreeContainer = false;
-
-            SecondStepIndicatorColor = Color.White;
-            SecondStepIndicatorTextColor = Color.Gray;
-            SecondStepLineColor = Color.White;
-
-            ThirdStepIndicatorColor = Color.White;
-            ThirdStepIndicatorTextColor = Color.Gray;
-            ThirdStepLineColor = Color.White;
-
-            FourthStepIndicatorColor = Color.White;
-            FourthStepIndicatorTextColor = Color.Gray;
-            FourthStepLineColor = Color.White;
+            SetPage();
             //
 
 

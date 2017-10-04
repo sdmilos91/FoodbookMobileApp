@@ -111,7 +111,7 @@
                                        />
                                     </RelativeLayout>
 
-                                    <Label Text="{Binding Name}" Style="{StaticResource EntryTitleLblStyle}" Grid.Column="1" Grid.Row="0" />
+                                    <Label Text="{Binding Name}" Style="{StaticResource EntryTitleLblStyle}" Grid.Column="1" Grid.Row="0" VerticalOptions="Start"/>
                                     <StackLayout HorizontalOptions="StartAndExpand" Grid.Column="1" Grid.Row="1" Orientation="Horizontal">
                                         <Image Source="category1.png" WidthRequest="20" HeightRequest="20" VerticalOptions="Center"/>
                                         <Label Text="{Binding CategoryName}"  TextColor="{StaticResource InputTextColor}" VerticalOptions="Center"/>
