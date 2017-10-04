@@ -30,7 +30,7 @@ namespace Foodbook.MobileApp.Behaviors
             {
                 Entry ent = sender as Entry;
                 mLbl.IsVisible = true;
-                mLbl.Text = string.Format(LocalizationResource.RequiredFieldMsg, ent.Placeholder);
+                mLbl.Text = string.Format(LocalizationResource.RequiredFieldMsg, EntryName);
 
             }
             else

@@ -30,5 +30,13 @@ namespace Foodbook.MobileApp.Behaviors
             set { SetValue(LabelProperty, value); }
         }
 
+        public static readonly BindableProperty NameProperty = BindableProperty.CreateAttached("EntryName", typeof(string), typeof(RequiredValidatorBehavior), null);
+
+        public string EntryName
+        {
+            get { return (string)GetValue(NameProperty); }
+            set { SetValue(NameProperty, value); }
+        }
+
     }
 }

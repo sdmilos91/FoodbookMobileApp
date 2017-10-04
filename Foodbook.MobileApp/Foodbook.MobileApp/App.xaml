@@ -15,7 +15,8 @@
             <Color x:Key="LightGreen">#F5F5F5</Color>
             <Color x:Key="PageBackground">#ffffff</Color>
             <Color x:Key="LightGray">#eeefee</Color>
-            <Color x:Key="InputTextColor">#808080</Color>
+            <Color x:Key="InputTextColor">#757575</Color>
+            <Color x:Key="PrimaryTextColor">#212121</Color>
             <Color x:Key="ListSeparatorColor">#EEEEEE</Color>
 
 
@@ -23,7 +24,7 @@
             <Style x:Key="EntryTitleLblStyle" TargetType="Label">
                 <Setter Property="FontSize" Value="Small"/>
                 <Setter Property="HorizontalTextAlignment" Value="Start"/>
-                <Setter Property="TextColor" Value="Black"/>
+                <Setter Property="TextColor" Value="#212121"/>
                 <Setter Property="VerticalOptions" Value="Center"/>
             </Style>
         </ResourceDictionary>

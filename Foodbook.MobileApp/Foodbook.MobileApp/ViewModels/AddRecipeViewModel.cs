@@ -283,23 +283,7 @@ namespace Foodbook.MobileApp.ViewModels
             BackBtnIcon = "cancel.png";
             NextBtnIcon = "next.png";
 
-            //Init Wizard
-            StepOneContainer = true;
-            StepTwoContainer = false;
-            StepThreeContainer = false;
-
-            SecondStepIndicatorColor = Color.White;
-            SecondStepIndicatorTextColor = Color.Gray;
-            SecondStepLineColor = Color.White;
-
-            ThirdStepIndicatorColor = Color.White;
-            ThirdStepIndicatorTextColor = Color.Gray;
-            ThirdStepLineColor = Color.White;
-
-            FourthStepIndicatorColor = Color.White;
-            FourthStepIndicatorTextColor = Color.Gray;
-            FourthStepLineColor = Color.White;
-            //
+            SetPage();            
 
             NextStepCommand = new Command((x) => NextStep(x));
             PreviousStepCommand = new Command((x) => PreviousStep(x));
@@ -558,40 +542,40 @@ namespace Foodbook.MobileApp.ViewModels
             StepTwoContainer = false;
             StepThreeContainer = false;
             StepFourContainer = false;
-            SecondStepIndicatorColor = Color.White;
-            SecondStepIndicatorTextColor = Color.Gray;
-            SecondStepLineColor = Color.White;
-            ThirdStepIndicatorColor = Color.White;
-            ThirdStepIndicatorTextColor = Color.Gray;
-            ThirdStepLineColor = Color.White;
-            FourthStepIndicatorColor = Color.White;
-            FourthStepIndicatorTextColor = Color.Gray;
-            FourthStepLineColor = Color.White;
+            SecondStepIndicatorColor = Color.FromHex(MyColors.GREEN);
+            SecondStepIndicatorTextColor = Color.White;
+            SecondStepLineColor = Color.FromHex(MyColors.GREEN);
+            ThirdStepIndicatorColor = Color.FromHex(MyColors.GREEN);
+            ThirdStepIndicatorTextColor = Color.White;
+            ThirdStepLineColor = Color.FromHex(MyColors.GREEN);
+            FourthStepIndicatorColor = Color.FromHex(MyColors.GREEN);
+            FourthStepIndicatorTextColor = Color.White;
+            FourthStepLineColor = Color.FromHex(MyColors.GREEN);
 
             if (mPageNumber == 3)
             {
                 NextBtnIcon = "save.png";
-                BackBtnIcon = "back1.png";
+                BackBtnIcon = "back.png";
                 StepFourContainer = true;
-                SecondStepIndicatorColor = Color.FromHex(MyColors.GREEN);
+                SecondStepIndicatorColor = Color.FromHex(MyColors.DARK_RED);
                 SecondStepIndicatorTextColor = Color.White;
                 SecondStepLineColor = Color.FromHex(MyColors.GREEN);
-                ThirdStepIndicatorColor = Color.FromHex(MyColors.GREEN);
+                ThirdStepIndicatorColor = Color.FromHex(MyColors.DARK_RED);
                 ThirdStepIndicatorTextColor = Color.White;
                 ThirdStepLineColor = Color.FromHex(MyColors.GREEN);
-                FourthStepIndicatorColor = Color.FromHex(MyColors.GREEN);
+                FourthStepIndicatorColor = Color.FromHex(MyColors.DARK_RED);
                 FourthStepIndicatorTextColor = Color.White;
                 FourthStepLineColor = Color.FromHex(MyColors.GREEN);
             }
             else if (mPageNumber == 2)
             {
                 NextBtnIcon = "next.png";
-                BackBtnIcon = "back1.png";
+                BackBtnIcon = "back.png";
                 StepThreeContainer = true;
-                SecondStepIndicatorColor = Color.FromHex(MyColors.GREEN);
+                SecondStepIndicatorColor = Color.FromHex(MyColors.DARK_RED);
                 SecondStepIndicatorTextColor = Color.White;
                 SecondStepLineColor = Color.FromHex(MyColors.GREEN);
-                ThirdStepIndicatorColor = Color.FromHex(MyColors.GREEN);
+                ThirdStepIndicatorColor = Color.FromHex(MyColors.DARK_RED);
                 ThirdStepIndicatorTextColor = Color.White;
                 ThirdStepLineColor = Color.FromHex(MyColors.GREEN);
 
@@ -599,9 +583,9 @@ namespace Foodbook.MobileApp.ViewModels
             else if (mPageNumber == 1)
             {
                 NextBtnIcon = "next.png";
-                BackBtnIcon = "back1.png";
+                BackBtnIcon = "back.png";
                 StepTwoContainer = true;
-                SecondStepIndicatorColor = Color.FromHex(MyColors.GREEN);
+                SecondStepIndicatorColor = Color.FromHex(MyColors.DARK_RED);
                 SecondStepIndicatorTextColor = Color.White;
                 SecondStepLineColor = Color.FromHex(MyColors.GREEN);
 

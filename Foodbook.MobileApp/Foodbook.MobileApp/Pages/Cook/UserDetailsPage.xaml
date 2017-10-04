@@ -217,10 +217,10 @@
             <!--KOMENTARI-->
             <RelativeLayout IsVisible="{Binding ThirdContainer}"  Grid.Row="4" Grid.RowSpan="2" >
                 <ListView ItemsSource="{Binding Comments}"
-                    IsEnabled="True"
                     RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
 				    RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}"
-                    CachingStrategy="RecycleElement"                   
+                    CachingStrategy="RecycleElement"    
+                    IsEnabled="False"
                     RowHeight="100">
 
                     <ListView.ItemTemplate>

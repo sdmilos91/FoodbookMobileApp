@@ -345,6 +345,8 @@
     <BundleResource Include="Resources\Icon-76%403x.png" />
     <BundleResource Include="Resources\Icon-83.5%402x.png" />
     <BundleResource Include="Resources\Icon-Small-50x50%401x.png" />
+    <BundleResource Include="Resources\Ingredient.png" />
+    <BundleResource Include="Resources\pencil.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Foodbook.MobileApp\Foodbook.MobileApp.csproj">

@@ -121,35 +121,73 @@
                 <StackLayout Padding="10" Spacing="5">
 
                     <StackLayout Spacing="0">
-                        <StackLayout HorizontalOptions="StartAndExpand" Orientation="Horizontal">
-                            <Image Source="category1.png" WidthRequest="16" HeightRequest="16" />
-                            <Label Text="Kategorija: "  TextColor="Gray" FontSize="Small" FontAttributes="Bold"/>
-                        </StackLayout>
-                        <Label Text="{Binding CategoryName}"  TextColor="Gray" FontSize="Small" Margin="29,0,0,0"/>
+                        <Grid RowSpacing="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="22"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Image Source="category1.png" WidthRequest="20" HeightRequest="20" Grid.Row="0" Grid.RowSpan="2" Grid.Column="0"/>
+                            <Label Text="Kategorija: " Style="{StaticResource EntryTitleLblStyle}" Grid.Row="0" Grid.Column="1" />
+                            <Label Text="{Binding CategoryName}"  TextColor="{StaticResource InputTextColor}" FontSize="Small" Grid.Row="1" Grid.Column="1"/>
+                        </Grid>
+                       
                     </StackLayout>
 
                     <StackLayout Spacing="0">
-                        <StackLayout HorizontalOptions="StartAndExpand" Orientation="Horizontal">
-                            <Image Source="earth.png" WidthRequest="16" HeightRequest="16" />
-                            <Label Text="Kuhinja: "  TextColor="Gray" FontSize="Small" FontAttributes="Bold"/>
-                        </StackLayout>
-                        <Label Text="{Binding CuisineName}"  TextColor="Gray" FontSize="Small" Margin="29,0,0,0"/>
+
+                        <Grid RowSpacing="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="22"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Image Source="earth.png" WidthRequest="20" HeightRequest="20" Grid.Row="0" Grid.RowSpan="2" Grid.Column="0"/>
+                            <Label Text="Kuhinja: " Style="{StaticResource EntryTitleLblStyle}" Grid.Row="0" Grid.Column="1" />
+                            <Label Text="{Binding CuisineName}"  TextColor="{StaticResource InputTextColor}" FontSize="Small" Grid.Row="1" Grid.Column="1"/>
+                        </Grid>
                     </StackLayout>
 
                     <StackLayout Spacing="0">
-                        <StackLayout HorizontalOptions="StartAndExpand" Orientation="Horizontal">
-                            <Image Source="time.png" WidthRequest="16" HeightRequest="16" />
-                            <Label Text="Vreme pripreme (min): "  TextColor="Gray" FontSize="Small" FontAttributes="Bold"/>
+                        <Grid RowSpacing="0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="22"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Image Source="time.png" WidthRequest="20" HeightRequest="20" Grid.Row="0" Grid.RowSpan="2" Grid.Column="0"/>
+                                <Label Text="Vreme pripreme (min): " Style="{StaticResource EntryTitleLblStyle}" Grid.Row="0" Grid.Column="1" />
+                                <Label Text="{Binding PreparationTime}"  TextColor="{StaticResource InputTextColor}" FontSize="Small" Grid.Row="1" Grid.Column="1"/>
+                            </Grid>
                         </StackLayout>
-                        <Label Text="{Binding PreparationTime, Converter={StaticResource preparationTimeCnvt} }"  TextColor="Gray" FontSize="Small" Margin="29,0,0,0"/>
-                    </StackLayout>
 
                     <StackLayout Spacing="0">
-                        <StackLayout HorizontalOptions="StartAndExpand" Orientation="Horizontal">
-                            <Image Source="calories.png" WidthRequest="16" HeightRequest="16" />
-                            <Label Text="Kaloricnost: "  TextColor="Gray" FontSize="Small" FontAttributes="Bold"/>
-                        </StackLayout>
-                        <Label Text="{Binding CaloricityName}"  TextColor="Gray" FontSize="Small" Margin="29,0,0,0"/>
+                        <Grid RowSpacing="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="22"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Image Source="calories.png" WidthRequest="20" HeightRequest="20" Grid.Row="0" Grid.RowSpan="2" Grid.Column="0"/>
+                            <Label Text="Kaloričnost: " Style="{StaticResource EntryTitleLblStyle}" Grid.Row="0" Grid.Column="1" />
+                            <Label Text="{Binding CaloricityName}"  TextColor="{StaticResource InputTextColor}" FontSize="Small" Grid.Row="1" Grid.Column="1"/>
+                        </Grid>
                     </StackLayout>
                 </StackLayout>
             </ScrollView>
@@ -201,10 +239,10 @@
             <!--KOMENTARI-->
             <RelativeLayout IsVisible="{Binding ThirdContainer}"  Grid.Row="5" Grid.RowSpan="3" >
                 <ListView ItemsSource="{Binding Comments}"
-                    IsEnabled="True"
                     RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
 				    RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}"
                     CachingStrategy="RecycleElement"
+                    IsEnabled="False"
                     SeparatorColor="{StaticResource ListSeparatorColor}"
                     RowHeight="100">
 
