@@ -6,7 +6,7 @@
              Title="Master">
   <StackLayout>
     <ListView x:Name="MenuItemsListView"
-              SeparatorVisibility="None"
+              SeparatorColor="{StaticResource ListSeparatorColor}"
               HasUnevenRows="true"
               ItemsSource="{Binding MenuItems}">
       <ListView.Header>
@@ -42,7 +42,7 @@
               <Label VerticalOptions="FillAndExpand" 
                     VerticalTextAlignment="Center" 
                     Text="{Binding Title}" 
-                    FontSize="24"/>
+                    FontSize="20"/>
             </StackLayout>
           </ViewCell>
         </DataTemplate>

@@ -18,36 +18,36 @@
 
             <Grid Grid.Row="0" RowSpacing="0" ColumnSpacing="0" Padding="30, 10, 30, 0" BackgroundColor="{StaticResource LightGreen}">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="40" />
+                    <ColumnDefinition Width="34" />
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="40" />
+                    <ColumnDefinition Width="34" />
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="40" />
+                    <ColumnDefinition Width="34" />
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="40" />
+                    <ColumnDefinition Width="34" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="19" />
+                    <RowDefinition Height="16" />
                     <RowDefinition Height="2" />
-                    <RowDefinition Height="19" />
+                    <RowDefinition Height="16" />
                 </Grid.RowDefinitions>
 
-                <Frame Grid.Column="0" Grid.Row="0" Grid.RowSpan="3"  BackgroundColor="{StaticResource HeadingColor}" CornerRadius="16" Padding="0">
+                <Frame Grid.Column="0" Grid.Row="0" Grid.RowSpan="3"  BackgroundColor="{StaticResource HeadingColor}" CornerRadius="13" Padding="0">
                     <Label Text="1" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" TextColor="White" ></Label>
                 </Frame>
                 <BoxView BackgroundColor="{Binding SecondStepLineColor}" Grid.Column="1" Grid.Row="1"></BoxView>
 
-                <Frame Grid.Column="2" Grid.Row="0" Grid.RowSpan="3"  BackgroundColor="{Binding SecondStepIndicatorColor}" CornerRadius="16" Padding="0">
+                <Frame Grid.Column="2" Grid.Row="0" Grid.RowSpan="3"  BackgroundColor="{Binding SecondStepIndicatorColor}" CornerRadius="13" Padding="0">
                     <Label Text="2" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" TextColor="{Binding SecondStepIndicatorTextColor}" ></Label>
                 </Frame>
                 <BoxView x:Name="thirdPageLine" BackgroundColor="{Binding ThirdStepLineColor}" Grid.Column="3" Grid.Row="1"></BoxView>
 
-                <Frame Grid.Column="4" Grid.Row="0" Grid.RowSpan="3" BackgroundColor="{Binding ThirdStepIndicatorColor}" CornerRadius="16" Padding="0">
+                <Frame Grid.Column="4" Grid.Row="0" Grid.RowSpan="3" BackgroundColor="{Binding ThirdStepIndicatorColor}" CornerRadius="13" Padding="0">
                     <Label x:Name="thirdPageIndicator" Text="3" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" TextColor="{Binding ThirdStepIndicatorTextColor}" ></Label>
                 </Frame>
                 <BoxView x:Name="fourthPageLine" BackgroundColor="{Binding FourthStepLineColor}" Grid.Column="5" Grid.Row="1"></BoxView>
 
-                <Frame Grid.Column="6" Grid.Row="0" Grid.RowSpan="3" BackgroundColor="{Binding FourthStepIndicatorColor}" CornerRadius="16" Padding="0">
+                <Frame Grid.Column="6" Grid.Row="0" Grid.RowSpan="3" BackgroundColor="{Binding FourthStepIndicatorColor}" CornerRadius="13" Padding="0">
                     <Label x:Name="fourthPageIndicator" Text="4" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" TextColor="{Binding FourthStepIndicatorTextColor}"></Label>
                 </Frame>
             </Grid>
