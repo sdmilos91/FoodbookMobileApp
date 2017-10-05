@@ -195,18 +195,19 @@
                                 RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
 			                    RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-50}"
                                 ItemSelected="ingredientsList_ItemSelected"
+                                SeparatorColor="{StaticResource ListSeparatorColor}"
                                 RowHeight="60">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
-                                    <ViewCell>
+                                        <ViewCell>
 
-                                        <Grid x:Name="ingredientItem" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" HeightRequest="100" Padding="20" BackgroundColor="#FFFFFE">
+                                            <Grid x:Name="ingredientItem" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" HeightRequest="100" Padding="20" BackgroundColor="#FFFFFE">
 
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="*"/>
-                                                <ColumnDefinition Width="*"/>
-                                                <ColumnDefinition Width="40"/>
-                                            </Grid.ColumnDefinitions>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="40"/>
+                                                </Grid.ColumnDefinitions>
                                                 <Label Text="{Binding Name}" FontSize="Small" VerticalTextAlignment="Center" Grid.Column="0" TextColor="{StaticResource PrimaryTextColor}"/>
                                                 <Label Text="{Binding Value}"  FontSize="Small" VerticalTextAlignment="Center" Grid.Column="1" TextColor="{StaticResource InputTextColor}"/>
                                                 <Image Source="remove.png" HeightRequest="20" WidthRequest="20" Aspect="AspectFit" HorizontalOptions="Center" VerticalOptions="Center" Grid.Column="2">
@@ -218,26 +219,23 @@
                                                     </Image.GestureRecognizers>
                                                 </Image>
                                             </Grid>
-                                            
+
                                         </ViewCell>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
                             </ListView>
-                            <StackLayout
-                                BackgroundColor="{StaticResource LightGreen}"
-                                RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0}"
-				                RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant= -50}"
-                                RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}">
-                                <Button                                 
-                                Text="Dodaj sastojak"
-                                Image="Ingredient.png"
-                                HorizontalOptions="CenterAndExpand"
+
+                            <Button                                 
+                                Text="[+] Dodaj sastojak"                                
+                                HorizontalOptions="FillAndExpand"
                                 Command="{Binding AddIngredientCommand}"
                                 BackgroundColor="{StaticResource LightGreen}"
                                 TextColor="{StaticResource PrimaryTextColor}"                               
                                 VerticalOptions="FillAndExpand"
+                                RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0}"
+				                RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant= -50}"
+                                RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
                                 />
-                            </StackLayout>
                         </RelativeLayout>
 
                     </StackLayout>
@@ -277,6 +275,7 @@
                         <RelativeLayout>
                             <ListView ItemsSource="{Binding Photos}"
                                 x:Name="photoList"
+                                SeparatorColor="{StaticResource ListSeparatorColor}"
                                 RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
 			                    RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-50}"
                                 HeightRequest="130"
@@ -338,23 +337,19 @@
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
                             </ListView>
-                            <StackLayout 
-                                Padding="5"
-                                BackgroundColor="{StaticResource LightGreen}"
-                                RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0}"
-				                RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant= -50}"
-                                RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
-                                VerticalOptions="FillAndExpand"
-                                >
+   
                                 <Button 
-                                    Text="Dodaj sliku"
-                                    Image="addphoto.png"
+                                    Text="[+] Dodaj sliku"
                                     Command="{Binding AddImageCommand}"
                                     BackgroundColor="{StaticResource LightGreen}"
                                     TextColor="{StaticResource PrimaryTextColor}"
-                                    VerticalOptions="CenterAndExpand"/>
+                                    RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0}"
+				                    RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant= -50}"
+                                    RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
+                                    HorizontalOptions="FillAndExpand"
+                                    VerticalOptions="FillAndExpand"/>
 
-                            </StackLayout>
+                            
                         </RelativeLayout>
 
                     </StackLayout>

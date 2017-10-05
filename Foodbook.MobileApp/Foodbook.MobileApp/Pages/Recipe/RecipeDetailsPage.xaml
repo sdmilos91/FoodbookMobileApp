@@ -7,6 +7,7 @@
              xmlns:localConverters="clr-namespace:Foodbook.MobileApp.Converters;assembly=Foodbook.MobileApp"
              xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              xmlns:carousel="clr-namespace:CarouselView.FormsPlugin.Abstractions;assembly=CarouselView.FormsPlugin.Abstractions"
+             xmlns:renderers="clr-namespace:Foodbook.MobileApp.Renderers;assembly=Foodbook.MobileApp"
              BackgroundColor="{StaticResource PageBackground}"
              Title="{Binding Name}"
              >
@@ -294,15 +295,15 @@
 
                 <OnPlatform x:TypeArguments="View">
                     <OnPlatform.Android>
-                        <fab:FloatingActionButton
-				            Source="comment.png"
-				            Size="Normal"		
+                        <renderers:FabButton
                             IsVisible="{Binding AddCommentEnabled}"
-				            RippleColor="Gray"
-                            NormalColor="{StaticResource DarkRed}"
+				            Image="comment.png"
+				            HeightRequest="50"
+                            WidthRequest="50"				        
                             Command="{Binding AddCommentCommand}"
-				            RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-90}"
-				            RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-90}" />
+                            BackgroundColor="{StaticResource DarkRed}"                   
+				            RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-80}"
+				            RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-100}" />
                     </OnPlatform.Android>
                     <OnPlatform.iOS>
                         <fab:FloatingActionButton

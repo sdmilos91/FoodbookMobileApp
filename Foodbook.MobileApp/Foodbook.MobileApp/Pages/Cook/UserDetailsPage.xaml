@@ -6,6 +6,7 @@
              xmlns:controls="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions"
              xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              xmlns:localConverters="clr-namespace:Foodbook.MobileApp.Converters;assembly=Foodbook.MobileApp"
+             xmlns:renderers="clr-namespace:Foodbook.MobileApp.Renderers;assembly=Foodbook.MobileApp"
              BackgroundColor="{StaticResource PageBackground}"
              Title="Informacije o kuvaru"
              >
@@ -164,7 +165,7 @@
             ItemsSource="{Binding Recipes}"
             ItemSelected="RecipeSelected"
             SeparatorColor="{StaticResource ListSeparatorColor}"
-            RowHeight="80">
+            RowHeight="100">
 
                     <!--Custom View Cells-->
 
@@ -172,16 +173,16 @@
                         <DataTemplate>
                             <ViewCell>
 
-                                <Grid  ColumnSpacing="5" VerticalOptions="FillAndExpand" RowSpacing="5" Padding="5">
+                                <Grid  ColumnSpacing="5" VerticalOptions="FillAndExpand" RowSpacing="0" Padding="5">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="80" />
                                         <ColumnDefinition Width="*" />
                                         <ColumnDefinition Width="40" />
                                     </Grid.ColumnDefinitions>
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="*" />
-                                        <RowDefinition Height="*" />
-                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="34" />
+                                        <RowDefinition Height="23" />
+                                        <RowDefinition Height="23" />
                                     </Grid.RowDefinitions>
                                     <RelativeLayout  Grid.Column="0" Grid.Row="0" Grid.RowSpan="3">
                                         <ffimageloading:CachedImage Source="{Binding ProfilePhotoUrl}"
@@ -193,7 +194,6 @@
                                         RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent,Property=X, Factor=0, Constant = 0}" 
                                         RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0, Property=Y, Constant=0}"
                                        >
-                                            
                                         </ffimageloading:CachedImage>
                                         <Label Text="{Binding Rating}" TextColor="White" BackgroundColor="#EF5350" FontSize="Small" HorizontalTextAlignment="Center" 
                                        IsVisible="{Binding Rating, Converter={StaticResource rtngBoolean}}"
@@ -204,18 +204,19 @@
                                        />
                                     </RelativeLayout>
 
-                                    <Label Text="{Binding Name}" FontSize="Small" Grid.Column="1" Grid.Row="0" TextColor="Black"/>
+                                    <Label Text="{Binding Name}" Style="{StaticResource EntryTitleLblStyle}" Grid.Column="1" Grid.Row="0" VerticalOptions="Start"/>
                                     <StackLayout HorizontalOptions="StartAndExpand" Grid.Column="1" Grid.Row="1" Orientation="Horizontal">
-                                        <Image Source="category1.png" WidthRequest="16" HeightRequest="16" />
-                                        <Label Text="{Binding CategoryName}"  TextColor="Gray" />
+                                        <Image Source="category1.png" WidthRequest="20" HeightRequest="20" VerticalOptions="Center"/>
+                                        <Label Text="{Binding CategoryName}"  TextColor="{StaticResource InputTextColor}" VerticalOptions="Center"/>
                                     </StackLayout>
 
                                     <StackLayout HorizontalOptions="StartAndExpand" Grid.Column="1" Grid.Row="2" Orientation="Horizontal">
-                                        <Image Source="earth.png" WidthRequest="16" HeightRequest="16" />
-                                        <Label Text="{Binding CuisineName}"  TextColor="Gray" />
+                                        <Image Source="earth.png" WidthRequest="20" HeightRequest="20" VerticalOptions="Center"/>
+                                        <Label Text="{Binding CuisineName}"  TextColor="{StaticResource InputTextColor}" VerticalOptions="Center"/>
                                     </StackLayout>
                                 </Grid>
                             </ViewCell>
+                            
                         </DataTemplate>
                     </ListView.ItemTemplate>
 
@@ -225,6 +226,7 @@
             <!--KOMENTARI-->
             <RelativeLayout IsVisible="{Binding ThirdContainer}"  Grid.Row="4" Grid.RowSpan="2" >
                 <ListView ItemsSource="{Binding Comments}"
+                    SeparatorColor="{StaticResource ListSeparatorColor}"
                     RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
 				    RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}"
                     CachingStrategy="RecycleElement"    
@@ -281,15 +283,15 @@
 
                 <OnPlatform x:TypeArguments="View">
                     <OnPlatform.Android>
-                        <fab:FloatingActionButton
-				            Source="comment.png"
-				            Size="Normal"		
+                        <renderers:FabButton
                             IsVisible="{Binding AddCommentEnabled}"
-				            RippleColor="Gray"
-                            NormalColor="{StaticResource DarkRed}"
+				            Image="comment.png"
+				            HeightRequest="50"
+                            WidthRequest="50"				        
                             Command="{Binding AddCommentCommand}"
-				            RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-90}"
-				            RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-90}" />
+                            BackgroundColor="{StaticResource DarkRed}"                   
+				            RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-80}"
+				            RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-100}" />
                     </OnPlatform.Android>
                     <OnPlatform.iOS>
                         <fab:FloatingActionButton

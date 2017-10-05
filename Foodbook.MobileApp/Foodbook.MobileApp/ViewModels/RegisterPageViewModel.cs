@@ -215,7 +215,7 @@ namespace Foodbook.MobileApp.ViewModels
             if (res)
             {
                 RegisterModel.Photo = null;
-                RegisterModel.PhotoUrl = "addPhotoHolder";
+                RegisterModel.PhotoUrl = "addPhotoHolder.png";
                 OnPropertyChanged("RegisterModel");
                 PhotoPicked = false;
                 OnPropertyChanged("PhotoPicked");
@@ -226,8 +226,7 @@ namespace Foodbook.MobileApp.ViewModels
         {
             Utils.ButtonPress(sender);
 
-            MasterDetailPage masterPage = App.Current.MainPage as MasterDetailPage;
-            await masterPage.Detail.Navigation.PushModalAsync(new ImageViewPage(RegisterModel.PhotoUrl));
+            await App.Current.MainPage.Navigation.PushModalAsync(new ImageViewPage(RegisterModel.PhotoUrl));
         }
     }
 }

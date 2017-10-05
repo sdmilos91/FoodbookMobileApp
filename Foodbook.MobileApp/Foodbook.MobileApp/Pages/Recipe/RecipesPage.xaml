@@ -4,6 +4,7 @@
              x:Class="Foodbook.MobileApp.Pages.Recipe.RecipesPage"
               xmlns:fab="clr-namespace:FAB.Forms;assembly=FAB.Forms"
              xmlns:localConverters="clr-namespace:Foodbook.MobileApp.Converters;assembly=Foodbook.MobileApp"
+             xmlns:renderers="clr-namespace:Foodbook.MobileApp.Renderers;assembly=Foodbook.MobileApp"
              xmlns:customViews="clr-namespace:Foodbook.MobileApp.CustomViews;assembly=Foodbook.MobileApp"
              xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              BackgroundColor="{StaticResource PageBackground}"
@@ -130,13 +131,13 @@
             </StackLayout>
             <OnPlatform x:TypeArguments="View">
                 <OnPlatform.Android>
-                    <fab:FloatingActionButton
+                    <renderers:FabButton
                         IsVisible="{Binding IsUserAuthenticated}"
-				        Source="plus.png"
-				        Size="Normal"				     
-				        RippleColor="Gray"
+				        Image="plus.png"
+				        HeightRequest="50"
+                        WidthRequest="50"				        
                         Command="{Binding AddRecipeCommand}"
-                        NormalColor="{StaticResource DarkRed}"                   
+                        BackgroundColor="{StaticResource DarkRed}"                   
 				        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-80}"
 				        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-100}" />
                 </OnPlatform.Android>

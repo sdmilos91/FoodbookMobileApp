@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Foodbook.MobileApp.Pages.HomeMasterDetailPageMaster"
              BackgroundColor="{StaticResource PageBackground}"
-             Title="Master">
+             Title="Meni">
   <StackLayout>
     <ListView x:Name="MenuItemsListView"
               SeparatorColor="{StaticResource ListSeparatorColor}"

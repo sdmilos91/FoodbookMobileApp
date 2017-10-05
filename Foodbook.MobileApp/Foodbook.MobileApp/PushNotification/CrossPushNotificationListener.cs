@@ -58,7 +58,7 @@ namespace Foodbook.MobileApp.PushNotification
         //Enable/Disable Showing the notification
         bool IPushNotificationListener.ShouldShowNotification()
         {
-            return true;
+            return Helpers.Settings.PushNotificationsSettings;
         }
     }
 }

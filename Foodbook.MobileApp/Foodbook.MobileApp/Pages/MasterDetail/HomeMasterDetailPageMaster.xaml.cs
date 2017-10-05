@@ -45,7 +45,7 @@ namespace Foodbook.MobileApp.Pages
                 if (!string.IsNullOrEmpty(LocalDataSecureStorage.GetToken()))
                 {
                     MenuItems.Add(new HomeMasterDetailPageMenuItem { Id = 2, Title = "Profil", TargetType = typeof(UserDetailsPage) });
-                    MenuItems.Add(new HomeMasterDetailPageMenuItem { Id = 3, Title = "Podešavanja", TargetType = typeof(RecipesPage) });                    
+                    MenuItems.Add(new HomeMasterDetailPageMenuItem { Id = 3, Title = "Podešavanja", TargetType = typeof(Foodbook.MobileApp.Pages.Settings.Settings) });                    
                 }
 
                 MenuItems = new ObservableCollection<HomeMasterDetailPageMenuItem>(MenuItems.OrderBy(x => x.Id));
