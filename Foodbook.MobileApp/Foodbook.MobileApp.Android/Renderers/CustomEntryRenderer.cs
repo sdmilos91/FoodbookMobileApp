@@ -31,7 +31,7 @@ namespace Foodbook.MobileApp.Droid.Renderers
             {               
                 mEntry = (CustomEntry)e.NewElement;
                 EditText textField = (EditText)Control;
-                textField.SetPadding(50, 20, 50, 20);
+                textField.SetPadding(50, 15, 50, 15);
 
                 mNormal = new Android.Graphics.Drawables.GradientDrawable();
                 mNormal.SetColor(Android.Graphics.Color.ParseColor("#FFFFFF")); // Changes this drawbale to use a single color instead of a gradient

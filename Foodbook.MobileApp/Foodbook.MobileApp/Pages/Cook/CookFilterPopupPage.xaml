@@ -32,15 +32,15 @@
                     <RowDefinition Height="20" />
                 </Grid.RowDefinitions>
                 <Label Text="Ime kuvara: *" Style="{StaticResource EntryTitleLblStyle}" Grid.Row="0"/>
-                <renderers:CustomEntry Text="{Binding CookName}" VerticalOptions="FillAndExpand" Grid.Row="1" TextColor="{StaticResource InputTextColor}" FontSize="Small">
+                <renderers:CustomEntry Text="{Binding CookName}" VerticalOptions="FillAndExpand" Grid.Row="1">
                 </renderers:CustomEntry>
             </Grid>
 
             
 
             <StackLayout Orientation="Horizontal">
-                <Button Text="Filtriraj" HorizontalOptions="FillAndExpand" Command="{Binding FilterCommand}" Style="{StaticResource PossitiveButtonStyle}"/>
-                <Button Text="Otkaži" HorizontalOptions="FillAndExpand" Command="{Binding CancelCommand}" Style="{StaticResource NegativeButtonStyle}"/>
+                <Button BackgroundColor="{StaticResource HeadingColor}" TextColor="White" Text="Filtriraj" HorizontalOptions="FillAndExpand" Command="{Binding FilterCommand}"/>
+                <Button BackgroundColor="{StaticResource DarkRed}" TextColor="White" Text="Otkaži" HorizontalOptions="FillAndExpand" Command="{Binding CancelCommand}"/>
             </StackLayout>
         </StackLayout>
 

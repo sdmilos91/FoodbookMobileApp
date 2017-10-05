@@ -39,7 +39,7 @@
                     <OnPlatform x:TypeArguments="x:Boolean" Android="False" iOS="False" WinPhone="True"/>
                   </Picker.IsVisible>
                 </Picker>
-                <renderers:CustomEntry Text="{Binding OrderName}" EntryType="PICKER" Placeholder="Redosled" HorizontalTextAlignment="Start" Grid.Row="1" TextColor="{StaticResource InputTextColor}" FontSize="Small">
+                <renderers:CustomEntry Text="{Binding OrderName}" EntryType="PICKER" Placeholder="Redosled" HorizontalTextAlignment="Start" Grid.Row="1">
 
                     <Entry.Behaviors>
                         <behaviors:EntriPickerBehavior  RelatedPicker="{x:Reference orderPicker}" />
@@ -65,7 +65,7 @@
                     <OnPlatform x:TypeArguments="x:Boolean" Android="False" iOS="False" WinPhone="True"/>
                   </Picker.IsVisible>
                 </Picker>
-                <renderers:CustomEntry Text="{Binding OrderByName}" EntryType="PICKER" Placeholder="Kuhinja" HorizontalTextAlignment="Start" Grid.Row="1" TextColor="{StaticResource InputTextColor}" FontSize="Small">
+                <renderers:CustomEntry Text="{Binding OrderByName}" EntryType="PICKER" Placeholder="Kuhinja" HorizontalTextAlignment="Start" Grid.Row="1" >
 
                     <Entry.Behaviors>
                         <behaviors:EntriPickerBehavior  RelatedPicker="{x:Reference orderByPicker}" />
@@ -79,8 +79,8 @@
             </Grid>
 
             <StackLayout Orientation="Horizontal">
-                <Button Text="Sortiraj" HorizontalOptions="FillAndExpand" Command="{Binding SortCommand}" Style="{StaticResource PossitiveButtonStyle}"/>
-                <Button Text="Otkaži" HorizontalOptions="FillAndExpand" Command="{Binding CancelCommand}" Style="{StaticResource NegativeButtonStyle}"/>
+                <Button BackgroundColor="{StaticResource HeadingColor}" TextColor="White" Text="Sortiraj" HorizontalOptions="FillAndExpand" Command="{Binding SortCommand}"/>
+                <Button BackgroundColor="{StaticResource DarkRed}" TextColor="White" Text="Otkaži" HorizontalOptions="FillAndExpand" Command="{Binding CancelCommand}"/>
             </StackLayout>
         </StackLayout>
 

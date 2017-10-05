@@ -99,16 +99,16 @@
           <RowDefinition Height="40" />
         </Grid.RowDefinitions>
         <Label Text="Komentar: *" Style="{StaticResource EntryTitleLblStyle}" Grid.Row="0"/>
-        <renderers:CustomEntry Text="{Binding CommentText}" EntryType="MULTILINE" VerticalOptions="FillAndExpand" Grid.Row="1" HeightRequest="250" TextColor="{StaticResource InputTextColor}" FontSize="Small">
+        <renderers:CustomEntry Text="{Binding CommentText}" EntryType="MULTILINE" VerticalOptions="FillAndExpand" Grid.Row="1" HeightRequest="250">
           <Entry.Behaviors>
-            <behaviors:RequiredValidatorBehavior x:Name="recipeTextValidator"   mLbl="{x:Reference recipeTextValidationLbl}" EntryName="Komentar"/>
+            <behaviors:RequiredValidatorBehavior x:Name="recipeTextValidator"   mLbl="{x:Reference recipeTextValidationLbl}" />
           </Entry.Behaviors>
         </renderers:CustomEntry>
         <Label x:Name="recipeTextValidationLbl" IsVisible="False" Grid.Row="2" FontSize="Micro" TextColor="Red"/>
       </Grid>
       <StackLayout Orientation="Horizontal">
-        <Button Text="Dodaj" HorizontalOptions="FillAndExpand" Command="{Binding AddCommentCommand}" Style="{StaticResource PossitiveButtonStyle}"/>
-        <Button Text="Otkaži" HorizontalOptions="FillAndExpand" Command="{Binding CancelCommand}" Style="{StaticResource NegativeButtonStyle}"/>
+        <Button BackgroundColor="{StaticResource HeadingColor}" TextColor="White" Text="Dodaj" HorizontalOptions="FillAndExpand" Command="{Binding AddCommentCommand}"/>
+        <Button BackgroundColor="{StaticResource DarkRed}" TextColor="White" Text="Otkaži" HorizontalOptions="FillAndExpand" Command="{Binding CancelCommand}"/>
       </StackLayout>
     </StackLayout>
 
