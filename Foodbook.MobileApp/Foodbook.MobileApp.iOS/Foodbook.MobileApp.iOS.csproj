@@ -278,7 +278,7 @@
     <BundleResource Include="Resources\back_3x.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\back.png" />
+    <BundleResource Include="Resources\back.png" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\back_2x.png" />
@@ -305,7 +305,7 @@
     <BundleResource Include="Resources\filter.png" />
     <BundleResource Include="Resources\follower.png" />
     <BundleResource Include="Resources\heart.png" />
-    <AndroidResource Include="Resources\icon.png" />
+    <BundleResource Include="Resources\icon.png" />
     <BundleResource Include="Resources\info.png" />
     <BundleResource Include="Resources\loadingImage.png" />
     <BundleResource Include="Resources\location.png" />
@@ -347,6 +347,7 @@
     <BundleResource Include="Resources\Icon-Small-50x50%401x.png" />
     <BundleResource Include="Resources\Ingredient.png" />
     <BundleResource Include="Resources\pencil.png" />
+    <BundleResource Include="Resources\placeholder.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Foodbook.MobileApp\Foodbook.MobileApp.csproj">

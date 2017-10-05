@@ -258,18 +258,19 @@ namespace Foodbook.MobileApp.ViewModels
         {
             Color mainColor = Color.FromHex(MyColors.LIGHT_GREEN);
             Color indicatorColor = Color.FromHex(MyColors.DARK_RED);
+            Color textColor = Color.FromHex(MyColors.TEXT_PRIMARY);
 
             FirstTabColor = mainColor;
             FirstTabIndicatorColor = mainColor;
-            FirstTabTextColor = Color.Gray;
+            FirstTabTextColor = textColor;
 
             SecondTabColor = mainColor;
             SecondTabIndicatorColor = mainColor;
-            SecondTabTextColor = Color.Gray;
+            SecondTabTextColor = textColor;
 
             ThirdTabColor = mainColor;
             ThirdTabIndicatorColor = mainColor;
-            ThirdTabTextColor = Color.Gray;
+            ThirdTabTextColor = textColor;
 
             FirstContainer = false;
             SecondContainer = false;

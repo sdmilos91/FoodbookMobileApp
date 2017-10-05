@@ -40,7 +40,7 @@ namespace Foodbook.MobileApp.ViewModels
         public RegisterPageViewModel()
         {
             RegisterModel = new PostRegisterModel();
-            RegisterModel.PhotoUrl = "addPhotoHolder";
+            RegisterModel.PhotoUrl = "addPhotoHolder.png";
             PhotoPicked = false;
 
             RegisterCommand = new Command(() => Register());
@@ -51,10 +51,7 @@ namespace Foodbook.MobileApp.ViewModels
 
         private async void Register()
         {
-            if (RegisterModel.PhotoUrl.Equals("addPhotoHolder"))
-            {
-                RegisterModel.PhotoUrl = null;
-            }
+          
 
             bool isFormValid = true;
 
@@ -96,6 +93,11 @@ namespace Foodbook.MobileApp.ViewModels
 
             if (isFormValid && Utils.IsEmailValid(RegisterModel.Email))
             {
+                if (RegisterModel.PhotoUrl.Equals("addPhotoHolder.png"))
+                {
+                    RegisterModel.PhotoUrl = null;
+                }
+
                 ShowDialog();
                 bool res = await AccountDataService.RegisterUser(registerModel);
                 HideDialog();

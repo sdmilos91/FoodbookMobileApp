@@ -80,22 +80,22 @@
                         <DataTemplate>
                             <ViewCell>
 
-                                <Grid  ColumnSpacing="5" VerticalOptions="FillAndExpand" RowSpacing="1" Padding="5">
+                                <Grid  ColumnSpacing="5" VerticalOptions="FillAndExpand" RowSpacing="0" Padding="5">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="80" />
                                         <ColumnDefinition Width="*" />
                                         <ColumnDefinition Width="40" />
                                     </Grid.ColumnDefinitions>
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="*" />
-                                        <RowDefinition Height="*" />
-                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="34" />
+                                        <RowDefinition Height="23" />
+                                        <RowDefinition Height="23" />
                                     </Grid.RowDefinitions>
                                     <RelativeLayout  Grid.Column="0" Grid.Row="0" Grid.RowSpan="3">
                                         <ffimageloading:CachedImage Source="{Binding ProfilePhotoUrl}"
                                         DownsampleToViewSize="True"
                                         Aspect="AspectFill"
-                                        LoadingPlaceholder="addphoto" 
+                                        LoadingPlaceholder="placeholder.png" 
                                         HeightRequest="80"
                                         WidthRequest="80"
                                         RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent,Property=X, Factor=0, Constant = 0}" 
@@ -111,7 +111,7 @@
                                        />
                                     </RelativeLayout>
 
-                                    <Label Text="{Binding Name}" Style="{StaticResource EntryTitleLblStyle}" Grid.Column="1" Grid.Row="0" />
+                                    <Label Text="{Binding Name}" Style="{StaticResource EntryTitleLblStyle}" Grid.Column="1" Grid.Row="0" VerticalOptions="Start"/>
                                     <StackLayout HorizontalOptions="StartAndExpand" Grid.Column="1" Grid.Row="1" Orientation="Horizontal">
                                         <Image Source="category1.png" WidthRequest="20" HeightRequest="20" VerticalOptions="Center"/>
                                         <Label Text="{Binding CategoryName}"  TextColor="{StaticResource InputTextColor}" VerticalOptions="Center"/>
@@ -136,7 +136,7 @@
 				        Size="Normal"				     
 				        RippleColor="Gray"
                         Command="{Binding AddRecipeCommand}"
-                        NormalColor="{StaticResource HeadingColor}"                   
+                        NormalColor="{StaticResource DarkRed}"                   
 				        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-80}"
 				        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-100}" />
                 </OnPlatform.Android>
@@ -147,7 +147,7 @@
 				        Size="Normal"				     
 				        RippleColor="Gray"
                         Command="{Binding AddRecipeCommand}"
-                        NormalColor="{StaticResource HeadingColor}"                   
+                        NormalColor="{StaticResource DarkRed}"                   
 				        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-80}"
 				        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-100}" />
                 </OnPlatform.iOS>
@@ -159,7 +159,7 @@
                         BorderRadius="50"
 				        Image="plus.png"				        
                         Command="{Binding AddRecipeCommand}"
-                        BackgroundColor="{StaticResource HeadingColor}"                   
+                        BackgroundColor="{StaticResource DarkRed}"                   
 				        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-80}"
 				        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-100}" />
                 </OnPlatform.WinPhone>

@@ -172,15 +172,15 @@ namespace Foodbook.MobileApp.ViewModels
 
             FirstTabColor = mainColor;
             FirstTabIndicatorColor = mainColor;
-            FirstTabTextColor = Color.Gray;
+            FirstTabTextColor = Color.FromHex(MyColors.TEXT_PRIMARY);
 
             SecondTabColor = mainColor;
             SecondTabIndicatorColor = mainColor;
-            SecondTabTextColor = Color.Gray;
+            SecondTabTextColor = Color.FromHex(MyColors.TEXT_PRIMARY);
 
             ThirdTabColor = mainColor;
             ThirdTabIndicatorColor = mainColor;
-            ThirdTabTextColor = Color.Gray;
+            ThirdTabTextColor = Color.FromHex(MyColors.TEXT_PRIMARY);
 
             FirstContainer = false;
             SecondContainer = false;
@@ -349,7 +349,8 @@ namespace Foodbook.MobileApp.ViewModels
         public override void OnViewAppearing()
         {
             base.OnViewAppearing();
-            Items = new ObservableCollection<RecipeDataModel>(DataMockup.GetRecipesByType(mSelectedTab));
+            int type = string.IsNullOrEmpty(LocalDataSecureStorage.GetToken()) ? 3 : mSelectedTab;
+            Items = new ObservableCollection<RecipeDataModel>(DataMockup.GetRecipesByType(type));
             OnPropertyChanged("Items");
         }
     }

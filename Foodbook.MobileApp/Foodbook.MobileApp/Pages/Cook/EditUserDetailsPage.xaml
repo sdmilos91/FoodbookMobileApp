@@ -21,9 +21,9 @@
                     </Grid.RowDefinitions>
 
                     <Label Text="Ime: *" Grid.Row="0" Style="{StaticResource EntryTitleLblStyle}"/>
-                    <renderers:CustomEntry Text="{Binding RegisterModel.FirstName}" Placeholder="Ime" HorizontalTextAlignment="Start" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2">
+                    <renderers:CustomEntry Text="{Binding RegisterModel.FirstName}" Style="{StaticResource EntryValueStyle}" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2">
                         <Entry.Behaviors>
-                            <behaviors:RequiredValidatorBehavior  mLbl="{x:Reference firstNameValidationLbl}" />
+                            <behaviors:RequiredValidatorBehavior  mLbl="{x:Reference firstNameValidationLbl}" EntryName="Ime"/>
                         </Entry.Behaviors>
                     </renderers:CustomEntry>
                     <Label x:Name="firstNameValidationLbl" IsVisible="False"  Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" FontSize="Small" TextColor="Red"/>
@@ -39,9 +39,9 @@
                     </Grid.RowDefinitions>
 
                     <Label Text="Prezime: *" Grid.Row="0" Style="{StaticResource EntryTitleLblStyle}"/>
-                    <renderers:CustomEntry Text="{Binding RegisterModel.LastName}" Placeholder="Prezime" HorizontalTextAlignment="Start" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2">
+                    <renderers:CustomEntry Text="{Binding RegisterModel.LastName}" Style="{StaticResource EntryValueStyle}" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2">
                         <Entry.Behaviors>
-                            <behaviors:RequiredValidatorBehavior  mLbl="{x:Reference lastNameValidationLbl}" />
+                            <behaviors:RequiredValidatorBehavior  mLbl="{x:Reference lastNameValidationLbl}" EntryName="Prezime"/>
                         </Entry.Behaviors>
                     </renderers:CustomEntry>
                     <Label x:Name="lastNameValidationLbl" IsVisible="False"  Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" FontSize="Small" TextColor="Red"/>
@@ -57,7 +57,7 @@
                     </Grid.RowDefinitions>
 
                     <Label Text="Email adresa: *" Grid.Row="0" Style="{StaticResource EntryTitleLblStyle}"/>
-                    <renderers:CustomEntry Text="{Binding RegisterModel.Email}" IsEnabled="False"  Placeholder="Email adresa" HorizontalTextAlignment="Start" Keyboard="Email" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2">
+                    <renderers:CustomEntry Text="{Binding RegisterModel.Email}" IsEnabled="False"  Style="{StaticResource EntryValueStyle}" Keyboard="Email" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2">
                     </renderers:CustomEntry>
 
                 </Grid>
@@ -71,9 +71,9 @@
                     </Grid.RowDefinitions>
 
                     <Label Text="O kuvaru: *" Grid.Row="0" Style="{StaticResource EntryTitleLblStyle}"/>
-                    <renderers:CustomEntry EntryType="MULTILINE"  Text="{Binding RegisterModel.Biography}" HeightRequest="100"  Placeholder="O kuvaru" HorizontalTextAlignment="Start" Grid.Row="1" Grid.ColumnSpan="2">
+                    <renderers:CustomEntry EntryType="MULTILINE"  Text="{Binding RegisterModel.Biography}" HeightRequest="100" Style="{StaticResource EntryValueStyle}" Grid.Row="1" Grid.ColumnSpan="2">
                         <Entry.Behaviors>
-                            <behaviors:RequiredValidatorBehavior  mLbl="{x:Reference biographyValidationLbl}" />
+                            <behaviors:RequiredValidatorBehavior  mLbl="{x:Reference biographyValidationLbl}" EntryName="O kuvaru"/>
                         </Entry.Behaviors>
                     </renderers:CustomEntry>
                     <Label x:Name="biographyValidationLbl" IsVisible="False"  Grid.Row="2" FontSize="Small" TextColor="Red"/>
@@ -97,7 +97,7 @@
                                         DownsampleToViewSize="True"
                                         DownsampleWidth="300"
                                         Aspect="AspectFill"                                      
-                                        LoadingPlaceholder="loadingImage"
+                                        LoadingPlaceholder="placeholder.png"
                                         RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
 				                        RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}">
                             <Image.GestureRecognizers>
@@ -144,7 +144,7 @@
                     </RelativeLayout>
                 </Grid>
 
-                <Button Command="{Binding EditCommand}" BackgroundColor="{StaticResource HeadingColor}" TextColor="White" Text="Ažuriraj" Margin="20, 0, 20, 0"/>
+                <Button Command="{Binding EditCommand}" Style="{StaticResource PositiveButtonStyle}" Text="Ažuriraj" Margin="20, 0, 20, 0"/>
 
 
             </StackLayout>

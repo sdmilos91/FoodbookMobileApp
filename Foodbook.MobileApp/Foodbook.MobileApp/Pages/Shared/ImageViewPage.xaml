@@ -13,7 +13,7 @@
                                         DownsampleToViewSize="True"
                                         DownsampleWidth="300"
                                         Aspect="AspectFit"                                      
-                                        LoadingPlaceholder="loadingImage"
+                                        LoadingPlaceholder="placeholder.png"
                                         RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0, Constant=70}"
                                         RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
 				                        RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-100}"
